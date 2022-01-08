@@ -1,0 +1,67 @@
+local VirtualUser = game:GetService("VirtualUser")
+local players = game.Players:GetPlayers()
+local player = game.Players.LocalPlayer
+local lplr = ""
+local jplr = ""  
+local function check()
+	for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do 
+	    if v.ClassName == "Tool" and v:FindFirstChild("attackKatanaScript") then 
+	        game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)                            
+	    end
+	end
+end
+while wait(.4) and _G.KarmaNew do
+	    if workspace[player.Name]:FindFirstChild("Head") then
+	        if workspace[player.Name].Head:FindFirstChild("nameGui") then
+	            workspace[player.Name].Head.nameGui:Destroy()
+	        end
+	    end
+        player.ninjaEvent:FireServer("goInvisible")
+        if player.Character:FindFirstChild("inSafezone")then
+            player.Character.HumanoidRootPart.CFrame =
+            player.Character.HumanoidRootPart.CFrame + Vector3.new(0,200,0)
+        end
+
+	    game.Players.PlayerRemoving:Connect(function(player)
+	        lplr = (player.Name)
+	        players = game.Players:GetPlayers()
+	    end)
+	
+	    game.Players.PlayerAdded:Connect(function(player)
+	        jplr = (player.Name)
+	        players = game.Players:GetPlayers()
+	    end)
+	
+	    players = game.Players:GetPlayers()
+	    game:service'RunService'.Stepped:Connect(function()
+	        if player.Character and player.Character:FindFirstChildOfClass("Humanoid") then
+	            player.Character.Humanoid:ChangeState(11)
+	        end
+	    end)
+	for _, v in pairs(players) do
+	    if v.Name ~= player.Name and v.Name ~= lplr and v.Name ~= jplr and workspace[v.Name]:FindFirstChild("Head") then
+	        if v.Name ~= game.Players.LocalPlayer.Name and not v.Character:FindFirstChild("inSafezone") then
+	           v.Character.Head.CanCollide = false
+	           v.Character.Head.Anchored = true
+	           v.Character.Head.Position =
+	           v.Character.HumanoidRootPart.Position+Vector3.new(4.5,0,0)
+	           v.Character.Head.CFrame = player.Character.HumanoidRootPart.CFrame + Vector3.new(3,0,0)
+	           VirtualUser:CaptureController()
+	           VirtualUser:ClickButton1(Vector2.new(0, 0), CFrame.new(Vector3.new(0, 0, 0)))
+	        end
+	    end
+    end
+	
+	for _,v in pairs(game.Workspace.soulPartsFolder:GetChildren()) do
+	if v.Name == "soulPart" and v.collectPlayers:FindFirstChild(player.Name) then
+	if not v:FindFirstChild("isGoodKarma") and soulType == "Bad" then
+	   player.Character.HumanoidRootPart.CFrame = v.CFrame + Vector3.new(0,5,0)
+	   game.Players.LocalPlayer.ninjaEvent:FireServer("collectSoul", v)
+	elseif v:FindFirstChild("isGoodKarma") and soulType == "Good" then 
+	   player.Character.HumanoidRootPart.CFrame = v.CFrame + Vector3.new(0,5,0)
+	   game.Players.LocalPlayer.ninjaEvent:FireServer("collectSoul", v)
+	end
+	end
+	end
+	check()
+	end
