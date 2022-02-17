@@ -1,3 +1,28 @@
+-- BLACKTRAP V1.0 FIXED_BUILD --
+-- REALEASE DATE ON 17/02/2022 --
+-- MADE By WANZ --
+-- DO NOT COPYRIGHT --
+-- (WINDOWS AND MOBILE VERSION) --
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local userId = player.UserId
+local thumbType = Enum.ThumbnailType.HeadShot
+local thumbSize = Enum.ThumbnailSize.Size420x420
+local content, isReady = Players:GetUserThumbnailAsync(userId, thumbType, thumbSize)
+game:GetService("StarterGui"):SetCore("SendNotification",{  
+Title = "BLACKTRAP",     
+Text = "Wellcome to BlackTap",
+Icon = "rbxassetid://8666601749",
+Duration = 10,
+Color = Success
+})
+game:GetService("StarterGui"):SetCore("SendNotification",{  
+Title = "Hello",     
+Text = player.Name,
+Icon = content,
+Duration = 10,
+Color = Info
+})
 
 if game.CoreGui:FindFirstChild("BlackTrap") then
     game.CoreGui:FindFirstChild("BlackTrap"):Destroy()
@@ -18,8 +43,9 @@ end
 function Blacklib:Window(gametitle)
     local osfunc = {}
     local osfunc2 = {}
-    local titlefunc = {}
+    local titlefunc = {}    
     local mintoggle = false
+    local Points = Instance.new("Frame")
     local BlackTrap = Instance.new("ScreenGui")
     local Shadow = Instance.new("ImageLabel")
     local WindowFrame = Instance.new("Frame")
@@ -30,6 +56,8 @@ function Blacklib:Window(gametitle)
     local GameTitle = Instance.new("TextLabel")
     local ServerTime = Instance.new("TextLabel")
     local MinButton = Instance.new("TextButton")
+    local CloseButton = Instance.new("TextButton")
+    local CloseImage = Instance.new("ImageButton")
     local ServerTime = Instance.new("TextButton")
     local ServerDate = Instance.new("TextButton")
     
@@ -38,15 +66,25 @@ function Blacklib:Window(gametitle)
     BlackTrap.Parent = game.CoreGui
     BlackTrap.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     
+    Points.Name = "Points"
+    Points.Parent = BlackTrap
+    Points.BackgroundColor3 = _G.WindowBackgroundColor
+    Points.BackgroundTransparency = 1.000
+    Points.Size = UDim2.new(0, 800, 0, 600)
+    Points.Position = UDim2.new(0, 320, 0, 90)
+    
     Shadow.Name = "Shadow"
-    Shadow.Parent = BlackTrap
+    Shadow.Parent = Points
+    Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
     Shadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Shadow.BackgroundTransparency = 1.000
-    Shadow.Position = UDim2.new(0, 226, 0, 39)
-    Shadow.Size = UDim2.new(0, 650, 0, 450)
+    Shadow.Position = UDim2.new(0, 295, 0, 170)
+    Shadow.Size = UDim2.new(0, 0, 0, 0)
     Shadow.Image = "http://www.roblox.com/asset/?id=6105530152"
     Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
     Shadow.ClipsDescendants = true
+    
+    Shadow:TweenSize(UDim2.new(0, 650, 0, 450), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
     
     WindowFrame.Name = "WindowFrame"
     WindowFrame.Parent = Shadow
@@ -109,20 +147,43 @@ function Blacklib:Window(gametitle)
     MinButton.BackgroundColor3 = _G.WindowBackgroundColor
     MinButton.BackgroundTransparency = 1.000
     MinButton.AutoButtonColor = false
-    MinButton.Position = UDim2.new(0, 560, 0, 7)
+    MinButton.Position = UDim2.new(0, 535, 0, 7)
     MinButton.Size = UDim2.new(0, 25, 0, 25)
     MinButton.Font = Enum.Font.GothamSemibold
-    MinButton.TextColor3 = Color3.fromRGB(150, 0, 0)
-    MinButton.Text = "×"
-    MinButton.TextSize = 30.000
+    MinButton.TextColor3 = Color3.fromRGB(150, 150, 150)
+    MinButton.Text = "-"
+    MinButton.TextSize = 35.000
+    
+    CloseButton.Name = "CloseButton"
+    CloseButton.Parent = WindowFrame
+    CloseButton.BackgroundColor3 = _G.WindowBackgroundColor
+    CloseButton.BackgroundTransparency = 1.000
+    CloseButton.AutoButtonColor = false
+    CloseButton.Position = UDim2.new(0, 560, 0, 7)
+    CloseButton.Size = UDim2.new(0, 25, 0, 25)
+    CloseButton.Font = Enum.Font.GothamSemibold
+    CloseButton.TextColor3 = Color3.fromRGB(150, 0, 0)
+    CloseButton.Text = "×"
+    CloseButton.TextSize = 30.000
+    
+    CloseImage.Name = "CloseImage"
+    CloseImage.Parent = Points
+    CloseImage.AnchorPoint = Vector2.new(0.5, 0.5)
+    CloseImage.AutoButtonColor = false
+    CloseImage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    CloseImage.BackgroundTransparency = 1.000
+    CloseImage.Size = UDim2.new(0, 0, 0, 0)
+    CloseImage.Position = UDim2.new(0, -370, 0, 170)
+    CloseImage.Image = "rbxassetid://8666601749"
+    CloseImage.ImageColor3 = Color3.fromRGB(150, 30, 30)
     
     ServerTime.Name = "ServerTime"
     ServerTime.Parent = WindowFrame
     ServerTime.BackgroundColor3 = _G.WindowBackgroundColor
     ServerTime.AutoButtonColor = false
     ServerTime.BackgroundTransparency = 1.000
-    ServerTime.Position = UDim2.new(0, 185, 0, 17)
-    ServerTime.Size = UDim2.new(0, 375, 0, 25)
+    ServerTime.Position = UDim2.new(0, 260, 0, 17)
+    ServerTime.Size = UDim2.new(0, 225, 0, 25)
     ServerTime.Font = Enum.Font.GothamSemibold
     ServerTime.Text = ""
     ServerTime.TextSize = 13.000
@@ -134,8 +195,8 @@ function Blacklib:Window(gametitle)
     ServerDate.BackgroundColor3 = _G.WindowBackgroundColor
     ServerDate.AutoButtonColor = false
     ServerDate.BackgroundTransparency = 1.000
-    ServerDate.Position = UDim2.new(0, 185, 0, 2)
-    ServerDate.Size = UDim2.new(0, 375, 0, 25)
+    ServerDate.Position = UDim2.new(0, 260, 0, 2)
+    ServerDate.Size = UDim2.new(0, 225, 0, 25)
     ServerDate.Font = Enum.Font.GothamSemibold
     ServerDate.Text = ""
     ServerDate.TextSize = 13.000
@@ -185,15 +246,18 @@ function Blacklib:Window(gametitle)
     TabWindow.BackgroundTransparency = 1.000
     TabWindow.BorderSizePixel = 0
     TabWindow.Position = UDim2.new(0, 3, 0, 50)
-    TabWindow.Size = UDim2.new(0, 150, 0, 300)
+    TabWindow.Size = UDim2.new(0, 150, 0, 0)
     TabWindow.ScrollBarThickness = 0
+    TabWindow.ClipsDescendants = true
+    
+    TabWindow:TweenSize(UDim2.new(0, 150, 0, 300), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 10.0, true)
     
     TabWindowList.Name = "TabWindowList"
     TabWindowList.Parent = TabWindow
     TabWindowList.FillDirection = Enum.FillDirection.Vertical
     TabWindowList.SortOrder = Enum.SortOrder.LayoutOrder
     TabWindowList.Padding = UDim.new(0, 3)
-    TabWindowList.VerticalAlignment = Enum.VerticalAlignment.Center
+    TabWindowList.VerticalAlignment = Enum.VerticalAlignment.Top
     
     ContainerHold.Name = "ContainerHold"
     ContainerHold.Parent = WindowFrame
@@ -211,24 +275,77 @@ function Blacklib:Window(gametitle)
         TabWindow.CanvasSize = UDim2.new(0, 0 + TabWindowList.AbsoluteContentSize.Y, 0, 0)
     end)
     
+    local opentog = false
+    local closetog = false
+    
+    CloseImage.MouseEnter:Connect(function()
+        TweenService:Create(CloseImage, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0.8}):Play()
+    end)
+    CloseImage.MouseLeave:Connect(function()
+        TweenService:Create(CloseImage, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
+    end)
+    
+    CloseImage.MouseButton1Click:Connect(function()
+        if opentog == true then
+            TweenService:Create(CloseImage, TweenInfo.new(0.0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 0, 0, 0)}):Play()
+            TweenService:Create(CloseImage, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, -370, 0, 170)}):Play()
+            wait(.2)
+            TweenService:Create(Shadow, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 650, 0, 450)}):Play()
+            TweenService:Create(Shadow, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 295, 0, 170)}):Play()
+            TweenService:Create(WindowFrame, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 589, 0, 378)}):Play()
+            TweenService:Create(WindowFrame, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 32, 0, 37)}):Play()
+            mintoggle = false
+            MinButton.Text = "-"
+            MinButton.TextSize = 35.000
+            else
+                TweenService:Create(CloseImage, TweenInfo.new(0.0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 0, 0, 0)}):Play()
+                TweenService:Create(CloseImage, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, -370, 0, 170)}):Play()
+                wait(.2)
+                TweenService:Create(Shadow, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 650, 0, 450)}):Play()
+                TweenService:Create(Shadow, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 295, 0, 170)}):Play()
+                TweenService:Create(WindowFrame, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 589, 0, 378)}):Play()
+                TweenService:Create(WindowFrame, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 32, 0, 37)}):Play()
+                mintoggle = false
+                MinButton.Text = "-"
+                MinButton.TextSize = 35.000
+        end
+        opentog = not opentog
+    end)
+    
+    CloseButton.MouseButton1Click:Connect(function()
+        if closetog == true then
+            TweenService:Create(Shadow, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 0, 0, 0)}):Play()
+            wait(.2)
+            TweenService:Create(CloseImage, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 70, 0, 70)}):Play()
+            TweenService:Create(CloseImage, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, -95, 0, 170)}):Play()
+            else
+                TweenService:Create(Shadow, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 0, 0, 0)}):Play()
+                wait(.2)
+                TweenService:Create(CloseImage, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 70, 0, 70)}):Play()
+                TweenService:Create(CloseImage, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, -95, 0, 170)}):Play()
+        end
+        closetog = not closetog
+    end)
+    
     MinButton.MouseButton1Click:Connect(function()
         if mintoggle == true then
-            TweenService:Create(WindowFrame, TweenInfo.new(.9, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 589, 0, 378)}):Play()
-            TweenService:Create(WindowFrame, TweenInfo.new(.9, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 32, 0, 37)}):Play()
-            TweenService:Create(MinButton, TweenInfo.new(.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = 0}):Play()
-            TweenService:Create(Shadow, TweenInfo.new(.9, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 650, 0, 450)}):Play()
-            TweenService:Create(MinButton, TweenInfo.new(.9, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(150, 0, 0)}):Play()
+            MinButton.Text = "-"
+            MinButton.TextSize = 35.000
+            TweenService:Create(WindowFrame, TweenInfo.new(.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 589, 0, 378)}):Play()
+            TweenService:Create(WindowFrame, TweenInfo.new(.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 32, 0, 37)}):Play()
+            TweenService:Create(Shadow, TweenInfo.new(.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 650, 0, 450)}):Play()
             else
-                TweenService:Create(WindowFrame, TweenInfo.new(.9, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 589, 0, 45)}):Play()
-                TweenService:Create(WindowFrame, TweenInfo.new(.9, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 30, 0, 3)}):Play()
-                TweenService:Create(MinButton, TweenInfo.new(.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = -135}):Play()
-                TweenService:Create(Shadow, TweenInfo.new(.9, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 648, 0, 51)}):Play()
-                TweenService:Create(MinButton, TweenInfo.new(.9, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(150, 150, 150)}):Play()
+                MinButton.Text = "+"
+                MinButton.TextSize = 27.000
+                TweenService:Create(WindowFrame, TweenInfo.new(.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 589, 0, 45)}):Play()
+                TweenService:Create(WindowFrame, TweenInfo.new(.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 30, 0, 3)}):Play()
+                TweenService:Create(Shadow, TweenInfo.new(.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 648, 0, 51)}):Play()
         end
             mintoggle = not mintoggle
     end)
 
     local gui = Shadow
+    local gui2 = CloseImage
     local dragging
     local dragInput
     local dragStart
@@ -237,6 +354,7 @@ function Blacklib:Window(gametitle)
     local function update(input)
         local delta = input.Position - dragStart
         gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        gui2.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
     end
     gui.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
@@ -251,7 +369,25 @@ function Blacklib:Window(gametitle)
             end)
         end
     end)
+    gui2.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = gui2.Position
+            
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
     gui.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+    gui2.InputChanged:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
             dragInput = input
         end
@@ -290,7 +426,7 @@ function Blacklib:Window(gametitle)
     
     spawn(function()
         while task.wait() do
-            titlefunc:Refresh("") wait(.2) titlefunc:Refresh("B") wait(.2) titlefunc:Refresh("Bl") wait(.2) titlefunc:Refresh("Bla") wait(.2) titlefunc:Refresh("Blac") wait(.2) titlefunc:Refresh("Black") wait(.2) titlefunc:Refresh("BlackT") wait(.2) titlefunc:Refresh("BlackTr") wait(.2) titlefunc:Refresh("BlackTra") wait(.2) titlefunc:Refresh("BlackTrap") wait(.5) wait(.8)
+            titlefunc:Refresh("") wait(.2) titlefunc:Refresh("B") wait(.2) titlefunc:Refresh("Bl") wait(.2) titlefunc:Refresh("Bla") wait(.2) titlefunc:Refresh("Blac") wait(.2) titlefunc:Refresh("Black") wait(.2) titlefunc:Refresh("BlackT") wait(.2) titlefunc:Refresh("BlackTr") wait(.2) titlefunc:Refresh("BlackTra") wait(.2) titlefunc:Refresh("BlackTrap") wait(.9) titlefunc:Refresh("BlackTra") wait(.2) titlefunc:Refresh("BlackTr") wait(.2) titlefunc:Refresh("BlackT") wait(.2) titlefunc:Refresh("Black") wait(.2) titlefunc:Refresh("Blac") wait(.2) titlefunc:Refresh("Bla") wait(.2) titlefunc:Refresh("Bl") wait(.2) titlefunc:Refresh("B") wait(.2) titlefunc:Refresh("") wait(.2) wait(.3)
         end
     end)
     
@@ -716,7 +852,7 @@ function Blacklib:Window(gametitle)
             
             for i,v in pairs(ContainerHold:GetChildren()) do
                 if v.Name == "Container" then
-                    v:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .5, true)
+                    v:TweenSize(UDim2.new(0, 425, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .5, true)
                 end
             end
             for i,v in pairs(TabWindow:GetChildren()) do
@@ -1014,7 +1150,7 @@ function Blacklib:Window(gametitle)
             ItemFramez.BackgroundColor3 = _G.SectionColor
             ItemFramez.BackgroundTransparency = 1.000
             ItemFramez.Size = UDim2.new(0, 425, 0, 0)
-            ItemFramez.Visible = false
+            
             
             DropItemFrame.Name = "DropItemFrame"
             DropItemFrame.Parent = ItemFramez
@@ -1022,7 +1158,7 @@ function Blacklib:Window(gametitle)
             DropItemFrame.BackgroundTransparency = 1.000
             DropItemFrame.Position = UDim2.new(0, 15, 0, 0)
             DropItemFrame.Size = UDim2.new(0, 395, 0, 0)
-            DropItemFrame.Visible = false
+            
             
             DropItemCorner.Name = "DropItemCorner"
             DropItemCorner.Parent = DropItemFrame
@@ -1033,7 +1169,7 @@ function Blacklib:Window(gametitle)
             DropItemStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
             DropItemStroke.Color = _G.SectionColor
             DropItemStroke.LineJoinMode = Enum.LineJoinMode.Round
-            DropItemStroke.Thickness = 1
+            DropItemStroke.Thickness = 0
             DropItemStroke.Transparency = 0
             DropItemStroke.Enabled = true
             DropItemStroke.Archivable = true
@@ -1056,8 +1192,7 @@ function Blacklib:Window(gametitle)
             
             DropArrow.MouseButton1Click:Connect(function()
                 if DropToggled == false then
-                    ItemFramez.Visible = true
-                    DropItemFrame.Visible = true
+                    TweenService:Create(DropItemStroke, TweenInfo.new(.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Thickness = 1}):Play()
                     ItemFramez:TweenSize(UDim2.new(0, 425, 0, FrameSize), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
                     DropItemFrame:TweenSize(UDim2.new(0, 395, 0, FrameSize), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
                     DropItemScroll:TweenSize(UDim2.new(0, 395, 0, FrameSize), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
@@ -1069,11 +1204,10 @@ function Blacklib:Window(gametitle)
                     
                     Container.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y)
                     else
-                    ItemFramez.Visible = false
-                    DropItemFrame.Visible = false
-                    ItemFramez:TweenSize(UDim2.new(0, 425, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-                    DropItemFrame:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-                    DropItemScroll:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
+                    TweenService:Create(DropItemStroke, TweenInfo.new(.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Thickness = 0}):Play()
+                    ItemFramez:TweenSize(UDim2.new(0, 425, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+                    DropItemFrame:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+                    DropItemScroll:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
                     TweenService:Create(DropArrow, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = 0}):Play()
                     TweenService:Create(DropArrow, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = _G.SectionColor}):Play()
                     TweenService:Create(DropTitle, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionTextColor}):Play()
@@ -1134,17 +1268,17 @@ function Blacklib:Window(gametitle)
                     DropTextList.Text = "• " .. v
                     pcall(callback, v)
                     DropToggled = false
-                    ItemFramez:TweenSize(UDim2.new(0, 425, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-                    DropItemFrame:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-                    DropItemScroll:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
+                    TweenService:Create(DropItemStroke, TweenInfo.new(.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Thickness = 0}):Play()
+                    ItemFramez:TweenSize(UDim2.new(0, 425, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+                    DropItemFrame:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+                    DropItemScroll:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
                     TweenService:Create(DropArrow, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = 0}):Play()
                     TweenService:Create(DropArrow, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = _G.SectionColor}):Play()
                     TweenService:Create(DropTitle, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionTextColor}):Play()
                     TweenService:Create(DropSpace, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionTextColor}):Play()
                     TweenService:Create(DropImage, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = _G.SectionColor}):Play()
                     TweenService:Create(DropTextList, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionOn}):Play()
-                    ItemFramez.Visible = false
-                    DropItemFrame.Visible = false
+                    
                     Container.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y)
                 end)
                 DropItemScroll.CanvasSize = UDim2.new(0, 0, 0, DropItemLayout.AbsoluteContentSize.Y + 15)
@@ -1160,17 +1294,17 @@ function Blacklib:Window(gametitle)
                     end
                 end
                 
-                ItemFramez:TweenSize(UDim2.new(0, 425, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-                DropItemFrame:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-                DropItemScroll:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
+                TweenService:Create(DropItemStroke, TweenInfo.new(.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Thickness = 0}):Play()
+                ItemFramez:TweenSize(UDim2.new(0, 425, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+                DropItemFrame:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+                DropItemScroll:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
                 TweenService:Create(DropArrow, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = 0}):Play()
                 TweenService:Create(DropArrow, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = _G.SectionColor}):Play()
                 TweenService:Create(DropTitle, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionTextColor}):Play()
                 TweenService:Create(DropSpace, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionTextColor}):Play()
                 TweenService:Create(DropImage, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = _G.SectionColor}):Play()
                 TweenService:Create(DropTextList, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionTextColor}):Play()
-                ItemFramez.Visible = false
-                DropItemFrame.Visible = false
+                
                 Container.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y)
             end
             
@@ -1224,17 +1358,17 @@ function Blacklib:Window(gametitle)
                     DropTextList.Text = "• " .. toadd
                     pcall(callback, toadd)
                     DropToggled = false
-                    ItemFramez:TweenSize(UDim2.new(0, 425, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-                    DropItemFrame:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
-                    DropItemScroll:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.3, true)
+                    TweenService:Create(DropItemStroke, TweenInfo.new(.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Thickness = 0}):Play()
+                    ItemFramez:TweenSize(UDim2.new(0, 425, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+                    DropItemFrame:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+                    DropItemScroll:TweenSize(UDim2.new(0, 395, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
                     TweenService:Create(DropArrow, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = 0}):Play()
                     TweenService:Create(DropArrow, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = _G.SectionColor}):Play()
                     TweenService:Create(DropTitle, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionTextColor}):Play()
                     TweenService:Create(DropSpace, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionTextColor}):Play()
                     TweenService:Create(DropImage, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = _G.SectionColor}):Play()
                     TweenService:Create(DropTextList, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionOn}):Play()
-                    ItemFramez.Visible = false
-                    DropItemFrame.Visible = false
+                    
                     Container.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y)
                 end)
                 DropItemScroll.CanvasSize = UDim2.new(0, 0, 0, DropItemLayout.AbsoluteContentSize.Y + 15)
@@ -1242,17 +1376,14 @@ function Blacklib:Window(gametitle)
             return dropfunc
         end
         
-        function NewSection:Slider(slidertitle, minvalue, maxvalue, callback)
+        function NewSection:Slider(slidertitle, minvalue, maxvalue, start, callback)
             local sliderfunc = {}
             slidertitle = slidertitle or Slider
-            minvalue = minvalue or 0
-            maxvalue = maxvalue or 500
             local SliderFrame = Instance.new("Frame")
             local SliderImage = Instance.new("ImageLabel")
             local SliderSpace = Instance.new("TextLabel")
             local SliderTitled = Instance.new("TextLabel")
-            local SliderButton = Instance.new("TextButton")
-            local SliderLayout = Instance.new("UIListLayout")
+            local SliderInput = Instance.new("Frame")
             local SliderCount = Instance.new("Frame")
             local SliderCorner = Instance.new("UICorner")
             local SliderCorner2 = Instance.new("UICorner")
@@ -1300,34 +1431,25 @@ function Blacklib:Window(gametitle)
             SliderTitled.TextSize = 14.000
             SliderTitled.TextXAlignment = Enum.TextXAlignment.Left
             
-            SliderButton.Name = "SliderButton"
-            SliderButton.Parent = SliderFrame
-            SliderButton.BackgroundColor3 = Color3.fromRGB(47, 47, 56)
-            SliderButton.BorderSizePixel = 0
-            SliderButton.Position = UDim2.new(0, 15, 0, 35)
-            SliderButton.Size = UDim2.new(0, 395, 0, 9)
-            SliderButton.AutoButtonColor = false
-            SliderButton.Font = Enum.Font.GothamSemibold
-            SliderButton.Text = ""
-            SliderButton.TextColor3 = _G.SectionTextColor
-            SliderButton.TextSize = 14.000
-            SliderButton.ClipsDescendants = true
-            
-            SliderLayout.Parent = SliderButton
-            SliderLayout.SortOrder = Enum.SortOrder.LayoutOrder
-            SliderLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+            SliderInput.Name = "SliderInput"
+            SliderInput.Parent = SliderFrame
+            SliderInput.BackgroundColor3 = Color3.fromRGB(47, 47, 56)
+            SliderInput.BorderSizePixel = 0
+            SliderInput.Position = UDim2.new(0, 15, 0, 35)
+            SliderInput.Size = UDim2.new(0, 395, 0, 9)
             
             SliderCount.Name = "SliderCount"
-            SliderCount.Parent = SliderButton
+            SliderCount.Parent = SliderInput
             SliderCount.BackgroundColor3 = _G.SectionOn
             SliderCount.BorderSizePixel = 0
-            SliderCount.Size = UDim2.new(0, 0, 0, 9)
+            SliderCount.Position = UDim2.new(0, 0, 0, 0)
+            SliderCount.Size = UDim2.new((start or 0) / maxvalue, 0, 0, 9)
             
             SliderCorner.CornerRadius = UDim.new(0, 10)
             SliderCorner.Parent = SliderCount
 
             SliderCorner2.CornerRadius = UDim.new(0, 10)
-            SliderCorner2.Parent = SliderButton
+            SliderCorner2.Parent = SliderInput
             
             SliderBox.Name = "SliderBox"
             SliderBox.Parent = SliderFrame
@@ -1337,7 +1459,7 @@ function Blacklib:Window(gametitle)
             SliderBox.Size = UDim2.new(0, 70, 0, 18)
             SliderBox.ClearTextOnFocus = false
             SliderBox.Font = Enum.Font.GothamSemibold
-            SliderBox.Text = minvalue or maxvalue
+            SliderBox.Text = tostring(start and math.floor((start / maxvalue) * (maxvalue - minvalue) + minvalue) or 0)
             SliderBox.TextColor3 = _G.SectionTextColor
             SliderBox.TextSize = 13.000
             SliderBox.TextXAlignment = Enum.TextXAlignment.Center
@@ -1356,36 +1478,44 @@ function Blacklib:Window(gametitle)
             SliderStroke.Enabled = true
             SliderStroke.Archivable = true
             
-            local mouse = game.Players.LocalPlayer:GetMouse()
-            local uis = game:GetService("UserInputService")
-            local Value;
+            local dragging
+            local dragInput
             
-            SliderButton.MouseButton1Down:Connect(function()
-                Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 395) * SliderCount.AbsoluteSize.X) + tonumber(minvalue)) or 0
-                pcall(function()
-                    callback(Value)
-                end)
-                SliderCount:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderCount.AbsolutePosition.X, 0, 395), 0, 9), "InOut", "Linear", 0.05, true)
-                moveconnection = mouse.Move:Connect(function()
-                    SliderBox.Text = Value
-                    Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 395) * SliderCount.AbsoluteSize.X) + tonumber(minvalue))
-                    pcall(function()
-                        callback(Value)
+            local function slide(input)
+                local slidein = UDim2.new(math.clamp((input.Position.X - SliderInput.AbsolutePosition.X) / SliderInput.AbsoluteSize.X, 0, 1), 0, 0, 9)
+                SliderCount:TweenSize(slidein, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.1, true)
+                local Value = math.floor(((slidein.X.Scale * maxvalue) / maxvalue) * (maxvalue - minvalue) + minvalue)
+                SliderBox.Text = tostring(Value)
+                pcall(callback, Value)
+            end
+            
+            SliderInput.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    dragging = true
+                    TweenService:Create(SliderBox, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionOn}):Play()
+                    TweenService:Create(SliderTitled, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionOn}):Play()
+                    TweenService:Create(SliderSpace, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionOn}):Play()
+                    TweenService:Create(SliderImage, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = _G.SectionOn}):Play()
+                    input.Changed:Connect(function()
+                        if input.UserInputType == Enum.UserInputState.End then
+                            dragging = false
+                        end
                     end)
-                    SliderCount:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderCount.AbsolutePosition.X, 0, 395), 0, 9), "InOut", "Linear", 0.05, true)
-                end)
-                releaseconnection = uis.InputEnded:Connect(function(Mouse)
-                    if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
-                        Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 395) * SliderCount.AbsoluteSize.X) + tonumber(minvalue))
-                        pcall(function()
-                            callback(Value)
-                        end)
-                        SliderBox.Text = Value
-                        SliderCount:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderCount.AbsolutePosition.X, 0, 395), 0, 9), "InOut", "Linear", 0.05, true)
-                        moveconnection:Disconnect()
-                        releaseconnection:Disconnect()
-                    end
-                end)
+                end
+            end)
+            SliderInput.InputEnded:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    dragging = false
+                    TweenService:Create(SliderBox, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionTextColor}):Play()
+                    TweenService:Create(SliderTitled, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionTextColor}):Play()
+                    TweenService:Create(SliderSpace, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = _G.SectionTextColor}):Play()
+                    TweenService:Create(SliderImage, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = _G.SectionImageColor}):Play()
+                end
+            end)
+            UserInputService.InputChanged:Connect(function(input)
+                if dragging == true then
+                    slide(input)
+                end
             end)
             
             function set(property)
@@ -1717,20 +1847,12 @@ _G.SectionImageColor = Color3.fromRGB(150, 150, 150)
 _G.SectionTextColor = Color3.fromRGB(150, 150, 150)
 _G.SectionOn = Color3.fromRGB(0, 250, 0)
 
+
 -- Window --
 local Win = Blacklib:Window("Testing Gui")
 -- Tab --
 local Tabes = Win:Tab("• Testing", img)
-local Home = Win:Tab("• Home", "rbxassetid://8825667942")
-local Enginer = Win:Tab("• Enginer", "rbxassetid://8825665675")
-local Farm = Win:Tab("• Farm", "rbxassetid://8825654232")
-local Egg = Win:Tab("• Egg", "rbxassetid://8825651806")
-local Point = Win:Tab("• Points", "rbxassetid://8825662880")
-local Map = Win:Tab("• Map", "rbxassetid://8825658898")
-local Shop = Win:Tab("• Shop", "rbxassetid://8825660836")
-local Miss = Win:Tab("• Miss", "rbxassetid://8825656075")
-local Setting = Win:Tab("• Setting", "rbxassetid://8825671038")
-local Credit = Win:Tab("• Credit", "rbxassetid://8825672676")
+local ta = Win:Tab("• Test2", img)
 
 Tabes:Label("Testing Label")
 
@@ -1739,7 +1861,8 @@ Tabes:Note("Testing Note")
 Tabes:TextBox("Test Text Box", "Enter Value", function()
 end)
 
-Tabes:Slider("Testing Speed", 1, 100, function()
+Tabes:Slider("Testing Speed", 0, 500, 50, function(val)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = val
 end)
 
 local Lizet = {"1", "2", "3", "4", "5"}
