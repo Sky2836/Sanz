@@ -240,10 +240,8 @@ function Blacklib:Window(gametitle)
     
     TabWindowList.Name = "TabWindowList"
     TabWindowList.Parent = TabWindow
-    TabWindowList.FillDirection = Enum.FillDirection.Vertical
     TabWindowList.SortOrder = Enum.SortOrder.LayoutOrder
     TabWindowList.Padding = UDim.new(0, 3)
-    TabWindowList.VerticalAlignment = Enum.VerticalAlignment.Top
     
     ContainerHold.Name = "ContainerHold"
     ContainerHold.Parent = WindowFrame
