@@ -240,8 +240,10 @@ function Blacklib:Window(gametitle)
     
     TabWindowList.Name = "TabWindowList"
     TabWindowList.Parent = TabWindow
+    TabWindowList.FillDirection = Enum.FillDirection.Vertical
     TabWindowList.SortOrder = Enum.SortOrder.LayoutOrder
     TabWindowList.Padding = UDim.new(0, 3)
+    TabWindowList.VerticalAlignment = Enum.VerticalAlignment.Top
     
     ContainerHold.Name = "ContainerHold"
     ContainerHold.Parent = WindowFrame
@@ -257,9 +259,9 @@ function Blacklib:Window(gametitle)
     ContainerItem.Name = "ContainerItem"
     ContainerItem.Parent = ContainerHold
     
-    TabWindow.CanvasSize = UDim2.new(0, 0 + TabWindowList.AbsoluteContentSize.Y, 0, 0)
+    TabWindow.CanvasSize = UDim2.new(0, 0, 0, 0, + TabWindowList.AbsoluteContentSize.Y)
     TabWindowList:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-        TabWindow.CanvasSize = UDim2.new(0, 0 + TabWindowList.AbsoluteContentSize.Y, 0, 0)
+        TabWindow.CanvasSize = UDim2.new(0, 0, 0, 0, + TabWindowList.AbsoluteContentSize.Y)
     end)
     
     -- Window Script --
