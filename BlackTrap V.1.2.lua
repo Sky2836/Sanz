@@ -259,9 +259,9 @@ function Blacklib:Window(gametitle)
     ContainerItem.Name = "ContainerItem"
     ContainerItem.Parent = ContainerHold
     
-    TabWindow.CanvasSize = UDim2.new(0, 0, 0, 0, + TabWindowList.AbsoluteContentSize.Y)
+    TabWindow.CanvasSize = UDim2.new(0, 0, 0, 0 + TabWindowList.AbsoluteContentSize.Y)
     TabWindowList:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-        TabWindow.CanvasSize = UDim2.new(0, 0, 0, 0, + TabWindowList.AbsoluteContentSize.Y)
+        TabWindow.CanvasSize = UDim2.new(0, 0, 0, 0 + TabWindowList.AbsoluteContentSize.Y)
     end)
     
     -- Window Script --
