@@ -1,1 +1,3 @@
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Sky2836/Sanz/main/BlackTrap%20Gui.txt'))()
+if game.PlaceId == 6284583030 then
+    
+end
