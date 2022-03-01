@@ -1648,8 +1648,8 @@ function Blacklib:Window(gametitle)
             -- End Slider --
             
             -- Text Box --
-            function ItemHand:TextBox(boxtitle, textbox, calback)
-                textbox = textbox or "Enter Here"
+            function ItemHand:TextBox(boxtitle, textbox, callback)
+                textbox = textbox or "Type Here"
                 callback = callback or function() end
                 local BoxFrame = Instance.new("Frame")
                 local BoxCover = Instance.new("Frame")
@@ -1720,7 +1720,7 @@ function Blacklib:Window(gametitle)
                 TextBox.Position = UDim2.new(0, 297, 0, 10)
                 TextBox.Size = UDim2.new(0, 80, 0, 20)
                 TextBox.Font = Enum.Font.Code
-                TextBox.PlaceholderText = textbox
+                TextBox.PlaceholderText = textbox or "Type Here"
                 TextBox.Text = ""
                 TextBox.TextColor3 = Color3.fromRGB(12, 12, 12)
                 TextBox.TextWrapped = true
