@@ -613,85 +613,36 @@ Remote:Toggle("Auto Claim VIP/Ranks Reward", function(autorewards)
     end
 end)
 
-Remote:Toggle("Bank Storage", function(bankfunc)
-    _G.Bankers = bankfunc
-    while wait() do
-        if _G.Bankers then
-            game:GetService("Players").LocalPlayer.PlayerGui.Bank.Enabled = true
-        elseif not _G.Bankers then
-            game:GetService("Players").LocalPlayer.PlayerGui.Bank.Enabled = false
-        end
-    end
+Remote:Button("Bank Storage", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.Bank.Enabled = not game:GetService("Players").LocalPlayer.PlayerGui.Bank.Enabled
 end)
-Remote:Toggle("Merchant", function(meres)
-    _G.Merchant = meres
-    while wait() do
-        if _G.Merchant then
-            game:GetService("Players").LocalPlayer.PlayerGui.Merchant.Enabled = true
-        elseif not _G.Merchant then
-            game:GetService("Players").LocalPlayer.PlayerGui.Merchant.Enabled = false
-        end
-    end
+
+Remote:Button("Merchant", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.Merchant.Enabled = not game:GetService("Players").LocalPlayer.PlayerGui.Merchant.Enabled
 end)
-Remote:Toggle("Pet Collection", function(colfunc)
-    _G.Collection = colfunc
-    while wait() do
-        if _G.Collection then
-            game:GetService("Players").LocalPlayer.PlayerGui.Collection.Enabled = true
-        elseif not _G.Collection then
-            game:GetService("Players").LocalPlayer.PlayerGui.Collection.Enabled = false
-        end
-    end
+
+Remote:Button("Pet Collection", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.Collection.Enabled = not game:GetService("Players").LocalPlayer.PlayerGui.Collection.Enabled
 end)
-Remote:Toggle("Fuse Machine", function(fumac)
-    _G.Fumach = fumac
-    while wait() do
-        if _G.Fumach then
-            game:GetService("Players").LocalPlayer.PlayerGui.FusePets.Enabled = true
-        elseif not _G.Fumach then
-            game:GetService("Players").LocalPlayer.PlayerGui.FusePets.Enabled = false
-        end
-    end
+
+Remote:Button("Fuse Machine", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.FusePets.Enabled = not game:GetService("Players").LocalPlayer.PlayerGui.FusePets.Enabled
 end)
-Remote:Toggle("Golden Machine", function(gogo)
-    _G.Gon = gogo
-    while wait() do
-        if _G.Gon then
-            game:GetService("Players").LocalPlayer.PlayerGui.Golden.Enabled = true
-        elseif not _G.Gon then
-            game:GetService("Players").LocalPlayer.PlayerGui.Golden.Enabled = false
-        end
-    end
+
+Remote:Button("Golden Machine", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.Golden.Enabled = not game:GetService("Players").LocalPlayer.PlayerGui.Golden.Enabled
 end)
-Remote:Toggle("Rainbow Machine", function(roro)
-    _G.Rod = roro
-    while wait() do
-        if _G.Rod then
-            game:GetService("Players").LocalPlayer.PlayerGui.Rainbow.Enabled = true
-        elseif not _G.Rod then
-            game:GetService("Players").LocalPlayer.PlayerGui.Rainbow.Enabled = false
-        end
-    end
+
+Remote:Button("Rainbow Machine", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.Rainbow.Enabled = not game:GetService("Players").LocalPlayer.PlayerGui.Rainbow.Enabled
 end)
-Remote:Toggle("Dark Matter Machine", function(dodi)
-    _G.Dra = dodi
-    while wait() do
-        if _G.Dra then
-            game:GetService("Players").LocalPlayer.PlayerGui.DarkMatter.Enabled = true
-        elseif not _G.Dra then
-            game:GetService("Players").LocalPlayer.PlayerGui.DarkMatter.Enabled = false
-        end
-    end
+
+Remote:Button("Dark Matter Machine", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.DarkMatter.Enabled = not game:GetService("Players").LocalPlayer.PlayerGui.DarkMatter.Enabled
 end)
-Remote:Toggle("Enchant Machine", function(notd)
-    _G.Em = notd
-    while wait() do
-        if _G.Em then
-            game:GetService("Players").LocalPlayer.PlayerGui.EnchantPets.Enabled = true
-        elseif not _G.Em then
-            game:GetService("Players").LocalPlayer.PlayerGui.EnchantPets.Enabled = false
-        end
-    end
+
+Remote:Button("Enchant Machine", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.EnchantPets.Enabled = not game:GetService("Players").LocalPlayer.PlayerGui.EnchantPets.Enabled
 end)
 
 -----------------------------------------
@@ -708,8 +659,20 @@ spawn(function()
                     v.TextureID = "rbxassetid://3694028041"
                 end
             end
+            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
+                if v.Name == 'Hoverboard' then
+                    v.MeshId = "rbxassetid://6356575802"
+                    v.TextureID = "rbxassetid://3694028041"
+                end
+            end
         elseif _G.Hovers == 'VIP' then
             for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
+                if v.Name == 'Hoverboard' then
+                    v.MeshId = "rbxassetid://6356575832"
+                    v.TextureID = "rbxassetid://3694028041"
+                end
+            end
+            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
                 if v.Name == 'Hoverboard' then
                     v.MeshId = "rbxassetid://6356575832"
                     v.TextureID = "rbxassetid://3694028041"
@@ -722,8 +685,20 @@ spawn(function()
                     v.TextureID = "rbxassetid://7861836643"
                 end
             end
+            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
+                if v.Name == 'Hoverboard' then
+                    v.MeshId = "rbxassetid://7861836930"
+                    v.TextureID = "rbxassetid://7861836643"
+                end
+            end
         elseif _G.Hovers == 'Flame' then
             for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
+                if v.Name == 'Hoverboard' then
+                    v.MeshId = "rbxassetid://7859796249"
+                    v.TextureID = "rbxassetid://7859796167"
+                end
+            end
+            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
                 if v.Name == 'Hoverboard' then
                     v.MeshId = "rbxassetid://7859796249"
                     v.TextureID = "rbxassetid://7859796167"
@@ -736,8 +711,20 @@ spawn(function()
                     v.TextureID = "rbxassetid://7861840985"
                 end
             end
+            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
+                if v.Name == 'Hoverboard' then
+                    v.MeshId = "rbxassetid://7861841212"
+                    v.TextureID = "rbxassetid://7861840985"
+                end
+            end
         elseif _G.Hovers == 'Cat' then
             for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
+                if v.Name == 'Hoverboard' then
+                    v.MeshId = "rbxassetid://7861852552"
+                    v.TextureID = "rbxassetid://7861852343"
+                end
+            end
+            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
                 if v.Name == 'Hoverboard' then
                     v.MeshId = "rbxassetid://7861852552"
                     v.TextureID = "rbxassetid://7861852343"
@@ -750,6 +737,12 @@ spawn(function()
                     v.TextureID = "rbxassetid://7859787616"
                 end
             end
+            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
+                if v.Name == 'Hoverboard' then
+                    v.MeshId = "rbxassetid://7859787910"
+                    v.TextureID = "rbxassetid://7859787616"
+                end
+            end
         elseif _G.Hovers == 'Blue Flying Carpet' then
             for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
                 if v.Name == 'Hoverboard' then
@@ -757,8 +750,20 @@ spawn(function()
                     v.TextureID = "rbxassetid://7861828303"
                 end
             end
+            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
+                if v.Name == 'Hoverboard' then
+                    v.MeshId = "rbxassetid://7861828868"
+                    v.TextureID = "rbxassetid://7861828303"
+                end
+            end
         elseif _G.Hovers == 'Red Flying Carpet' then
             for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
+                if v.Name == 'Hoverboard' then
+                    v.MeshId = "rbxassetid://7861828868"
+                    v.TextureID = "rbxassetid://7861828642"
+                end
+            end
+            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
                 if v.Name == 'Hoverboard' then
                     v.MeshId = "rbxassetid://7861828868"
                     v.TextureID = "rbxassetid://7861828642"
