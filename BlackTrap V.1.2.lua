@@ -78,7 +78,7 @@ function Blacklib:Window(gametitle)
     Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
     Shadow.ClipsDescendants = true
     
-    Shadow:TweenSize(UDim2.new(0, 650, 0, 450), Enum.EasingDirection.InOut, Enum.EasingStyle.Linear, .9, true)
+    Shadow:TweenSize(UDim2.new(0, 650, 0, 450), Enum.EasingDirection.InOut, Enum.EasingStyle.Linear, .6, true)
     
     WindowFrame.Name = "WindowFrame"
     WindowFrame.Parent = Shadow
@@ -328,33 +328,36 @@ function Blacklib:Window(gametitle)
         game.TweenService:Create(CloseImage, TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 0}):Play()
     end)
     CloseImage.MouseButton1Click:Connect(function()
-            game.TweenService:Create(CloseImage, TweenInfo.new(0.0, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 0, 0, 0)}):Play()
-            game.TweenService:Create(CloseImage, TweenInfo.new(0.0, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -370, 0, 170)}):Play()
-            game.TweenService:Create(Shadow, TweenInfo.new(.3, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 650, 0, 450)}):Play()
-            game.TweenService:Create(Shadow, TweenInfo.new(.3, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 295, 0, 170)}):Play()
+            game.TweenService:Create(CloseImage, TweenInfo.new(0.05, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 0, 0, 0)}):Play()
+            game.TweenService:Create(CloseImage, TweenInfo.new(0.05, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -370, 0, 170)}):Play()
+            game.TweenService:Create(Shadow, TweenInfo.new(0.3, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 650, 0, 450)}):Play()
+            game.TweenService:Create(Shadow, TweenInfo.new(0.3, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 295, 0, 170)}):Play()
             WindowFrame.Size = UDim2.new(0, 589, 0, 378)
             WindowFrame.Position = UDim2.new(0, 32, 0, 37)
             MinButton.Text = "-"
             MinButton.TextSize = 35.000
+            wait(0.6)
+            Shadow.ImageTransparency = 0
     end)
     CloseButton.MouseButton1Click:Connect(function()
-            game.TweenService:Create(Shadow, TweenInfo.new(.3, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 0, 0, 0)}):Play()
-            game.TweenService:Create(CloseImage, TweenInfo.new(.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 70, 0, 70)}):Play()
-            game.TweenService:Create(CloseImage, TweenInfo.new(.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -95, 0, 170)}):Play()
+        Shadow.ImageTransparency = 1.000
+            game.TweenService:Create(Shadow, TweenInfo.new(0.12, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 0, 0, 0)}):Play()
+            game.TweenService:Create(CloseImage, TweenInfo.new(0.03, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 70, 0, 70)}):Play()
+            game.TweenService:Create(CloseImage, TweenInfo.new(0.03, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Position = UDim2.new(0, -95, 0, 170)}):Play()
     end)
     MinButton.MouseButton1Click:Connect(function()
         if mintoggle == true then
             MinButton.Text = "-"
             MinButton.TextSize = 35.000
-            game.TweenService:Create(WindowFrame, TweenInfo.new(.6, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 589, 0, 378)}):Play()
-            game.TweenService:Create(WindowFrame, TweenInfo.new(.6, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 32, 0, 37)}):Play()
-            game.TweenService:Create(Shadow, TweenInfo.new(.6, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 650, 0, 450)}):Play()
+            game.TweenService:Create(WindowFrame, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 589, 0, 378)}):Play()
+            game.TweenService:Create(WindowFrame, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 32, 0, 37)}):Play()
+            game.TweenService:Create(Shadow, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 650, 0, 450)}):Play()
             else
                 MinButton.Text = "+"
                 MinButton.TextSize = 27.000
-                game.TweenService:Create(WindowFrame, TweenInfo.new(.6, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 589, 0, 45)}):Play()
-                game.TweenService:Create(WindowFrame, TweenInfo.new(.6, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 30, 0, 3)}):Play()
-                game.TweenService:Create(Shadow, TweenInfo.new(.6, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 648, 0, 51)}):Play()
+                game.TweenService:Create(WindowFrame, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 589, 0, 45)}):Play()
+                game.TweenService:Create(WindowFrame, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Position = UDim2.new(0, 30, 0, 3)}):Play()
+                game.TweenService:Create(Shadow, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 648, 0, 51)}):Play()
         end
             mintoggle = not mintoggle
     end)
