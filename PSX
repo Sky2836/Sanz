@@ -16,6 +16,11 @@ end
 
 -- lib & service
 local Blacklib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sky2836/Sanz/main/BlackTrap%20V.1.2.lua"))()
+local Player = game:GetService("Players").LocalPlayer
+local VirtualUser = game:GetService("VirtualUser")
+local HttpService = game:GetService("HttpService")
+
+--Win
 local Win = Blacklib:Window("Pet Simulator X")
 
 
@@ -502,37 +507,28 @@ SetFarm:Toggle("Lootbag", function(lootbagfunc)
 end)
 
 SetFarm:Toggle("Auto Activated Triple Damage", function(autotripledamage)
-    if autotripledamage == true then
-        _G.TripleDamage1 = true
-    elseif autotripledamage == false or destroygui then
-        _G.TripleDamage1 = false
-        end
-    while wait(5) do
-        if _G.TripleDamage1 then 
-            if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts:FindFirstChild("Triple Damage") then
-                workspace.__THINGS.__REMOTES["activate boost"]:FireServer({[1] = "Triple Damage"})
-                print("Triple damage boost checked")
-            end
+    _G.TripleDamage1 = autotripledamage
+    while task.wait() and _G.TripleDamage1 do
+        if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts:FindFirstChild("Triple Damage") then
+            workspace.__THINGS.__REMOTES["activate boost"]:FireServer({[1] = "Triple Damage"})
+            repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts:FindFirstChild("Triple Damage") or not _G.TripleDamage1
         end
     end
 end)
 SetFarm:Toggle("Auto Activated Triple Coins", function(autotriplecoins)
-    if autotriplecoins == true then
-        _G.TripleCoins1 = true
-    elseif autotriplecoins == false or destroygui then
-        _G.TripleCoins1 = false
-    end
-    while wait(5) do
-        if _G.TripleCoins1 then
-            if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts:FindFirstChild("Triple Coins") then
-                workspace.__THINGS.__REMOTES["activate boost"]:FireServer({[1] = "Triple Coins"})
-            print("Triple coin boost checked")
-            end
+    _G.TripleCoins1 = autotriplecoins
+    while task.wait() and _G.TripleCoins1 do
+        if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts:FindFirstChild("Triple Coins") then
+            workspace.__THINGS.__REMOTES["activate boost"]:FireServer({[1] = "Triple Coins"})
+            repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts:FindFirstChild("Triple Coins") or not _G.TripleCoins1
         end
     end
 end)
+
 SetFarm:Toggle("Disable Coin HUD", function(refunc)
     _G.Hud = refunc
+end)
+spawn(function()
     while wait() do
         if _G.Hud then
             game:GetService("Players").LocalPlayer.PlayerScripts.Scripts.GUIs["Coin Rewards HUD"].Disabled = true
@@ -541,7 +537,8 @@ SetFarm:Toggle("Disable Coin HUD", function(refunc)
         end
     end
 end)
-SetFarm:Toggle("Lag Reduced", function()
+
+SetFarm:Button("Lag Reduced", function()
     local a = game:GetService("Workspace")["__DEBRIS"]
     local b = a:Clone()
     b.Parent = a.Parent
@@ -601,6 +598,8 @@ end)
 -----------------------------------------
 EggSet:Toggle("Disable Hatch Animation", function(petanim)
     _G.PetAnima = petanim
+end)
+spawn(function()
     while wait() do
         if _G.PetAnima then
             game:GetService("Players").LocalPlayer.PlayerScripts.Scripts.Game["Open Eggs"].Disabled = true
@@ -611,43 +610,33 @@ EggSet:Toggle("Disable Hatch Animation", function(petanim)
 end)
 
 EggSet:Toggle("Auto Activated Super Lucky", function(superluckyfunc)
-    if superluckyfunc == true then
-        _G.SuperLucky = true
-    elseif superluckyfunc == false or destroygui then
-        _G.SuperLucky = false
-    end
-    while wait(5) do
-        if _G.SuperLucky then
-            if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts:FindFirstChild("Super Lucky") then
-                workspace.__THINGS.__REMOTES["activate boost"]:FireServer({[1] = "Super Lucky"})
-                print("Super Lucky boost checked")
-            end
+    _G.SuperLucky = superluckyfunc
+    while task.wait() and _G.SuperLucky do
+        if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts:FindFirstChild("Super Lucky") then
+            workspace.__THINGS.__REMOTES["activate boost"]:FireServer({[1] = "Super Lucky"})
+            repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts:FindFirstChild("Super Lucky") or not _G.SuperLucky
         end
     end
 end)
 
 EggSet:Toggle("Auto Activated Ultra Lucky", function(ultraluckyfunc)
-    if ultraluckyfunc == true then
-        _G.UltraLucky = true
-    elseif ultraluckyfunc == false or destroygui then
-        _G.UltraLucky = false
-    end
-    while wait(5) do
-        if _G.UltraLucky then
-            if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts:FindFirstChild("Ultra Lucky") then
-                workspace.__THINGS.__REMOTES["activate boost"]:FireServer({[1] = "Ultra Lucky"})
-                print("ULTRA Lucky boost checked")
-            end
+    _G.UltraLucky = ultraluckyfunc
+    while task.wait() and _G.UltraLucky do
+        if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts:FindFirstChild("Ultra Lucky") then
+            workspace.__THINGS.__REMOTES["activate boost"]:FireServer({[1] = "Ultra Lucky"})
+            repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts:FindFirstChild("Ultra Lucky") or not _G.UltraLucky
         end
     end
 end)
+
 -----------------------------------------
 -----------------------------------------
 -----------------------------------------
 -- Miss
-local Misc = Win:Tab("• Misscellaneous", "rbxassetid://8825656075")
+local Misc = Win:Tab("• Miscellaneous", "rbxassetid://8825656075")
 local Remote = Misc:NewSection("Remote Function")
 local Mods = Misc:NewSection("Mods")
+local Telep = Misc:NewSection("Teleports")
 --local Merchant = Misc:NewSection("Merchant")
 -----------------------------------------
 
@@ -699,507 +688,9 @@ end)
 local HoverboardsList = {"Original", "VIP", "Sleigh", "Flame", "Rainbow", "Cat", "Bling", "Blue Flying Carpet", "Red Flying Carpet"}
 Mods:Dropdown("Hoverboards Skin", HoverboardsList, function(hoverfunc)
     _G.Hovers = hoverfunc
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Sky2836/Sanz/main/Hoverboard"))()
 end)
-spawn(function()
-    while wait() do
-        if _G.Hovers == 'Original' then
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575802"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575802"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Sleigh:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575802"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Flame:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575802"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Rainbow:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575802"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Cat:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575802"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Bling:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575802"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Blue Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575802"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Red Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575802"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-        elseif _G.Hovers == 'VIP' then
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575832"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575832"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Sleigh:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575832"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Flame:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575832"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Rainbow:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575832"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Cat:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575832"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Bling:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575832"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Blue Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575832"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Red Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://6356575832"
-                    v.TextureID = "rbxassetid://3694028041"
-                end
-            end
-        elseif _G.Hovers == 'Sleigh' then
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861836930"
-                    v.TextureID = "rbxassetid://7861836643"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861836930"
-                    v.TextureID = "rbxassetid://7861836643"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Sleigh:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861836930"
-                    v.TextureID = "rbxassetid://7861836643"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Flame:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861836930"
-                    v.TextureID = "rbxassetid://7861836643"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Rainbow:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861836930"
-                    v.TextureID = "rbxassetid://7861836643"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Cat:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861836930"
-                    v.TextureID = "rbxassetid://7861836643"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Bling:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861836930"
-                    v.TextureID = "rbxassetid://7861836643"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Blue Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861836930"
-                    v.TextureID = "rbxassetid://7861836643"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Red Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861836930"
-                    v.TextureID = "rbxassetid://7861836643"
-                end
-            end
-        elseif _G.Hovers == 'Flame' then
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859796249"
-                    v.TextureID = "rbxassetid://7859796167"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859796249"
-                    v.TextureID = "rbxassetid://7859796167"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Sleigh:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859796249"
-                    v.TextureID = "rbxassetid://7859796167"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Flame:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859796249"
-                    v.TextureID = "rbxassetid://7859796167"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Rainbow:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859796249"
-                    v.TextureID = "rbxassetid://7859796167"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Cat:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859796249"
-                    v.TextureID = "rbxassetid://7859796167"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Bling:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859796249"
-                    v.TextureID = "rbxassetid://7859796167"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Blue Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859796249"
-                    v.TextureID = "rbxassetid://7859796167"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Red Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859796249"
-                    v.TextureID = "rbxassetid://7859796167"
-                end
-            end
-        elseif _G.Hovers == 'Rainbow' then
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861841212"
-                    v.TextureID = "rbxassetid://7861840985"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861841212"
-                    v.TextureID = "rbxassetid://7861840985"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Sleigh:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861841212"
-                    v.TextureID = "rbxassetid://7861840985"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Flame:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861841212"
-                    v.TextureID = "rbxassetid://7861840985"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Rainbow:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861841212"
-                    v.TextureID = "rbxassetid://7861840985"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Cat:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861841212"
-                    v.TextureID = "rbxassetid://7861840985"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Bling:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861841212"
-                    v.TextureID = "rbxassetid://7861840985"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Blue Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861841212"
-                    v.TextureID = "rbxassetid://7861840985"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Red Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861841212"
-                    v.TextureID = "rbxassetid://7861840985"
-                end
-            end
-        elseif _G.Hovers == 'Cat' then
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861852552"
-                    v.TextureID = "rbxassetid://7861852343"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861852552"
-                    v.TextureID = "rbxassetid://7861852343"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Sleigh:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861852552"
-                    v.TextureID = "rbxassetid://7861852343"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Flame:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861852552"
-                    v.TextureID = "rbxassetid://7861852343"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Rainbow:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861852552"
-                    v.TextureID = "rbxassetid://7861852343"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Cat:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861852552"
-                    v.TextureID = "rbxassetid://7861852343"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Bling:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861852552"
-                    v.TextureID = "rbxassetid://7861852343"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Blue Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861852552"
-                    v.TextureID = "rbxassetid://7861852343"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Red Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861852552"
-                    v.TextureID = "rbxassetid://7861852343"
-                end
-            end
-        elseif _G.Hovers == 'Bling' then
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859787910"
-                    v.TextureID = "rbxassetid://7859787616"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859787910"
-                    v.TextureID = "rbxassetid://7859787616"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Sleigh:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859787910"
-                    v.TextureID = "rbxassetid://7859787616"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Flame:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859787910"
-                    v.TextureID = "rbxassetid://7859787616"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Rainbow:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859787910"
-                    v.TextureID = "rbxassetid://7859787616"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Cat:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859787910"
-                    v.TextureID = "rbxassetid://7859787616"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Bling:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859787910"
-                    v.TextureID = "rbxassetid://7859787616"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Blue Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859787910"
-                    v.TextureID = "rbxassetid://7859787616"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Red Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7859787910"
-                    v.TextureID = "rbxassetid://7859787616"
-                end
-            end
-        elseif _G.Hovers == 'Blue Flying Carpet' then
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828303"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828303"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Sleigh:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828303"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Flame:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828303"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Rainbow:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828303"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Cat:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828303"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Bling:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828303"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Blue Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828303"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Red Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828303"
-                end
-            end
-        elseif _G.Hovers == 'Red Flying Carpet' then
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828642"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.VIP:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828642"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Sleigh:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828642"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Flame:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828642"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Rainbow:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828642"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Cat:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828642"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Bling:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828642"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Blue Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828642"
-                end
-            end
-            for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards["Red Flying Carpet"]:GetChildren()) do
-                if v.Name == 'Hoverboard' then
-                    v.MeshId = "rbxassetid://7861828868"
-                    v.TextureID = "rbxassetid://7861828642"
-                end
-            end
-        end
-    end
-end)
+
 Mods:Button("Unlock GamePassed", function()
     local gmppath = require(game:GetService("ReplicatedStorage").Framework.Modules.Client["5 | Gamepasses"])
     gmppath.Owns = function() return true end
@@ -1225,9 +716,22 @@ Mods:Button("Visual Dupe Gems", function()
 	diamonds.Text = newString
 end)
 -----------------------------------------
---Merchant
---Merchant:Label("Time Merchant Spawned = " .. game.Players.LocalPlayer.PlayerGui.Merchant.Frame.Timer.Text)
-        
+--Teleport
+Telep:Button("Teleport to Trading Plaza", function()
+    if game.PlaceId ~= 7722306047 then
+        game:GetService("TeleportService"):Teleport(7722306047, Player)
+    else
+        Blacklib:Notification("Notice.!", "You are already in trading plaza!")
+    end
+end)
+
+Telep:Button("Teleport to Pet Sim World", function()
+    if game.PlaceId ~= 6284583030 then
+        game:GetService("TeleportService"):Teleport(6284583030, Player)
+    else
+        Blacklib:Notification("Notice.!", "You are already in Pet Sim World")
+    end
+end)
 
 
 -----------------------------------------
@@ -1238,6 +742,18 @@ local Setting = Win:Tab("• Settings", "rbxassetid://8825671038")
 local Config = Setting:NewSection("Config")
 local Plyrs = Setting:NewSection("Player")
 -----------------------------------------
+Config:Button("Set FPS Cap To 10", function()
+    setfpscap(10)
+end)
+
+Config:Button("Set FPS Cap To 50", function()
+    setfpscap(50)
+end)
+
+Config:Button("Set FPS Cap To 100", function()
+    setfpscap(100)
+end)
+
 Config:Button("FPS Boost",function(t)
 	local decalsyeeted = true -- Leaving this on makes games look shitty but the fps goes up by at least 20.
 	local g = game
@@ -1436,9 +952,9 @@ Credit:Button("Wanz#2020", function()
     Blacklib:Notification("Notification", "Discord ID Copied, You can paste it.")
     setclipboard('Wanz#2020')
 end)
-Credit:Button("Copy Link Discord", function()
-    Blacklib:Notification("Notification", "Discord ID Copied, You can paste it.")
-    setclipboard('https://discord.gg/n4JnsNbJ')
+Credit:Button("Copy Link Tele Grup", function()
+    Blacklib:Notification("Notification", "Tele Grup ID Copied, You can paste it.")
+    setclipboard('https://t.me/+AUmvplplhvI3MWI1')
 end)
 Credit:Button("Destroy Gui", function()
     Blacklib:Notification("Description", "Thanks for using BlackTrap.")
@@ -1451,4 +967,4 @@ end)
 -- GameList Supported
 GameList:Label("• Pet Simulator X (Stable)")
 GameList:Label("• Waiting for other game...")
-GameList:Label("! Report me if have a bug")
+GameList:Label("Report me if have another bug")
