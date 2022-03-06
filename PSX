@@ -1,7 +1,7 @@
+
 if game:GetService("CoreGui"):FindFirstChild("BlackTrap") then
     game:GetService("CoreGui")["BlackTrap"]:Destroy()
 end
-
 
 if game.PlaceId == 6284583030 then
     local start = tick()
@@ -13,7 +13,6 @@ if game.PlaceId == 6284583030 then
     repeat task.wait() until game:GetService("Workspace"):FindFirstChild('__MAP')
 end
 
-
 -- lib & service
 local Blacklib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sky2836/Sanz/main/BlackTrap%20V.1.2.lua"))()
 local Player = game:GetService("Players").LocalPlayer
@@ -22,7 +21,6 @@ local HttpService = game:GetService("HttpService")
 
 --Win
 local Win = Blacklib:Window("Pet Simulator X")
-
 
 --Farming
 local Main = Win:Tab("• Main", "rbxassetid://8825654232")
@@ -270,13 +268,16 @@ Farm:Toggle("Multi Target Type_2", function(multifunc2)
     while _G.MultiTarget2 do
         local pethingy = GetMyPets()
         local cointhiny = GetCoinsNormal(_G.AreaFarm)
-        for i = 1+1, #cointhiny do
-            coroutine.wrap(function()
-                CurrentFarmingPets[pethingy[i%#pethingy+1+1]] = 'Farming'
-                FarmCoin(cointhiny[i], pethingy[i%#pethingy+1+1])
-                repeat task.wait() until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i]) or #game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i]).Pets:GetChildren() == 0
-                CurrentFarmingPets[pethingy[i%#pethingy+1+1]] = nil
-            end)()
+        for i = 1, #cointhiny do
+            if i%#pethingy == #pethingy-1 then wait() end
+            if not CurrentFarmingPets[pethingy[i%#pethingy+1]] or CurrentFarmingPets[pethingy[i%#pethingy+1]] == nil then
+                coroutine.wrap(function()
+                    CurrentFarmingPets[pethingy[i%#pethingy+1]] = 'Farming'
+                    FarmCoin(cointhiny[i], pethingy[i%#pethingy+1])
+                    repeat task.wait() until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i]) or #game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i]).Pets:GetChildren() == 0
+                    CurrentFarmingPets[pethingy[i%#pethingy+1]] = nil
+                end)()
+            end
         end
     end
 end)
@@ -549,6 +550,7 @@ SetFarm:Button("Lag Reduced", function()
         end
     end
 end)
+
 -----------------------------------------
 -----------------------------------------
 -----------------------------------------
@@ -948,9 +950,9 @@ Update:Label("  2.Added Time and Date")
 Update:Label("  3.Added Player Info")
 Update:Label("  4.Fix Slider Swap for Mobile Device")
 Update:Label("• Update Date : 25/02/2022")
-Credit:Button("Wanz#1594", function()
+Credit:Button("Wanz#2020", function()
     Blacklib:Notification("Notification", "Discord ID Copied, You can paste it.")
-    setclipboard('Wanz#1594')
+    setclipboard('Wanz#2020')
 end)
 Credit:Button("Copy Link Tele Grup", function()
     Blacklib:Notification("Notification", "Tele Grup ID Copied, You can paste it.")
@@ -966,5 +968,6 @@ end)
 -----------------------------------------
 -- GameList Supported
 GameList:Label("• Pet Simulator X (Stable)")
-GameList:Label("• Waiting for other game...")
+GameList:Label("• Blox Fruits#17 (Coming Soon on next week)")
+GameList:Label("• Ninja Legends (Coming Soon)")
 GameList:Label("Report me if have another bug")
