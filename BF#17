@@ -5605,7 +5605,7 @@ end)
 -----------------------------------------------------------------------------------
 
 -- Credits_3 (Game Supported)
-Credits_3:Label("• Pet Simulator X (Fixed)")
+Credits_3:Label("• Pet Simulator X (Stable)")
 Credits_3:Label("• Blox Fruits#17 (Beta)")
 Credits_3:Label("• Ninja Legends (Coming Soon)")
 Credits_3:Label("Report me if have another bug")
