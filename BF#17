@@ -1615,7 +1615,7 @@ function CheckLevel()
             NameMon = "Ice Cream Chef"
             CFrameQuest = CFrame.new(-819.84533691406, 65.845329284668, -10965.487304688)
             CFrameMon = CFrame.new(-890.55895996094, 186.34135437012, -11127.306640625)
-        elseif Lv == 2150 or Lv <= 2201 or SelectMonster == "Ice Cream Commander [Lv. 2150]" then
+        elseif Lv >= 2150 or SelectMonster == "Ice Cream Commander [Lv. 2150]" then
             Ms = "Ice Cream Commander [Lv. 2150]"
             NameQuest = "IceCreamIslandQuest"
             QuestLv = 2
@@ -5614,7 +5614,7 @@ end)
 -----------------------------------------------------------------------------------
 
 -- Credits_3 (Game Supported)
-Credits_3:Label("• Pet Simulator X (Fixed)")
+Credits_3:Label("• Pet Simulator X (Stable)")
 Credits_3:Label("• Blox Fruits#17 (Beta)")
 Credits_3:Label("• Ninja Legends (Coming Soon)")
 Credits_3:Label("Report me if have another bug")
