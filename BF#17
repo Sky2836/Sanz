@@ -1601,21 +1601,28 @@ function CheckLevel()
             NameMon = "Peanut Scout"
             CFrameQ = CFrame.new(-2075.9643554688, 38.129207611084, -10172.815429688)
             CFrameMon = CFrame.new(-2150.587890625, 122.49767303467, -10358.994140625)
-        elseif Lv >= 2100 or  SelectMonster == "Peanut President [Lv. 2100]" then
+        elseif Lv >= 2100 or SelectMonster == "Peanut President [Lv. 2100]" then
             Ms = "Peanut President [Lv. 2100]"
             NameQuest = "NutsIslandQuest"
             QuestLv = 2
             NameMon = "Peanut President"
             CFrameQuest = CFrame.new(-2075.9643554688, 38.129207611084, -10172.815429688)
             CFrameMon = CFrame.new(-2150.587890625, 122.49767303467, -10358.994140625)
-        elseif Lv >= 2125 or  SelectMonster == "Ice Cream Chef [Lv. 2125]" then
+        elseif Lv >= 2125 or SelectMonster == "Ice Cream Chef [Lv. 2125]" then
             Ms = "Ice Cream Chef [Lv. 2125]"
             NameQuest = "IceCreamIslandQuest"
             QuestLv = 1
             NameMon = "Ice Cream Chef"
             CFrameQuest = CFrame.new(-819.84533691406, 65.845329284668, -10965.487304688)
             CFrameMon = CFrame.new(-890.55895996094, 186.34135437012, -11127.306640625)
-         elseif Lv >= 2150 or  SelectMonster == "Ice Cream Commander [Lv. 2150]" then
+        elseif Lv >= 2150 or SelectMonster == "Ice Cream Commander [Lv. 2150]" then
+            Ms = "Ice Cream Commander [Lv. 2150]"
+            NameQuest = "IceCreamIslandQuest"
+            QuestLv = 2
+            NameMon = "Ice Cream Commander"
+            CFrameQuest = CFrame.new(-819.84533691406, 65.845329284668, -10965.487304688)
+            CFrameMon = CFrame.new(-890.55895996094, 186.34135437012, -11127.306640625)
+        elseif Lv == 2200 or SelectMonster == "Ice Cream Commander [Lv. 2150]" then
             Ms = "Ice Cream Commander [Lv. 2150]"
             NameQuest = "IceCreamIslandQuest"
             QuestLv = 2
@@ -4439,6 +4446,16 @@ if _G.Auto_Elite_Hop then
 	_G.AutoElite = true
 end
 
+if not Old_World then
+    Quest_2:Toggle("Auto Observation V2", function(vu)
+        AutoObservationv2 = vu
+    	if vu == false then
+			wait(1)
+			TP(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
+    	end
+	end)
+end
+
 if New_World then
     Quest_2:Toggle("Auto Buy Legendary Sword", function(Value)
         _G.Auto_Legendary_Sword = Value
@@ -5448,7 +5465,6 @@ end)
 -----------------------------------------------------------------------------------
 
 -- Settings_1 (Config)
-Settings_1:Toggle("")
 Settings_1:Button("Server Hop", function()
 	Teleport()
 end)
@@ -5594,7 +5610,7 @@ Credits_2:Button("Wanz#1954", function()
 end)
 Credits_2:Button("Copy Link Discord Grup", function()
     Blacklib:Notification("Notification", "Discord Grup ID Copied, You can paste it.")
-    setclipboard('https://discord.gg/TFc8bBeSKE')
+    setclipboard('https://discord.gg/uTbhyXX8')
 end)
 Credits_2:Button("Destroy Gui", function()
     Blacklib:Notification("Description", "Thanks for using BlackTrap.")
@@ -5605,7 +5621,7 @@ end)
 -----------------------------------------------------------------------------------
 
 -- Credits_3 (Game Supported)
-Credits_3:Label("• Pet Simulator X (Stable)")
+Credits_3:Label("• Pet Simulator X (Fixed)")
 Credits_3:Label("• Blox Fruits#17 (Beta)")
 Credits_3:Label("• Ninja Legends (Coming Soon)")
 Credits_3:Label("Report me if have another bug")
