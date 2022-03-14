@@ -994,7 +994,7 @@ end
 
 spawn(function()
     game:GetService("RunService").Heartbeat:Connect(function()
-        if SafeMode or PlayerHunt or KillPlayer or AutoRainbow or AutoCitizen or AutoFarmBoss or FarmAllBoss or Elite or AutoThird or AutoBartilo or AutoRengoku or Auto_Bone or AutoEcto or AutoFarmObservation or Auto_Farm or FarmMasteryGun or FarmMasteryFruit or _G.Auto_indra_Hop or _G.Auto_Dark_Dagger_Hop or _G.AutoDonSwan_Hop or _G.Pole_Hop or Core or noclip or AutoEvoRace or TPChest or NextIsland or RaidSuperhuman or _G.AutoRaid or AutoFarmBoss or SelectFarm or Clip or HolyTorch or AutoFarmSelectMonster or AutoLowRaid or Magnet or FastAtttk then
+        if SafeMode or PlayerHunt or KillPlayer or AutoRainbow or AutoCitizen or AutoFarmBoss or FarmAllBoss or Elite or AutoThird or AutoBartilo or AutoRengoku or Auto_Bone or AutoEcto or AutoFarmObservation or Auto_Farm or FarmMasteryGun or FarmMasteryFruit or _G.Auto_indra_Hop or _G.Auto_Dark_Dagger_Hop or _G.AutoDonSwan_Hop or _G.Pole_Hop or Core or noclip or AutoEvoRace or TPChest or NextIsland or RaidSuperhuman or _G.AutoRaid or AutoFarmBoss or SelectFarm or Clip or HolyTorch or AutoFarmSelectMonster or AutoLowRaid then
             if not game:GetService("Workspace"):FindFirstChild("LOL") then
                 local LOL = Instance.new("Part")
                 LOL.Name = "LOL"
@@ -1015,7 +1015,7 @@ end)
 
 spawn(function()
     game:GetService("RunService").Stepped:Connect(function()
-        if SafeMode or PlayerHunt or KillPlayer or AutoRainbow or AutoCitizen or AutoFarmBoss or FarmAllBoss or Elite or AutoThird or AutoBartilo or AutoRengoku or Auto_Bone or AutoEcto or AutoFarmObservation or Auto_Farm or FarmMasteryGun or FarmMasteryFruit or _G.Auto_indra_Hop or _G.Auto_Dark_Dagger_Hop or _G.AutoDonSwan_Hop or _G.Pole_Hop or Core or noclip or AutoEvoRace or TPChest or NextIsland or RaidSuperhuman or _G.AutoRaid or AutoFarmBoss or SelectFarm or Clip or HolyTorch or AutoFarmSelectMonster or AutoLowRaid or Magnet or FastAtttk then
+        if SafeMode or PlayerHunt or KillPlayer or AutoRainbow or AutoCitizen or AutoFarmBoss or FarmAllBoss or Elite or AutoThird or AutoBartilo or AutoRengoku or Auto_Bone or AutoEcto or AutoFarmObservation or Auto_Farm or FarmMasteryGun or FarmMasteryFruit or _G.Auto_indra_Hop or _G.Auto_Dark_Dagger_Hop or _G.AutoDonSwan_Hop or _G.Pole_Hop or Core or noclip or AutoEvoRace or TPChest or NextIsland or RaidSuperhuman or _G.AutoRaid or AutoFarmBoss or SelectFarm or Clip or HolyTorch or AutoFarmSelectMonster or AutoLowRaid then
             for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
                 if v:IsA("BasePart") then
                     v.CanCollide = false
@@ -1027,7 +1027,7 @@ end)
 
 spawn(function()
     while wait() do
-    if SafeMode or PlayerHunt or KillPlayer or AutoRainbow or AutoCitizen or AutoFarmBoss or FarmAllBoss or Elite or AutoThird or AutoBartilo or AutoRengoku or Auto_Bone or AutoEcto or AutoFarmObservation or Auto_Farm or FarmMasteryGun or FarmMasteryFruit or _G.Auto_indra_Hop or _G.Auto_Dark_Dagger_Hop or _G.AutoDonSwan_Hop or _G.Pole_Hop or Core or noclip or AutoEvoRace or TPChest or NextIsland or RaidSuperhuman or _G.AutoRaid or AutoFarmBoss or SelectFarm or Clip or HolyTorch or AutoFarmSelectMonster or AutoLowRaid or Magnet or FastAtttk then
+    if SafeMode or PlayerHunt or KillPlayer or AutoRainbow or AutoCitizen or AutoFarmBoss or FarmAllBoss or Elite or AutoThird or AutoBartilo or AutoRengoku or Auto_Bone or AutoEcto or AutoFarmObservation or Auto_Farm or FarmMasteryGun or FarmMasteryFruit or _G.Auto_indra_Hop or _G.Auto_Dark_Dagger_Hop or _G.AutoDonSwan_Hop or _G.Pole_Hop or Core or noclip or AutoEvoRace or TPChest or NextIsland or RaidSuperhuman or _G.AutoRaid or AutoFarmBoss or SelectFarm or Clip or HolyTorch or AutoFarmSelectMonster or AutoLowRaid then
             local noclip = Instance.new('Part',workspace)
             noclip.Name = "noclip"
             noclip.CanCollide = true
@@ -1053,8 +1053,8 @@ spawn(function()
 	while wait() do
 		pcall(function()
 			CheckLevel()
-			if Auto_Farm and MagnetActive and Magnet then
-			    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+		    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+		        if Auto_Farm and MagnetActive and Magnet then
 					if v.Name == Ms and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
 						if v.Name == "Factory Staff [Lv. 800]" then
 							if (v.HumanoidRootPart.Position - PosMon.Position).Magnitude <= 250 then
@@ -1073,6 +1073,14 @@ spawn(function()
 								sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
 							end
 						end
+					end
+				elseif Auto_Bone and BoneMagnet and Magnet then
+					if (v.Name == "Reborn Skeleton [Lv. 1975]" or v.Name == "Living Zombie [Lv. 2000]" or v.Name == "Posessed Mummy [Lv. 2050]") and (v.HumanoidRootPart.Position - MainMonBone.Position).Magnitude <= 300 then
+						v.Head.CanCollide = false
+						v.HumanoidRootPart.CanCollide = false
+						v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
+						v.HumanoidRootPart.CFrame = MainMonBone
+						sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
 					end
 				end
 			end
@@ -1164,53 +1172,7 @@ function TP2(P1)
     Clip = false
 end
 
-spawn(function()
-	while wait(.1) do
-		pcall(function()
-			if Auto_Bone then
-				if game:GetService("Workspace").Enemies:FindFirstChild("Reborn Skeleton [Lv. 1975]") or game:GetService("Workspace").Enemies:FindFirstChild("Living Zombie [Lv. 2000]") or game:GetService("Workspace").Enemies:FindFirstChild("Domenic Soul [Lv. 2025]") or game:GetService("Workspace").Enemies:FindFirstChild("Posessed Mummy [Lv. 2050]") then
-					for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-						if v.Name == "Reborn Skeleton [Lv. 1975]" or v.Name == "Living Zombie [Lv. 2000]" or v.Name == "Demonic Soul [Lv. 2025]" or v.Name == "Posessed Mummy [Lv. 2050]" then
-							if v:WaitForChild("Humanoid").Health > 0 then
-								repeat game:GetService("RunService").Heartbeat:wait()
-									EquipWeapon(MonsterWeapon)
-									TP(v.HumanoidRootPart.CFrame * Farm_Mode)
-									v.HumanoidRootPart.CanCollide = false
-									v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
-									game:GetService("VirtualUser"):CaptureController()
-									game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 670),workspace.CurrentCamera.CFrame)
-									MainMonBone = v.HumanoidRootPart.CFrame
-									BoneMagnet = true
-								until Auto_Bone == false or not v.Parent or v.Humanoid.Health <= 0
-							end
-						end
-					end
-				else
-					BoneMagnet = false
-					TP(CFrame.new(-9501.64453, 582.052612, 6034.20117))
-				end
-			end
-		end)
-	end
-end)
-spawn(function()
-	while wait() do
-		pcall(function()
-			CheckLevel()
-            for i,v in pairs(game:GetService("workspace").Enemies:GetChildren()) do
-                if Auto_Bone and BoneMagnet and Magnet then
-					if (v.Name == "Reborn Skeleton [Lv. 1975]" or v.Name == "Living Zombie [Lv. 2000]" or v.Name == "Demonic Soul [Lv. 2025]" or v.Name == "Posessed Mummy [Lv. 2050]") and (v.HumanoidRootPart.Position - MainMonBone.Position).Magnitude <= 300 then
-						v.Head.CanCollide = false
-						v.HumanoidRootPart.CanCollide = false
-						v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
-						v.HumanoidRootPart.CFrame = MainMonBone
-						sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
-					end
-                end
-            end
-		end)
-	end
-end)
+
 
 spawn(function()
     while wait(.1) do
@@ -1413,6 +1375,8 @@ spawn(function()
 	end)
 end)
 
+
+
 -----------------------------------------------------------------------------------
 -- Tab />
 local Main_Farm_1 = Win:Tab("• Main Farm 1", "rbxassetid://8825667942")
@@ -1561,7 +1525,35 @@ Other_Farm:Toggle("Auto Farm Bone [Third Sea]", function(vu)
 	end
 end)
 
-local Monmon = game:GetService("Workspace").Enemies:GetChildren()
+spawn(function()
+	while wait(.1) do
+		pcall(function()
+			if Auto_Bone then
+				if game:GetService("Workspace").Enemies:FindFirstChild("Reborn Skeleton [Lv. 1975]") or game:GetService("Workspace").Enemies:FindFirstChild("Living Zombie [Lv. 2000]") or game:GetService("Workspace").Enemies:FindFirstChild("Posessed Mummy [Lv. 2050]") then
+					for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+						if v.Name == "Reborn Skeleton [Lv. 1975]" or v.Name == "Living Zombie [Lv. 2000]" or v.Name == "Posessed Mummy [Lv. 2050]" and v:FindFirstChild("Humanoid") then
+							if v.Humanoid.Health > 0 then
+								repeat game:GetService("RunService").Heartbeat:wait()
+									EquipWeapon(MonsterWeapon)
+									TP(v.HumanoidRootPart.CFrame * Farm_Mode)
+									v.HumanoidRootPart.CanCollide = false
+									v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
+									game:GetService("VirtualUser"):CaptureController()
+									game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 670),workspace.CurrentCamera.CFrame)
+									MainMonBone = v.HumanoidRootPart.CFrame
+									BoneMagnet = true
+								until Auto_Bone == false or not v.Parent or v.Humanoid.Health <= 0 or not game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
+							end
+						end
+					end
+				else
+					BoneMagnet = false
+					TP(CFrame.new(-9501.64453, 582.052612, 6034.20117))
+				end
+			end
+		end)
+	end
+end)
 
 spawn(function()
 	while wait(.1) do
@@ -1576,11 +1568,11 @@ spawn(function()
 			                v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
 			                game:GetService("VirtualUser"):CaptureController()
 						    game:GetService("VirtualUser"):CaptureController()
-				       	    game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672))
+				       	    game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672),workspace.CurrentCamera.CFrame)
 				       	    AutoFarmNearestMagnet = true
 				       	    PosMon = v.HumanoidRootPart.CFrame
 			            until not AutoFarmNearest or not v.Parent or v.Humanoid.Health <= 0 or not game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
-			        end		            
+			        end
 			    end
 			end
 		end
@@ -4612,6 +4604,34 @@ end)
 
 Misc_1:Toggle("Auto Drop Fruit", function(vu)
     Drop = vu
+end)
+
+Misc_1:Button("Open Fruit Inventory", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.Main.FruitInventory.Visible = not game:GetService("Players").LocalPlayer.PlayerGui.Main.FruitInventory.Visible
+end)
+
+Misc_1:Button("Open Inventory", function()
+	game:GetService("Players").LocalPlayer.PlayerGui.Main.Inventory.Visible = not game:GetService("Players").LocalPlayer.PlayerGui.Main.Inventory.Visible
+end)
+
+Misc_1:Button("Open Devil Shop", function()
+	game:GetService("Players").localPlayer.PlayerGui.Main.FruitShop.Visible = not game:GetService("Players").localPlayer.PlayerGui.Main.FruitShop.Visible
+end)
+
+Misc_1:Button("Open Awakening", function()
+	game:GetService("Players").LocalPlayer.PlayerGui.Main.AwakeningToggler.Visible = not game:GetService("Players").LocalPlayer.PlayerGui.Main.AwakeningToggler.Visible
+end)
+
+Misc_1:Button("Open Color Haki", function()
+	game:GetService("Players").localPlayer.PlayerGui.Main.Colors.Visible = not game:GetService("Players").localPlayer.PlayerGui.Main.Colors.Visible
+end)
+
+Misc_1:Button("Open Title Name", function()
+	game:GetService("Players").localPlayer.PlayerGui.Main.Titles.Visible = not game:GetService("Players").localPlayer.PlayerGui.Main.Titles.Visible
+end)
+
+Misc_1:Button("Open Gateway", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.Main.Gateway.Visible = not game:GetService("Players").LocalPlayer.PlayerGui.Main.Gateway.Visible
 end)
 
 Misc_1:Button("Redeem All Code", function()
