@@ -660,8 +660,6 @@ function CheckLevel()
 	end
 end
 
-
-
 function CheckBossQuest()
     if First_Sea then
         if SelectBoss == "The Gorilla King [Lv. 25] [Boss]" then
@@ -890,7 +888,7 @@ end
 Y = 30
 spawn(function()
 	while wait(.1) do
-	    Farm_Mode = CFrame.new(0, Y, 15)
+	    Farm_Mode = CFrame.new(0, Y, 10)
 	end
 end)
 
@@ -916,11 +914,10 @@ spawn(function()
 				            			v.HumanoidRootPart.CanCollide = false
 				            			v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
 				            			game:GetService("VirtualUser"):CaptureController()
-				            			game:GetService("VirtualUser"):CaptureController()
 				            			game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672), game.Workspace.CurrentCamera.CFrame)
 					            		PosMonSelectMonster = v.HumanoidRootPart.CFrame
 				            			SelectMonsterMagnet = true
-						            until not AutoFarmSelectMonster or not v.Parent or v.Humanoid.Health <= 0 or not game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
+						            until not AutoFarmSelectMonster or not v.Parent or v.Humanoid.Health == 0 or not game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
 						        end
 			    			end
 						end
@@ -986,7 +983,7 @@ spawn(function()
 											CheckLevel()
 											TP(CFrameMon)
 										end
-									until not v.Parent or v.Humanoid.Health <= 0 or Auto_Farm == false or game.Players.LocalPlayer.PlayerGui.Main.Quest.Visible == false or not game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
+									until not v.Parent or v.Humanoid.Health == 0 or Auto_Farm == false or game.Players.LocalPlayer.PlayerGui.Main.Quest.Visible == false or not game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
 								end
 							end
 						end
@@ -1021,10 +1018,10 @@ spawn(function()
 									v.HumanoidRootPart.CanCollide = false
 									v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
 									game:GetService("VirtualUser"):CaptureController()
-									game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 670), game.Workspace.CurrentCamera.CFrame)
+									game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 670))
 									MainMonBone = v.HumanoidRootPart.CFrame
 									BoneMagnet = true
-								until Auto_Bone == false or not v.Parent or v.Humanoid.Health <= 0 or not game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
+								until Auto_Bone == false or not v.Parent or v.Humanoid.Health == 0 or not game:GetService("Workspace").Enemies:FindFirstChild(v.Name)
 							end
 						end
 					end
@@ -1059,7 +1056,7 @@ spawn(function()
 				       	    game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672), game.Workspace.CurrentCamera.CFrame)
 				       	    AutoFarmNearestMagnet = true
 				       	    PosMon = v.HumanoidRootPart.CFrame
-			            until not AutoFarmNearest or not v.Parent or v.Humanoid.Health <= 0
+			            until not AutoFarmNearest or not v.Parent or v.Humanoid.Health == 0 or not game.Workspace.Enemies:FindFirstChild(v.Name)
 			        end
 			    end
 			end
@@ -1080,7 +1077,7 @@ spawn(function()
 		        if Auto_Farm and MagnetActive and Magnet then
 					if v.Name == Ms and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
 						if v.Name == "Factory Staff [Lv. 800]" then
-							if (v.HumanoidRootPart.Position - PosMon.Position).Magnitude <= 250 then
+							if (v.HumanoidRootPart.Position - PosMon.Position).Magnitude <= 300 then
 								v.Head.CanCollide = false
 								v.HumanoidRootPart.CanCollide = false
 								v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
@@ -1088,7 +1085,7 @@ spawn(function()
 								sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
 							end
 						elseif v.Name == Ms then
-							if (v.HumanoidRootPart.Position - PosMon.Position).Magnitude <= 400 then
+							if (v.HumanoidRootPart.Position - PosMon.Position).Magnitude <= 300 then
 								v.Head.CanCollide = false
 								v.HumanoidRootPart.CanCollide = false
 								v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
@@ -1098,7 +1095,8 @@ spawn(function()
 						end
 					end
 				elseif Auto_Bone and BoneMagnet and Magnet then
-					if (v.Name == "Reborn Skeleton [Lv. 1975]" or v.Name == "Living Zombie [Lv. 2000]" or v.Name == "Demonic Soul [Lv. 2025]" or v.Name == "Posessed Mummy [Lv. 2050]") and (v.HumanoidRootPart.Position - MainMonBone.Position).Magnitude <= 400 then
+					if (v.Name == "Reborn Skeleton [Lv. 1975]" or v.Name == "Living Zombie [Lv. 2000]" or v.Name == "Demonic Soul [Lv. 2025]" or v.Name == "Posessed Mummy [Lv. 2050]") and (v.HumanoidRootPart.Position - MainMonBone.Position).Magnitude <= 300 then
+					    
 						v.Head.CanCollide = false
 						v.HumanoidRootPart.CanCollide = false
 						v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
@@ -1107,7 +1105,7 @@ spawn(function()
 					end
 				elseif AutoFarmSelectMonster and SelectMonsterMagnet and Magnet then
 					if v.Name == SelectMonster and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
-			            if (v.HumanoidRootPart.Position - PosMonSelectMonster.Position).Magnitude <= 400 then
+			            if (v.HumanoidRootPart.Position - PosMonSelectMonster.Position).Magnitude <= 300 then
 			    	        v.Head.CanCollide = false
 			   	    	    v.HumanoidRootPart.CanCollide = false
 		   	        	    v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
@@ -1128,7 +1126,7 @@ spawn(function()
 	        if AutoFarmNearest and AutoFarmNearestMagnet and Magnet then
 		    	for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
 					if v.Name and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
-			            if (v.HumanoidRootPart.Position - PosMon.Position).Magnitude <= 400 then
+			            if (v.HumanoidRootPart.Position - PosMon.Position).Magnitude <= 300 then
 			    	        v.Head.CanCollide = false
 			   	    	    v.HumanoidRootPart.CanCollide = false
 		   	        	    v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
@@ -1149,79 +1147,69 @@ game:GetService("RunService").Heartbeat:Connect(function()
     end
 end)
 
-local RigC = game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework:FindFirstChild("RigController")
+local RigC = game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework
 local VirtualUser = game:GetService('VirtualUser')
 local CamShake = game:GetService("ReplicatedStorage").Util.CameraShaker
+local Shake = game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework.CameraShaker
+
 
 spawn(function()
     for i = 1, math.huge, 9999999999999999999999999999999999999999999999999999 do
         game:GetService('RunService').Heartbeat:wait()
-        if _G.FastAtttk then
-            pcall(function()
-                RigC.attacking = false
-                RigC.timeToNextAttack = -(math.huge ^ math.huge ^ math.huge)
-                RigC.increment = 3
-                RigC.hitboxMagnitude = 100
+        pcall(function()
+            if _G.FastAtttk then
+                RigC.RigController.attacking = false
+                RigC.RigController.timeToNextAttack = 0
+                RigC.RigController.increment = 3
+                RigC.RigController.hitboxMagnitude = 100
                 game.Players.LocalPlayer.Character.Stun.Value = 0
                 game.Players.LocalPlayer.Character.Humanoid.Sit = false
                 CamShake:Stop()
-            end)
-        end
+                Shake.CameraShakeInstance.CameraShakeState = {FadingIn = 3, FadingOut = 2, Sustained = 0, Inactive = 1}
+            end
+        end)
     end
 end)
 
 spawn(function()
-	game:GetService("RunService").Heartbeat:connect(function()
-		pcall(function()
-			if _G.FastAtttk then
-					VirtualUser:CaptureController()
-					VirtualUser:ClickButton1(Vector2.new(1280, 672), game:GetService("Workspace").Camera.CFrame)
-			end
-		end)
-	end)
-	game:GetService("RunService").Heartbeat:connect(function()
-		pcall(function()
-			if _G.FastAtttk then
-					VirtualUser:CaptureController()
-					VirtualUser:ClickButton1(Vector2.new(1280, 672), game:GetService("Workspace").Camera.CFrame)
-			end
-		end)
-	end)
+    game:GetService("RunService").Heartbeat:connect(function()
+        pcall(function()
+            if _G.FastAtttk then
+                VirtualUser:CaptureController()
+                VirtualUser:Button1Down(Vector2.new(686, 352))
+                RigC.RigController.timeToNextAttack = 0
+                RigC.RigController.hitboxMagnitude = 50
+                VirtualUser:CaptureController()
+                VirtualUser:Button1Down(Vector2.new(686, 352))
+                Shake.CameraShakeInstance.CameraShakeState = {FadingIn = 3, FadingOut = 2, Sustained = 0, Inactive = 1}
+                CamShake:Stop()
+            end
+        end)
+    end)
 end)
 
 function TP(P1)
     Distance = (P1.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
     if Distance < 250 then
-        Speed = 600
+        Speed = 500
     elseif Distance < 500 then
         Speed = 400
     elseif Distance < 1000 then
         Speed = 350
     elseif Distance >= 1000 then
-        Speed = 200
+        Speed = 300
     end
     game:GetService("TweenService"):Create(
         game.Players.LocalPlayer.Character.HumanoidRootPart,
         TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear),
         {CFrame = P1}
     ):Play()
-    
-end
-
-function totarget(CFgo)
-    local tween_s = game:service"TweenService"
-    local info = TweenInfo.new((game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart.Position - CFgo.Position).Magnitude/300, Enum.EasingStyle.Linear)
-    local tween, err = pcall(function()
-        tween = tween_s:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = CFgo})
-        tween:Play()
-    end)
-    if not tween then return err end
 end
 
 function TP2(P1)
 	Distance = (P1.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
 	if Distance < 1000 then
-		Speed = 400
+		Speed = 500
 	elseif Distance >= 1000 then
 		Speed = 250
 	end
@@ -1285,17 +1273,30 @@ end)
 
 spawn(function()
     game:GetService("RunService").Heartbeat:Connect(function()
+        if FarmMasteryFruit or FarmMasteryGun or Farm_Level or AutoFarmSelectMonster or AutoFarmNearest or Auto_Bone or AutoBossNoQuest or AutoBossQuest then
+            for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                if v.Name and v:FindFirstChild("Humanoid") then
+                    v.Stun.Value = 1
+                end
+            end
+        end
+    end)
+end)
+
+spawn(function()
+    game:GetService("RunService").Heartbeat:Connect(function()
         if FarmMasteryFruit or FarmMasteryGun or Farm_Level or Clip or noclip or Noclip or AutoFarmSelectMonster or AutoFarmNearest or _G.Bounty1 or Auto_Bone or AutoFarmBoss or FarmMastery or KillPlayer or AutoFarmObservation or _G.Superhuman or _G.DeathStep or _G.AutoElectricClawV2 or _G.AutoPlayerHunter or _G.Pole or _G.PoleHop or _G.AutoNew or _G.AutoSaber or _G.OpenSwan or sea3 or sea33 or _G.AutoaRengoku or _G.Factory or _G.SwanGlasses or _G.SwanHop or _G.BlackBeardHop or _G.EliteHunt or _G.ElitehuntHop or rainbowhaki or _G.YamaHop or _G.Tushitahop or _G.Cave or _G.HolyTorch or AutoBartilo or AutoEvoRace or AutoEcto or AutoCitizen or AutoBossNoQuest or AutoBossQuest then
             if not game:GetService("Workspace"):FindFirstChild("LOL") then
                 local LOL = Instance.new("Part")
                 LOL.Name = "LOL"
                 LOL.Parent = game.Workspace
                 LOL.Anchored = true
+                LOL.CanCollide = false
                 LOL.Transparency = 1
-                LOL.Size = Vector3.new(30,-0.5,30)
+                LOL.Size = Vector3.new(30,1.5,30)
                 LOL.Material = "SmoothPlastic"
             elseif game:GetService("Workspace"):FindFirstChild("LOL") then
-                game.Workspace["LOL"].CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, -3.6, 0)
+                game.Workspace["LOL"].CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-3.6,0)
             end
         else
             if game:GetService("Workspace"):FindFirstChild("LOL") then
@@ -1313,32 +1314,14 @@ spawn(function()
             for _, v in pairs(character:GetDescendants()) do
                 if v:IsA("BasePart") then
                     v.CanCollide = false
-                    v.Stun.Value = 0
+                    Workspace.Gravity = 0
                 end
             end
+        else
+            Workspace.Gravity = 196
         end
     end)
 end)
-
-spawn(function()
-    game:GetService("RunService").Heartbeat:Connect(function()
-        if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid") and (FarmMasteryFruit or FarmMasteryGun or Farm_Level or Clip or noclip or Noclip or AutoFarmSelectMonster or AutoFarmNearest or _G.Bounty1 or Auto_Bone or AutoFarmBoss or FarmMastery or KillPlayer or AutoFarmObservation or _G.Superhuman or _G.DeathStep or _G.AutoElectricClawV2 or _G.AutoPlayerHunter or _G.Pole or _G.PoleHop or _G.AutoNew or _G.AutoSaber or _G.OpenSwan or sea3 or sea33 or _G.AutoaRengoku or _G.Factory or _G.SwanGlasses or _G.SwanHop or _G.BlackBeardHop or _G.EliteHunt or _G.ElitehuntHop or rainbowhaki or _G.YamaHop or _G.Tushitahop or _G.Cave or _G.HolyTorch or AutoBartilo or AutoEvoRace or AutoEcto or AutoCitizen or AutoBossNoQuest or AutoBossQuest) then
-            setfflag("HumanoidParallelRemoveNoPhysics", "False")
-            setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
-            game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
-        end
-    end)
-end)
-
-game:GetService("RunService").Heartbeat:Connect(function()
-	if FarmMasteryFruit or FarmMasteryGun or Farm_Level or Clip or noclip or Noclip or AutoFarmSelectMonster or AutoFarmNearest or _G.Bounty1 or Auto_Bone or AutoFarmBoss or FarmMastery or KillPlayer or AutoFarmObservation or _G.Superhuman or _G.DeathStep or _G.AutoElectricClawV2 or _G.AutoPlayerHunter or _G.Pole or _G.PoleHop or _G.AutoNew or _G.AutoSaber or _G.OpenSwan or sea3 or sea33 or _G.AutoaRengoku or _G.Factory or _G.SwanGlasses or _G.SwanHop or _G.BlackBeardHop or _G.EliteHunt or _G.ElitehuntHop or rainbowhaki or _G.YamaHop or _G.Tushitahop or _G.Cave or _G.HolyTorch or AutoBartilo or AutoEvoRace or AutoEcto or AutoCitizen or AutoBossNoQuest or AutoBossQuest then
-		if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid") then
-			game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
-		end
-	end
-end)
-
-
 
 -----------------------------------------------------------------------------------
 -- Tab />
@@ -1520,7 +1503,7 @@ else
 	_G.LevelMax = 2300
 end
 
-Farm_Settings:Slider("Settings Lv. Lock", 1,2100,_G.LevelMax, function(value)
+Farm_Settings:Slider("Settings Lv. Lock", 1,2300,_G.LevelMax, function(value)
 	LevelLock = value
 end)
 
@@ -1530,6 +1513,10 @@ end)
 
 Farm_Settings:Toggle("Level Lock Close Game", function(vu)
 	LevelLockClose = vu
+end)
+
+Farm_Settings:Button("Reset Character", function()
+    game.Players.LocalPlayer.Character.Humanoid.Health = 0
 end)
 
 -----------------------------------------------------------------------------------
@@ -6140,163 +6127,168 @@ Mouse.Button1Down:connect(function()
     end
 end)
 
-Teleport_2:Button("Stop all Tween", function()
+Teleport_2:Button("Stop Tween", function()
     Clip = false
     TP(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
 end)
 
 if First_Sea then
-    
-    Teleport_2:Button("Wild Mill", function()
-        TP2(CFrame.new(1042.1501464844, 16.299360275269, 1444.3442382813))
+    Teleport_2:Button("Start Island",function()
+        TP2(CFrame.new(1071.2832, 16.3085976, 1426.86792))
     end)
-    Teleport_2:Button("Marine 1st", function()
-        TP2(CFrame.new(-2599.6655273438, 6.9146227836609, 2062.2216796875))
+    Teleport_2:Button("Marine Start",function()
+        TP2(CFrame.new(-2573.3374, 6.88881969, 2046.99817))
     end)
-    Teleport_2:Button("Marine 2sd", function()
-        TP2(CFrame.new(-5081.3452148438, 85.221641540527, 4257.3588867188))
+    Teleport_2:Button("Middle Town",function()
+        TP2(CFrame.new(-655.824158, 7.88708115, 1436.67908))
     end)
-    Teleport_2:Button("Midle Town", function()
-        TP2(CFrame.new(-655.97088623047, 7.878026008606, 1573.7612304688))
+    Teleport_2:Button("Jungle",function()
+        TP2(CFrame.new(-1249.77222, 11.8870859, 341.356476))
     end)
-    Teleport_2:Button("Jungle", function()
-        TP2(CFrame.new(-1499.9877929688, 22.877912521362, 353.87060546875))
+    Teleport_2:Button("Pirate Village",function()
+        TP2(CFrame.new(-1122.34998, 4.78708982, 3855.91992))
     end)
-    Teleport_2:Button("Pirate Village", function()
-        TP2(CFrame.new(-1163.3889160156, 44.777843475342, 3842.8276367188))
+    Teleport_2:Button("Desert",function()
+        TP2(CFrame.new(1094.14587, 6.47350502, 4192.88721))
     end)
-    Teleport_2:Button("Desert", function()
-        TP2(CFrame.new(954.02056884766, 6.6275520324707, 4262.611328125))
+    Teleport_2:Button("Frozen Village",function()
+        TP2(CFrame.new(1198.00928, 27.0074959, -1211.73376))
     end)
-    Teleport_2:Button("Frozen Village", function()
-        TP2(CFrame.new(1144.5270996094, 7.3292083740234, -1164.7322998047))
+    Teleport_2:Button("MarineFord",function()
+        TP2(CFrame.new(-4505.375, 20.687294, 4260.55908))
     end)
-    Teleport_2:Button("Colosseum", function()
-        TP2(CFrame.new(-1667.5869140625, 39.385631561279, -3135.5817871094))
+    Teleport_2:Button("Colosseum",function()
+        TP2(CFrame.new(-1428.35474, 7.38933945, -3014.37305))
     end)
-    Teleport_2:Button("Prison", function()
-        TP2(CFrame.new(4857.6982421875, 5.6780304908752, 732.75750732422))
+    Teleport_2:Button("Sky island 1 ",function()
+        TP2(CFrame.new(-4970.21875, 717.707275, -2622.35449))
     end)
-    Teleport_2:Button("Mob Leader", function()
-        TP2(CFrame.new(-2841.9604492188, 7.3560485839844, 5318.1040039063))
+    Teleport_2:Button("Sky island 2 ",function()
+        TP2(CFrame.new(-4813.0249, 903.708557, -1912.69055))
     end)
-    Teleport_2:Button("Magma Village", function()
-        TP2(CFrame.new(-5328.8740234375, 8.6164798736572, 8427.3994140625))
+    Teleport_2:Button("Sky island 3 ",function()
+        TP2(CFrame.new(-7952.31006, 5545.52832, -320.704956))
     end)
-    Teleport_2:Button("UnderWater Gate", function()
-        TP2(CFrame.new(3893.953125, 5.3989524841309, -1893.4851074219))
+    Teleport_2:Button("Sky island 4 ",function()
+        TP2(CFrame.new(-7793.43896, 5607.22168, -2016.58362))
     end)
-    Teleport_2:Button("UnderWater City", function()
-        TP2(CFrame.new(61191.12109375, 18.497436523438, 1561.8873291016))
+    Teleport_2:Button("Prison",function()
+        TP2(CFrame.new(4854.16455, 5.68742752, 740.194641))
     end)
-    Teleport_2:Button("Fountain City", function()
-        TP2(CFrame.new(5244.7133789063, 38.526943206787, 4073.4987792969))
+    Teleport_2:Button("Magma Village",function()
+        TP2(CFrame.new(-5231.75879, 8.61593437, 8467.87695))
     end)
-    Teleport_2:Button("Sky 1st", function()
-        TP2(CFrame.new(-4878.0415039063, 717.71246337891, -2637.7294921875))
+    Teleport_2:Button("UndeyWater City",function()
+        TP2(CFrame.new(61163.8516, 11.7796879, 1819.78418))
     end)
-    Teleport_2:Button("Sky 2sd", function()
-        TP2(CFrame.new(-7899.6157226563, 5545.6030273438, -422.21798706055))
+    Teleport_2:Button("Fountain City",function()
+        TP2(CFrame.new(5132.7124, 4.53632832, 4037.8562))
     end)
-    Teleport_2:Button("Sky 3th", function()
-        TP2(CFrame.new(-7868.5288085938, 5638.205078125, -1482.5548095703))
+    Teleport_2:Button("House Cyborg's",function()
+        TP2(CFrame.new(6262.72559, 71.3003616, 3998.23047))
+    end)
+    Teleport_2:Button("Shank's Room",function()
+        TP2(CFrame.new(-1442.16553, 29.8788261, -28.3547478))
+    end)
+    Teleport_2:Button("Mob Island",function()
+        TP2(CFrame.new(-2850.20068, 7.39224768, 5354.99268))
     end)
 
 elseif Second_Sea then
     
-    Teleport_2:Button("Dock", function()
-        TP2(CFrame.new(-12.519311904907, 19.302536010742, 2827.853515625))
+    Teleport_2:Button("Dock",function()
+        TP2(CFrame.new(82.9490662, 18.0710983, 2834.98779))
     end)
-    Teleport_2:Button("Mansion", function()
-        TP2(CFrame.new(-390.34829711914, 321.89730834961, 869.00506591797))
+    Teleport_2:Button("Kingdom of Rose",function()
+        TP2(CFrame.new(-394.983521, 118.503128, 1245.8446))
     end)
-    Teleport_2:Button("Kingdom Of Rose", function()
-        TP2(CFrame.new(-388.29895019531, 138.35575866699, 1132.1662597656))
+    Teleport_2:Button("Mansion",function()
+        TP2(CFrame.new(-390.096313, 331.886475, 673.464966))
     end)
-    Teleport_2:Button("Cafe", function()
-        TP2(CFrame.new(-379.70889282227, 73.0458984375, 304.84692382813))
+    Teleport_2:Button("Flamingo Room",function()
+        TP2(CFrame.new(2302.19019, 15.1778421, 663.811035))
     end)
-    Teleport_2:Button("Sunflower Field", function()
-        TP2(CFrame.new(-1576.7171630859, 198.61849975586, 13.725157737732))
+    Teleport_2:Button("Green Zone",function()
+        TP2(CFrame.new(-2372.14697, 72.9919434, -3166.51416))
     end)
-    Teleport_2:Button("Jeramy Mountain", function()
-        TP2(CFrame.new(1986.3519287109, 448.95678710938, 796.70239257813))
+    Teleport_2:Button("Cafe",function()
+        TP2(CFrame.new(-385.250916, 73.0458984, 297.388397))
     end)
-    Teleport_2:Button("Colossuem", function()
-        TP2(CFrame.new(-1871.8974609375, 45.820514678955, 1359.6843261719))
+    Teleport_2:Button("Factroy",function()
+        TP2(CFrame.new(430.42569, 210.019623, -432.504791))
     end)
-    Teleport_2:Button("Factory", function()
-        TP2(CFrame.new(349.53750610352, 74.446998596191, -355.62420654297))
+    Teleport_2:Button("Colosseum",function()
+        TP2(CFrame.new(-1836.58191, 44.5890656, 1360.30652))
     end)
-    Teleport_2:Button("The Bridge", function()
-        TP2(CFrame.new(-1860.6354980469, 88.384948730469, -1859.1593017578))
+    Teleport_2:Button("Grave Island",function()
+        TP2(CFrame.new(-5411.47607, 48.8234024, -721.272522))
     end)
-    Teleport_2:Button("Green Bit", function()
-        TP2(CFrame.new(-2202.3706054688, 73.097663879395, -2819.2687988281))
+    Teleport_2:Button("Snow Mountain",function()
+        TP2(CFrame.new(511.825226, 401.765198, -5380.396))
     end)
-    Teleport_2:Button("Graveyard", function()
-        TP2(CFrame.new(-5617.5927734375, 492.22183227539, -778.3017578125))
+    Teleport_2:Button("Cold Island",function()
+        TP2(CFrame.new(-6026.96484, 14.7461271, -5071.96338))
     end)
-    Teleport_2:Button("Dark Area", function()
-        TP2(CFrame.new(3464.7700195313, 13.375151634216, -3368.90234375))
+    Teleport_2:Button("Hot Island",function()
+        TP2(CFrame.new(-5478.39209, 15.9775667, -5246.9126))
     end)
-    Teleport_2:Button("Snow Mountain", function()
-        TP2(CFrame.new(561.23834228516, 401.44781494141, -5297.14453125))
+    Teleport_2:Button("Cursed Ship",function()
+        TP2(CFrame.new(902.059143, 124.752518, 33071.8125))
     end)
-    Teleport_2:Button("Hot Island", function()
-        TP2(CFrame.new(-5505.9633789063, 15.977565765381, -5366.6123046875))
+    Teleport_2:Button("Ice Castle",function()
+        TP2(CFrame.new(5400.40381, 28.21698, -6236.99219))
     end)
-    Teleport_2:Button("Cold Island", function()
-        TP2(CFrame.new(-5924.716796875, 15.977565765381, -4996.427734375))
+    Teleport_2:Button("Forgotten Island",function()
+        TP2(CFrame.new(-3043.31543, 238.881271, -10191.5791))
     end)
-    Teleport_2:Button("Ice Castle", function()
-        TP2(CFrame.new(6111.7109375, 294.41259765625, -6716.4829101563))
+    Teleport_2:Button("Usoapp Island",function()
+        TP2(CFrame.new(4748.78857, 8.35370827, 2849.57959))
     end)
-    Teleport_2:Button("Usopp's Island", function()
-        TP2(CFrame.new(4760.4985351563, 8.3444719314575, 2849.2426757813))
-    end)
-    Teleport_2:Button("inscription Island", function()
-        TP2(CFrame.new(-5099.01171875, 98.241539001465, 2424.4035644531))
-    end)
-    Teleport_2:Button("Forgotten Island", function()
-        TP2(CFrame.new(-3051.9514160156, 238.87203979492, -10250.807617188))
-    end)
-    Teleport_2:Button("Ghost Ship", function()
-        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(923.21252441406, 126.9760055542, 32852.83203125))
-    end)
-    Teleport_2:Button("Mini Sky", function()
-        TP2(CFrame.new(-262.11901855469, 49325.69140625, -35272.49609375))
+    Teleport_2:Button("Minisky Island",function()
+        TP2(CFrame.new(-260.358917, 49325.7031, -35259.3008))
     end)
 
 elseif Third_Sea then
     
-	Teleport_2:Button("Port Town", function()
-        TP2(CFrame.new(-275.21615600586, 43.755737304688, 5451.0659179688))
+	Teleport_2:Button("Port Towen",function()
+        TP2(CFrame.new(-610.309692, 57.8323097, 6436.33594))
     end)
-	Teleport_2:Button("Hydra Island", function()
-		TP2(CFrame.new(5541.2685546875, 668.30456542969, 195.48069763184))
-	end)
-	Teleport_2:Button("Gaint Tree", function()
-		TP2(CFrame.new(2276.0859375, 25.87850189209, -6493.03125))
-	end)
-	Teleport_2:Button("Zou Island", function()
-		TP12(CFrame.new(-10034.40234375, 331.78845214844, -8319.6923828125))
-	end)
-	Teleport_2:Button("PineApple Village", function()
-		TP2(CFrame.new(-11172.950195313, 331.8049621582, -10151.033203125))
-	end)
-	Teleport_2:Button("Mansion", function()
-		TP2(CFrame.new(-12548.998046875, 332.40396118164, -7603.1865234375))
-	end)
-	Teleport_2:Button("Castle on the Sea", function()
-		TP2(CFrame.new(-5498.0458984375, 313.79473876953, -2860.6022949219))
-	end)
+    Teleport_2:Button("Hydra Island",function()
+        TP2(CFrame.new(5229.99561, 603.916565, 345.154022))
+    end)
+    Teleport_2:Button("Great Tree",function()
+        TP2(CFrame.new(2174.94873, 28.7312393, -6728.83154))
+    end)
+    Teleport_2:Button("Castle on the Sea",function()
+        TP2(CFrame.new(-5477.62842, 313.794739, -2808.4585))
+    end)
+    Teleport_2:Button("Floating Turtle",function()
+        TP2(CFrame.new(-10919.2998, 331.788452, -8637.57227))
+    end)
+    Teleport_2:Button("Mansion",function()
+        TP2(CFrame.new(-12553.8125, 332.403961, -7621.91748))
+    end)
+    Teleport_2:Button("Secret Temple",function()
+        TP2(CFrame.new(5217.35693, 6.56511116, 1100.88159))
+    end)
+    Teleport_2:Button("Friendly Arena",function()
+        TP2(CFrame.new(5220.28955, 72.8193436, -1450.86304))
+    end)
+    Teleport_2:Button("Beautiful Pirate Domain",function()
+        TP2(CFrame.new(5310.8095703125, 21.594484329224, 129.39053344727))
+    end)
+    Teleport_2:Button("Teler Park",function()
+        TP2(CFrame.new(-9512.3623046875, 142.13258361816, 5548.845703125))
+    end)
+    Teleport_2:Button("Peanut Island",function()
+        TP2(CFrame.new(-2142, 48, -10031))
+    end)
+    Teleport_2:Button("Ice Cream Island",function()
+        TP2(CFrame.new(-949, 59, -10907))
+    end)
 	Teleport_2:Button("Haunted Castle", function()
-	    TP2(CFrame.new(-9530.61035, -132.860657, 5763.13477, 1, 0, 0, 0, 1, 0, 0, 0, 1))
+	    TP2(CFrame.new(-9530.61035, -132.860657, 5763.13477))
 	end)
-    Teleport_2:Button("Graveyard Island", function()
-        TP2(CFrame.new(-9515.07324, 142.130615, 5537.58398))
-    end)
     Teleport_2:Button("CakeLoaf", function()
         TP2(CFrame.new(-2099.33154, 66.9970703, -12128.585, 0.997561574, 0, 0.0697919354, 0, 1, 0, -0.0697919354, 0, 0.997561574))
     end)
@@ -6654,12 +6646,34 @@ spawn(function()
 end)
 
 Misc_2:Toggle("Walk on Water",function(Value)
-	_G.WalkWater = Value
-	if _G.WalkWater == true then
-		game.Players.LocalPlayer.Data.DevilFruit.Value = ("Ice-Ice")
-	elseif _G.WalkWater == false then
-		game.Players.LocalPlayer.Data.DevilFruit.Value = ("")
-	end
+	_G.Water = Value
+end)
+
+spawn(function()
+    pcall(function()
+        while game:GetService("RunService").Heartbeat:wait() do
+            if _G.Water then
+                if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame.Y <= 1 then
+                    if not game:GetService("Workspace"):FindFirstChild("Water") then
+                        local Water = Instance.new("Part", game.Workspace)
+                        Water.Name = "Water"
+                        Water.Size = Vector3.new(10,0.5,10)
+                        Water.Transparency = 0.8
+                        Water.Anchored = true
+                        game:GetService("Workspace").Water.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.X,game:GetService("Workspace").Camera["Water;"].CFrame.Y,game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
+                    else
+                        game:GetService("Workspace").Water.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.X,game:GetService("Workspace").Camera["Water;"].CFrame.Y,game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
+                    end
+                elseif game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame.Y >= 1 and game:GetService("Workspace"):FindFirstChild("Water") then
+                    game:GetService("Workspace"):FindFirstChild("Water"):Destroy()
+                end
+            else
+                if game:GetService("Workspace"):FindFirstChild("Water") then
+                    game:GetService("Workspace"):FindFirstChild("Water"):Destroy()
+                end
+            end
+        end
+    end)
 end)
 
 Misc_2:Toggle("No Dodge Cooldown", function(Value)
