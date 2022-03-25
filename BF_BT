@@ -1,3 +1,4 @@
+
 -- BL∆CK_TRAP_V1.2 />
 if game:GetService("CoreGui"):FindFirstChild("BlackTrap") then
     game:GetService("CoreGui")["BlackTrap"]:Destroy()
@@ -602,14 +603,14 @@ function CheckLevel()
 			CFrameMon = CFrame.new(-9545.7763671875, 69.619895935059, 6339.5615234375)
         elseif Lv == 2075 and Lv <= 2099 or SelectMonster == "Peanut Scout [Lv. 2075]" then
             Ms = "Peanut Scout [Lv. 2075]"
-            NameQuest = "NutsIslandQuest"
+            NameQuest = "PeanutQuest"
             QuestLv = 1
             NameMon = "Peanut Scout"
             CFrameQ = CFrame.new(-2105.53198, 37.2495995, -10195.5088, -0.766061664, 0, -0.642767608, 0, 1, 0, 0.642767608, 0, -0.766061664)
             CFrameMon = CFrame.new(-2126.47998, 192.095154, -10204.6553, 0.0779861137, -9.29044361e-08, 0.996954441, 6.59006432e-08, 1, 8.80332109e-08, -0.996954441, 5.88345728e-08, 0.0779861137)
         elseif Lv == 2100 and Lv <= 2124 or SelectMonster == "Peanut President [Lv. 2100]" then
             Ms = "Peanut President [Lv. 2100]"
-            NameQuest = "NutsIslandQuest"
+            NameQuest = "PeanutQuest"
             QuestLv = 2
             NameMon = "Peanut President"
             CFrameQ = CFrame.new(-2105.53198, 37.2495995, -10195.5088, -0.766061664, 0, -0.642767608, 0, 1, 0, 0.642767608, 0, -0.766061664)
