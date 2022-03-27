@@ -1,5 +1,6 @@
+local RunService = game:GetService("RunService")
 spawn(function()
-    while wait() do
+    while RunService.RenderStepped:wait() do
         if _G.Hovers == 'Original' then
             for i,v in pairs(game:GetService("ReplicatedStorage").Game.Hoverboards.Original:GetChildren()) do
                 if v.Name == 'Hoverboard' then
