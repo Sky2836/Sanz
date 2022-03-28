@@ -885,20 +885,18 @@ function Blacklib:Window()
                         {ImageColor3 = Color3.fromRGB(180,180,180)}
                         ):Play()
                     ImageButton.ImageRectOffset = Vector2.new(940, 784)
-                    default = false
                     tog = false
                     pcall(function()
-                        callback(default,tog)
+                        callback(tog)
                     end)
                 else
                     game.TweenService:Create(ImageButton, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
                         {ImageColor3 = Color3.fromRGB(0,255,0)}
                         ):Play()
                     ImageButton.ImageRectOffset = Vector2.new(4, 836)
-                    default = true
                     tog = true
                     pcall(function()
-                        callback(default,tog)
+                        callback(tog)
                     end)
                 end
                 
@@ -908,20 +906,18 @@ function Blacklib:Window()
                             {ImageColor3 = Color3.fromRGB(180,180,180)}
                             ):Play()
                         ImageButton.ImageRectOffset = Vector2.new(940, 784)
-                        default = false
                         tog = false
                         pcall(function()
-                            callback(default,tog)
+                            callback(tog)
                         end)
                     else
                         game.TweenService:Create(ImageButton, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
                             {ImageColor3 = Color3.fromRGB(0,255,0)}
                             ):Play()
                         ImageButton.ImageRectOffset = Vector2.new(4, 836)
-                        default = true
                         tog = true
                         pcall(function()
-                            callback(default,tog)
+                            callback(tog)
                         end)
                     end
                 end)
