@@ -794,7 +794,7 @@ function Blacklib:Window()
             
             -- Toggled --
             function ItemHand:Toggle(Text, default, callback)
-                local tog = false
+                local tog = default or false
                 local CheckFrame = Instance.new("Frame")
                 local CheckFrame2 = Instance.new("Frame")
                 local UIStroke = Instance.new("UIStroke")
@@ -880,46 +880,33 @@ function Blacklib:Window()
                 ImageButton.ImageRectSize = Vector2.new(48, 48)
                 
                 -- Toggle Script --
-                if default then
-                    game.TweenService:Create(ImageButton, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
-                        {ImageColor3 = Color3.fromRGB(180,180,180)}
-                        ):Play()
-                    ImageButton.ImageRectOffset = Vector2.new(940, 784)
-                    tog = true
-                    pcall(function()
-                        callback(tog)
-                    end)
-                else
+                if default == true then
                     game.TweenService:Create(ImageButton, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
                         {ImageColor3 = Color3.fromRGB(0,255,0)}
                         ):Play()
                     ImageButton.ImageRectOffset = Vector2.new(4, 836)
-                    tog = false
-                    pcall(function()
-                        callback(tog)
-                    end)
+                    pcall(callback, toggle)
+                else
+                    game.TweenService:Create(ImageButton, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
+                        {ImageColor3 = Color3.fromRGB(180,180,180)}
+                        ):Play()
+                    ImageButton.ImageRectOffset = Vector2.new(940, 784)
                 end
                 
                 ImageButton.MouseButton1Click:Connect(function()
-                    if tog then
-                        game.TweenService:Create(ImageButton, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
-                            {ImageColor3 = Color3.fromRGB(180,180,180)}
-                            ):Play()
-                        ImageButton.ImageRectOffset = Vector2.new(940, 784)
-                        tog = true
-                        pcall(function()
-                            callback(tog)
-                        end)
-                    else
+                    if toggle == false then
                         game.TweenService:Create(ImageButton, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
                             {ImageColor3 = Color3.fromRGB(0,255,0)}
                             ):Play()
                         ImageButton.ImageRectOffset = Vector2.new(4, 836)
-                        tog = false
-                        pcall(function()
-                            callback(tog)
-                        end)
+                    else
+                        game.TweenService:Create(ImageButton, TweenInfo.new(0.08, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut),
+                            {ImageColor3 = Color3.fromRGB(180,180,180)}
+                            ):Play()
+                        ImageButton.ImageRectOffset = Vector2.new(940, 784)
                     end
+                    toggle = not toggle
+                    pcall(callback, toggle)
                 end)
             end
             -- End Toggle --
