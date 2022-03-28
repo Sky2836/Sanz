@@ -30,9 +30,6 @@ local Win = Blacklib:Window()
 local Main_Home = Win:Tab("• Home", "rbxassetid://8825667942")
 local Home = Main_Home:NewSection("Home Page")
 --------------------------------------------------------------------------------
-local Library = require(game:GetService("ReplicatedStorage"):WaitForChild("Framework"):WaitForChild("Library"))
-
-
 local GC = getconnections or get_signal_cons
 if GC then
     for i,v in pairs(GC(game.Players.LocalPlayer.Idled)) do
@@ -52,24 +49,6 @@ else
     end)
 end
 
-if _G.AFK == true then
-    _G.AntiAFK = true
-elseif _G.AFK == false then
-    _G.AntiAFK = false
-else
-    _G.AntiAFK = true
-end
-spawn(function()
-    while game:GetService("RunService").RenderStepped:wait() do
-        if _G.AFK then
-            game:GetService("Players").LocalPlayer.Idled:Connect(function()
-                VirtualUser:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-                wait(1)
-                VirtualUser:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-            end)
-        end
-    end
-end)
 Home:Label("Donate US for make a Best Script")
 Home:Button("Donate US", function()
     Blacklib:Notification("Donate US", "DM to Moderator Group for Donates \nThanks \n BL∆CKTRAP Team")
@@ -81,17 +60,15 @@ Home:Button("Join BL∆CKTRAP Discord", function()
 end)
 
 Home:Button("Credit Team", function()
-    Blacklib:Notification("BL∆CKTRAP TEAM", "• Ѕαиz#1594 • \n• —͟͞͞Mr.Domino#8989 • \n• IZux#0241 • \n• GoLD#1080 • \nJoin to Our Discord for New Updates \nThanks.")
+    Blacklib:Notification("BL∆CKTRAP TEAM", "• Ѕαиz#1594 • \n• —͟͞͞Mr.Domino#8989 • \n• IZux#0241 • \n• GoLD#1080 • \n• Nx#2089 • \nJoin to Our Discord for New Updates \nThanks.")
 end)
 
 Home:Label("Join to Our Discord for new Updates")
 
-Home:Toggle("Anti AFK", _G.AntiAFK, function(vu)
-    _G.AFK = vu
-end)
+Home:Label("Note : Anti AFK Automated Turn ON")
 
-Home:Toggle("FPS Boost", false, function(vu)
-	local decalsyeeted = vu
+Home:Toggle("FPS Boost", false, function(fpsfunc)
+	local decalsyeeted = fpsfunc
 	local g = game
 	local w = g.Workspace
 	local l = g.Lighting
@@ -130,8 +107,8 @@ Home:Toggle("FPS Boost", false, function(vu)
 	end
 end)
 
-Home:Toggle("Rejoin", false, function(vu)
-    _G.Rejoin = vu
+Home:Toggle("Rejoin", false, function(refunc)
+    _G.Rejoin = refunc
     while wait(3) do
         if _G.Rejoin then
 	        game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
@@ -274,6 +251,7 @@ end)
 -- Farming
 local Main_Farm = Win:Tab("• Farm Coin", "rbxassetid://9208984209")
 local FarmCoined = Main_Farm:NewSection("Farm Pages")
+local FarmChest = Main_Farm:NewSection("Chest Pages")
 ---------------------------------------------------------------------------------
 -- Service
 workspace.__THINGS.__REMOTES.MAIN:FireServer("b", "join coin")
@@ -305,16 +283,12 @@ local IMightKillMyselfCauseOfThis = {
     ['Haunted Island'] = {'Haunted Island', 'Haunted Island FRONT'};
     ['Hell Island'] = {'Hell Island'; 'Hell Island FRONT'};
     ['Heaven Island'] = {'Heaven Island'; 'Heaven Island FRONT'};
-    ['Heavens Gate'] = {'Heavens Gate'; 'Heavens Gate FRONT'};
     -- Tech
-    ['Ice Tech'] = {'Ice Tech'; "Ice Tech FRONT"};
     ['Tech City'] = {'Tech City'; 'Tech City FRONT'};
     ['Dark Tech'] = {'Dark Tech'; 'Dark Tech FRONT'};
     ['Steampunk'] = {'Steampunk'; 'Steampunk FRONT'};
-    ['Steampunk Chest'] = {'Steampunk Chest'; "Steampunk Chest FRONT"};
     ['Alien Forest'] = {"Alien Forest"; "Alien Forest FRONT"};
     ['Alien Lab'] = {"Alien lab"; "Alien Lab FRONT"};
-    ['Alien Chest'] = {"Alien Chest"; "Alien Chest FRONT"};
     ['Glitch'] = {"Glitch"; "Glitch FRONT"};
     ['Hacker Portal'] = {"Hacker Portal"; "Hacker Portal FRONT"};
     -- Axolotls
@@ -342,12 +316,50 @@ local AreaList = {
     'Pixel Forest'; 'Pixel Kyoto'; 'Pixel Alps'; 'Pixel Vault';
 }
 
+local Chests = {
+    "All";
+    '-- SPAWN WORLD --';
+    "Volcano Magma Chest";
+    '-- FANTASY WORLD --';
+    "Enchanted Forest Chest"; "Ancient Island Enchanted Chest"; "Haunted Island Haunted Chest"; "Hell Island Hell Chest"; "Heaven Island Angel Chest"; "Heavens Gate Grand Heaven Chest";
+    '-- TECH WORLD --',
+    "Giant Tech Chest"; "Giant Steampunk Chest"; "Giant Alien Chest";
+    '-- AXOLOTLS WORLD --';
+    "Giant Ocean Chest";
+    '-- PIXEL WORLD --';
+    "Giant Pixel Chest";
+    '-- OTHERS CHEST--';
+    "Giant Present"; "Diamonds";
+}
+
 --------------------------------------------------------------------------------
+local Library = require(game:GetService("ReplicatedStorage").Framework.Library)
+local Network = Library.Network
+local rs = RunService.RenderStepped
 local IDToName = {}
 local NameToID = {}
 for i,v in pairs(Library.Directory.Pets) do
     IDToName[i] = v.name
     NameToID[v.name] = i
+end
+
+function AllChests()
+    local returntable = {}
+    local ListCoins = game.workspace['__THINGS']['__REMOTES']["get coins"]:InvokeServer({})[1]
+    for i,v in pairs(ListCoins) do
+        local shit = v
+        shit["index"] = i
+        for aa,bb in pairs(Chests) do
+            if string.find(v.n, bb) then
+                local thing = string.gsub(v.n, bb.." ", "")
+                if table.find(Chests, thing) then
+                    shit.n = thing
+                    table.insert(returntable, shit)
+                end
+            end
+        end
+    end
+    return returntable
 end
 
 function GetMyPets()
@@ -417,102 +429,6 @@ function GetCoinTable(area, Type, exclude)
     return newCoinTable
 end
 
-spawn(function()
-    local CurrentFarmingPets = {}
-    while RunService.RenderStepped:wait() do
-        local pethingy = GetMyPets()
-        local cointhiny = nil
-        if _G.MultiTarget1 then
-            local cointhiny = GetCoins(_G.AreaFarm)
-            for i = 1, #cointhiny do
-                if i%#pethingy == #pethingy-1 then wait() end
-                if not CurrentFarmingPets[pethingy[i%#pethingy+1]] or CurrentFarmingPets[pethingy[i%#pethingy+1]] == nil then
-                    coroutine.wrap(function()
-                        CurrentFarmingPets[pethingy[i%#pethingy+1]] = 'Farming'
-                        FarmCoin(cointhiny[i].index, pethingy[i%#pethingy+1])
-                        repeat RunService.RenderStepped:wait(0.001)
-                        until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index) or #game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index).Pets:GetChildren() == 0  or not _G.MultiTarget1
-                        CurrentFarmingPets[pethingy[i%#pethingy+1]] = nil
-                    end)()
-                end
-            end
-        elseif _G.MultiTarget2 then
-            local cointhiny = GetCoinsNormal(_G.AreaFarm)
-            for i = 1, #cointhiny do
-                pcall(function()
-                    FarmCoin(cointhiny[i%#cointhiny+1], pethingy[i%#pethingy+1])
-                end)
-            end
-        elseif _G.LowVal then
-            local cointhiny = GetCoinTable(_G.AreaFarm, 'Lowest')
-            for i = 1, (#cointhiny >= #pethingy and #pethingy or #cointhiny) do
-                if not CurrentFarmingPets[pethingy[i%#pethingy+1]] or CurrentFarmingPets[pethingy[i%#pethingy+1]] == nil then
-                    coroutine.wrap(function()
-                        CurrentFarmingPets[pethingy[i%#pethingy+1]] = 'Farming'
-                        FarmCoin(cointhiny[i].index, pethingy[i%#pethingy+1])
-                        repeat RunService.RenderStepped:wait(0.001) until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index) or #game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index).Pets:GetChildren() == 0 or not _G.LowVal
-                        CurrentFarmingPets[pethingy[i%#pethingy+1]] = nil
-                    end)()
-                end
-            end
-        elseif _G.HighVal then
-            local cointhiny = GetCoinTable(_G.AreaFarm, 'Highest')
-            if #cointhiny >= 3 then
-                local CurrentFarmingPets = {}
-                for a = 1, 3 do
-                    coroutine.wrap(function()
-                        if CurrentFarmingPets[a] == nil then
-                            for petnum = a, #pethingy, 3 do
-                                coroutine.wrap(function()
-                                    if not CurrentFarmingPets[a] then CurrentFarmingPets[a] = {} end
-                                        if CurrentFarmingPets[a] ~= nil and game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[a].index) and not table.find(CurrentFarmingPets[a], pethingy[petnum]) then
-                                            table.insert(CurrentFarmingPets[a], pethingy[petnum])
-                                            FarmCoin(cointhiny[a].index, pethingy[petnum]) 
-                                        end
-                                end)()
-                            end
-                            repeat RunService.RenderStepped:wait(0.001) until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[a].index) or #game:GetService("Workspace")["__THINGS"].Coins[cointhiny[a].index].Pets:GetChildren() == 0  or not _G.HighVal
-                            CurrentFarmingPets[a] = nil
-                        end
-                    end)()
-                end
-            else
-                RunService.RenderStepped:wait()
-            end
-        elseif _G.FarmNorm then
-            local cointhiny = GetCoins(_G.AreaFarm)
-            for i = 1, #cointhiny do
-                if _G.FarmNorm and game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index) then
-                    for _, bb in pairs(pethingy) do
-                        coroutine.wrap(function()
-                            FarmCoin(cointhiny[i].index, bb)
-                        end)()
-                    end
-                    repeat RunService.RenderStepped:wait(0.001) until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index) or not _G.FarmNorm
-                end
-            end
-        elseif _G.NearestF then
-            local cointable = game:GetService("Workspace")["__THINGS"].Coins:GetChildren()
-            table.sort(cointable, function(i, v)
-                return (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - i.POS.Position).magnitude < (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.POS.Position).magnitude
-            end)
-            local NearestOne = cointable[1]
-            if NearestOne ~= nil then
-                for a,b in pairs(pethingy) do
-                    coroutine.wrap(function()
-                        if NearestOne ~= nil then
-                            FarmCoin(NearestOne.Name, b)
-                        end
-                    end)()
-                end
-                repeat RunService.RenderStepped:wait(0.001) until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(NearestOne.Name) or #game:GetService("Workspace")["__THINGS"].Coins[NearestOne.Name].Pets:GetChildren() == 0
-            else
-                RunService.RenderStepped:wait()
-            end
-        end
-    end
-end)
-
 if _G.MyConnection then
     _G.MyConnection:Disconnect()
 end
@@ -536,32 +452,162 @@ spawn(function()
     end
 end)
 
-FarmCoined:Dropdown("Select Area List", AreaList, function(Value)
-    _G.AreaFarm = Value
+FarmCoined:Dropdown("Select Area List", AreaList, function(areafunc)
+    _G.AreaFarm = areafunc
 end)
 
-FarmCoined:Toggle("Multi Target 1", false, function(vu)
-    _G.MultiTarget1 = vu
+FarmCoined:Toggle("Multi Target 1", false, function(multi1func)
+    _G.MultiTarget1 = multi1func
+    local CurrentFarmingPets = {}
+    while _G.MultiTarget1 do
+        local pethingy = GetMyPets()
+        local cointhiny = GetCoins(_G.AreaFarm)
+        for i = 1, #cointhiny do
+            if i%#pethingy == #pethingy-1 then wait() end
+            if not CurrentFarmingPets[pethingy[i%#pethingy+1]] or CurrentFarmingPets[pethingy[i%#pethingy+1]] == nil then
+                spawn(function()
+                    CurrentFarmingPets[pethingy[i%#pethingy+1]] = 'Farming'
+                    FarmCoin(cointhiny[i].index, pethingy[i%#pethingy+1])
+                    repeat rs:wait() until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index) or #game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index).Pets:GetChildren() == 0
+                    CurrentFarmingPets[pethingy[i%#pethingy+1]] = nil
+                end)
+            end
+        end
+    end
 end)
 
-FarmCoined:Toggle("Multi Target 2", false, function(vu)
-    _G.MultiTarget2 = vu
+FarmCoined:Toggle("Multi Target 2", false, function(multi2func)
+    _G.MultiTarget2 = multi2func
+    while _G.MultiTarget2 do
+        local pethingy = GetMyPets()
+        local cointhiny = GetCoinsNormal(_G.AreaFarm)
+        for i = 1, #cointhiny do
+            pcall(function()
+                FarmCoin(cointhiny[i], pethingy[i%#pethingy+1])
+            end)
+        end
+    end
 end)
 
-FarmCoined:Toggle("Low Value (Priority)", false, function(vu)
-    _G.LowVal = vu
+FarmCoined:Toggle("Low Value (Priority)", false, function(lowvalfunc)
+    _G.LowVal = lowvalfunc
+    local CurrentFarmingPets = {}
+    while _G.LowVal do
+        local pethingy = GetMyPets()
+        local cointhiny = GetCoinTable(_G.AreaFarm, 'Lowest')
+        for i = 1, (#cointhiny >= #pethingy and #pethingy or #cointhiny) do
+            if not CurrentFarmingPets[pethingy[i%#pethingy+1]] or CurrentFarmingPets[pethingy[i%#pethingy+1]] == nil then
+                coroutine.wrap(function()
+                    CurrentFarmingPets[pethingy[i%#pethingy+1]] = 'Farming'
+                    FarmCoin(cointhiny[i].index, pethingy[i%#pethingy+1])
+                    repeat task.wait(0.0001) until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index) or #game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index).Pets:GetChildren() == 0 or not _G.LowVal
+                    CurrentFarmingPets[pethingy[i%#pethingy+1]] = nil
+                end)()
+            end
+        end
+    end
 end)
 
-FarmCoined:Toggle("High Value (Priority)", false, function(vu)
-    _G.HighVal = vu
+FarmCoined:Toggle("High Value (Priority)", false, function(highvalfunc)
+    _G.HighVal = highvalfunc
+    local CurrentFarmingPets = {}
+    while _G.HighVal do
+        local pethingy = GetMyPets()
+        local cointhiny = GetCoinTable(_G.AreaFarm, 'Highest')
+        if #cointhiny >= 3 then
+            local CurrentFarmingPets = {}
+            for a = 1, 3 do
+                coroutine.wrap(function()
+                    if CurrentFarmingPets[a] == nil then
+                        for petnum = a, #pethingy, 3 do
+                            coroutine.wrap(function()
+                                if not CurrentFarmingPets[a] then CurrentFarmingPets[a] = {} end
+                                    if CurrentFarmingPets[a] ~= nil and game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[a].index) and not table.find(CurrentFarmingPets[a], pethingy[petnum]) then
+                                       table.insert(CurrentFarmingPets[a], pethingy[petnum])
+                                       FarmCoin(cointhiny[a].index, pethingy[petnum]) 
+                                    end
+                            end)()
+                        end
+                        repeat task.wait(0.001) until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[a].index) or #game:GetService("Workspace")["__THINGS"].Coins[cointhiny[a].index].Pets:GetChildren() == 0  or not _G.HighVal
+                            CurrentFarmingPets[a] = nil
+                    end
+                end)()
+            end
+            else
+                task.wait()
+        end
+    end
 end)
 
-FarmCoined:Toggle("Normal", false, function(vu)
-    _G.FarmNorm = vu
+FarmCoined:Toggle("Normal", false, function(farmnormfunc)
+    _G.FarmNorm = farmnormfunc
+    local CurrentFarmingPets = {}
+    while _G.FarmNorm do
+        local pethingy = GetMyPets ()
+        local cointhiny = GetCoins(_G.AreaFarm)
+        for i = 1, #cointhiny do
+            if _G.FarmNorm and game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index) then
+                for _, bb in pairs(pethingy) do
+                    coroutine.wrap(function()
+                        FarmCoin(cointhiny[i].index, bb)
+                    end)()
+                end
+                repeat task.wait(0.001) until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index) or not _G.FarmNorm
+            end
+        end
+    end
 end)
 
-FarmCoined:Toggle("Nearest", false, function(vu)
-    _G.NearestF = vu
+FarmCoined:Toggle("Nearest", false, function(nearfunc)
+    _G.NearestF = nearfunc
+    local CurrentFarmingPets = {}
+    while _G.NearestF do
+        local pethingy = GetMyPets()
+        local cointhiny = nil
+        local cointable = game:GetService("Workspace")["__THINGS"].Coins:GetChildren()
+        table.sort(cointable, function(i, v)
+            return (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - i.POS.Position).magnitude < (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.POS.Position).magnitude
+        end)
+        local NearestOne = cointable[1]
+        if NearestOne ~= nil then
+            for a,b in pairs(pethingy) do
+                coroutine.wrap(function()
+                    if NearestOne ~= nil then
+                        FarmCoin(NearestOne.Name, b)
+                    end
+                end)()
+            end
+            repeat task.wait(0.001) until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(NearestOne.Name) or #game:GetService("Workspace")["__THINGS"].Coins[NearestOne.Name].Pets:GetChildren() == 0
+                else
+                    task.wait()
+        end
+    end
+end)
+
+--------------------------------------------------------------------------------
+FarmChest:Dropdown("Chest List", Chests, function(chestlistfunc)
+    _G.ListChest = chestlistfunc
+end)
+
+FarmChest:Toggle("Enabled Chest Farm", false, function(chestfunc)
+    _G.ChestFarm = chestfunc
+    local CurrentFarmingPets = {}
+    while _G.ChestFarm do
+        local pethingy = GetMyPets()
+        local cointhiny = nil
+        for i,v in pairs(AllChests()) do
+            if (v.n == _G.ListChest) or (_G.ListChest == 'All') then
+                local starttick = tick()
+                for a, b in pairs(pethingy) do
+                    coroutine.wrap(function()
+                        FarmCoin(v.index, b)
+                    end)()
+                end
+                repeat RunService.RenderStepped:wait(0.001) until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or #game:GetService("Workspace")["__THINGS"].Coins[v.index].Pets:GetChildren() == 0 or not _G.ChestFarm
+                        --warn(v.n .. " has been broken in", tick()-starttick)
+            end
+        end
+    end
 end)
 
 ---------------------------------------------------------------------------------
@@ -596,16 +642,16 @@ for i,v in pairs(ListEgg:GetChildren()) do
     end
 end
 
-Eggs:Dropdown("Select Eggs", EggData, function(Value)
-    _G.SelectEgg = Value
+Eggs:Dropdown("Select Eggs", EggData, function(egglistfunc)
+    _G.SelectEgg = egglistfunc
 end)
 
-Eggs:Toggle("Enable Open Eggs", false, function(vu)
-    _G.OpenEgg = vu
+Eggs:Toggle("Enable Open Eggs", false, function(openeggsfunc)
+    _G.OpenEgg = openeggsfunc
 end)
 
-Eggs:Toggle("Triple Eggs (if have Gamepassed)", false, function(vu)
-    _G.TripleEggs = vu
+Eggs:Toggle("Triple Eggs (if have Gamepassed)", false, function(tripleeggfunc)
+    _G.TripleEggs = tripleeggfunc
 end)
 
 spawn(function()
@@ -702,16 +748,16 @@ local EnchantsList = {
 
 local EnchantLevel = {1, 2, 3, 4, 5}
 
-EnchantPets:Dropdown("Enchant Type", EnchantsList, function(Value)
-    _G.EnchantType = Value
+EnchantPets:Dropdown("Enchant Type", EnchantsList, function(enchantlistfunc)
+    _G.EnchantType = enchantlistfunc
 end)
 
-EnchantPets:Dropdown("Enchant Level", EnchantLevel, function(Value)
-    _G.Enchantlevel = Value
+EnchantPets:Dropdown("Enchant Level", EnchantLevel, function(enchantlevelfunc)
+    _G.Enchantlevel = enchantlevelfunc
 end)
 
-EnchantPets:Toggle("Auto Enchant", false, function(vu)
-    _G.AutoEnchant = vu
+EnchantPets:Toggle("Auto Enchant", false, function(enchantfunc)
+    _G.AutoEnchant = enchantfunc
     local Wanted = {
         [_G.EnchantType] = _G.Enchantlevel or 1;
     }
@@ -749,38 +795,38 @@ end)
 -- Gold/Rainbow
 
 local PetCount = {1, 2, 3, 4, 5, 6}
-GRpets:Dropdown("Value Amount Pets", PetCount, function(Value)
-    _G.ValuePets = Value
+GRpets:Dropdown("Value Amount Pets", PetCount, function(amountgrfunc)
+    _G.ValuePets = amountgrfunc
 end)
 
-GRpets:Toggle("AutoGolden Pets", false, function(vu)
-    _G.AutoGold = vu
+GRpets:Toggle("Auto Golden Pets", false, function(goldenfunc)
+    _G.AutoGold = goldenfunc
     while wait() and _G.AutoGold do
-        for i, v in pairs(GetPets()) do
+        for i,v in pairs(GetPets()) do
             if #v >= _G.ValuePets and _G.AutoGold then
                 if string.find(i, "Normal") and _G.AutoGold then
                     local Args = {}
                     for eeeee = 1, _G.ValuePets do
                         Args[#Args+1] = v[#Args+1]
                     end
-                    Library.Network.Invoke("use golden machine", Args)
+                    workspace.__THINGS.__REMOTES["use golden machine"]:InvokeServer({Args})
                 end
             end
         end
     end
 end)
 
-GRpets:Toggle("Auto Rainbow Pets", false, function(vu)
-    _G.AutoRainbow = vu
+GRpets:Toggle("Auto Rainbow Pets", false, function(raibowfunc)
+    _G.AutoRainbow = raibowfunc
     while wait() and _G.AutoRainbow do
-        for i, v in pairs(GetPets()) do
+        for i,v in pairs(GetPets()) do
             if #v >= _G.ValuePets and _G.AutoRainbow then
                 if string.find(i, "Gold") and _G.AutoRainbow then
                     local Args = {}
                     for eeeee = 1, _G.ValuePets do
                         Args[#Args+1] = v[#Args+1]
                     end
-                    Library.Network.Invoke("use rainbow machine", Args)
+                    workspace.__THINGS.__REMOTES["use rainbow machine"]:InvokeServer({Args})
                 end
             end
         end
@@ -789,16 +835,16 @@ end)
 
 --------------------------------------------------------------------------------
 -- Dark Matter
-DMpets:TextBox("Enter Pets Name", "Type Here", function(value)
-    _G.NameOfPet = value
+DMpets:TextBox("Enter Pets Name", "Type Here", function(dmnamefunc)
+    _G.NameOfPet = dmnamefunc
 end)
 
-DMpets:Dropdown("Value Amount Pets", PetCount, function(Value)
-    _G.CountDarkMatterFunc1 = Value
+DMpets:Dropdown("Value Amount Pets", PetCount, function(dmvalfunc)
+    _G.CountDarkMatterFunc1 = dmvalfunc
 end)
 
-DMpets:Toggle("Enable Automated Dark Matter", false, function(vu)
-    _G.AutoMakeDarkMatter = vu
+DMpets:Toggle("Enable Automated Dark Matter", false, function(dmfunc)
+    _G.AutoMakeDarkMatter = dmfunc
     while task.wait() and _G.AutoMakeDarkMatter do
         local Save = Library.Save.Get()
         local Slots = Save.DarkMatterSlots
@@ -828,8 +874,8 @@ DMpets:Toggle("Enable Automated Dark Matter", false, function(vu)
     end
 end)
 
-DMpets:Toggle("Auto Claim Dark Matters", false, function(vu)
-    _G.AutoClaimDarkMatter = vu
+DMpets:Toggle("Auto Claim Dark Matters", false, function(dmclaimfunc)
+    _G.AutoClaimDarkMatter = dmclaimfunc
     while task.wait() and _G.AutoClaimDarkMatter do
         for i,v in pairs(Library.Save.Get().DarkMatterQueue) do
             if math.floor(v.readyTime - os.time()) < 0 then
@@ -859,21 +905,22 @@ end)
 
 --------------------------------------------------------------------------------
 -- fuse
-Fusepets:TextBox("Enter Pets Name", "Type Here", function(Value)
-    _G.SelectedsPetss = Value
+Fusepets:TextBox("Enter Pets Name", "Type Here", function(fusenamefunc)
+    _G.SelectedsPetss = fusenamefunc
 end)
 
-Fusepets:Dropdown("Pet Rarity Type of", {"Normal", "Gold", "Rainbow", "Dark Matter"}, function(Value)
-    _G.TypePetsss = Value
+TypeListFuse = {"Normal"; "Gold"; "Rainbow"; "Dark Matter";}
+Fusepets:Dropdown("Pet Rarity Type of", TypeListFuse, function(fusetypefunc)
+    _G.TypePetsss = fusetypefunc
 end)
 
 Countlist = {3, 4, 5, 6, 7, 8, 9, 10, 11, 12}
-Fusepets:Dropdown('Amount Of Pets To Fuse', Countlist, function(Value)
-    _G.AmountedPetss = Value
+Fusepets:Dropdown('Amount Of Pets To Fuse', Countlist, function(fuseamount)
+    _G.AmountedPetss = fuseamount
 end)
 
-Fusepets:Toggle("Auto Fuse", false, function(vu)
-    _G.Autofuse = vu
+Fusepets:Toggle("Auto Fuse", false, function(fusefunc)
+    _G.Autofuse = fusefunc
     while wait() do
         if _G.Autofuse then
             petId = -1
@@ -885,10 +932,10 @@ Fusepets:Toggle("Auto Fuse", false, function(vu)
             end
             if (petId == -1) then
                 spawn(function()
-                    Library.Message.New("Invalid Pet Name Did u Click Enter After Typing???")
+                    Blacklib:Notification("Auto Fuse", "Please check again the name of pets.")
                     return
                 end)
-                tempSettings.machines.autoFuse = false
+                _G.Autofuse = false
                 return
             end
             local Pets = Library.Save.Get().Pets
@@ -915,7 +962,7 @@ Fusepets:Toggle("Auto Fuse", false, function(vu)
                 end
             end
             if (#selectedPets == _G.AmountedPetss) then
-                Library.Network.Invoke("fuse pets", selectedPets)
+                workspace.__THINGS.__REMOTES["fuse pets"]:InvokeServer({selectedPets})
             end
             wait(1)
         end
@@ -937,8 +984,8 @@ workspace.__THINGS.__REMOTES.MAIN:FireServer("b", "buy merchant item")
 workspace.__THINGS.__REMOTES.MAIN:FireServer("a", "Merchant Arrival")
 
 -- Merchant
-Merchant:Toggle("Auto Buy Merchant [Tier 1]", false, function(Value)
-    _G.m1 = Value
+Merchant:Toggle("Auto Buy Merchant [Tier 1]", false, function(merchant1func)
+    _G.m1 = merchant1func
     while task.wait() do
         if _G.m1 then
             if game:GetService("Players").LocalPlayer.PlayerGui.Merchant.Frame.Container:FindFirstChild("1") then
@@ -950,10 +997,10 @@ Merchant:Toggle("Auto Buy Merchant [Tier 1]", false, function(Value)
     end
 end)
 
-Merchant:Toggle("Auto Buy Merchant [Tier 2]", false, function(Value)
-    m2 = Value
+Merchant:Toggle("Auto Buy Merchant [Tier 2]", false, function(merchant2func)
+    _G.m2 = merchant2func
     while task.wait() do
-        if m2 then
+        if _G.m2 then
             if game:GetService("Players").LocalPlayer.PlayerGui.Merchant.Frame.Container:FindFirstChild("2") then
                 workspace.__THINGS.__REMOTES["get merchant items"]:InvokeServer({[2] = "2"})
                 wait(1)
@@ -963,10 +1010,10 @@ Merchant:Toggle("Auto Buy Merchant [Tier 2]", false, function(Value)
     end
 end)
 
-Merchant:Toggle("Auto Buy Merchant [Tier 3]", false, function(Value)
-    m3 = Value
+Merchant:Toggle("Auto Buy Merchant [Tier 3]", false, function(merchant3func)
+    _G.m3 = merchant3func
     while task.wait() do
-        if m3 then
+        if _G.m3 then
             if game:GetService("Players").LocalPlayer.PlayerGui.Merchant.Frame.Container:FindFirstChild("3") then
                 workspace.__THINGS.__REMOTES["get merchant items"]:InvokeServer({[3] = "3"})
                 wait(1)
@@ -996,10 +1043,10 @@ workspace.__THINGS.__REMOTES.MAIN:FireServer("b", "get bank")
 workspace.__THINGS.__REMOTES.MAIN:FireServer("b", "collect bank interest")
 
 -- Redeem
-Redeem:Toggle("Auto Redeem All Gifts Rewards", false, function(Value)
-    Gifted1 = Value
+Redeem:Toggle("Auto Redeem All Gifts Rewards", false, function(giftfunc)
+    _G.RedeemGift = giftfunc
     while RunService.RenderStepped:wait() do 
-        if Gifted1 then
+        if _G.RedeemGift then
             workspace.__THINGS.__REMOTES["redeem free gift"]:InvokeServer({1})
             workspace.__THINGS.__REMOTES["redeem free gift"]:InvokeServer({2})
             workspace.__THINGS.__REMOTES["redeem free gift"]:InvokeServer({3})
@@ -1016,8 +1063,8 @@ Redeem:Toggle("Auto Redeem All Gifts Rewards", false, function(Value)
     end
 end)
 
-Redeem:Toggle("Auto Redeem VIP/Ranks Rewards", false, function(Value)
-    _G.AutoRewards1 = Value
+Redeem:Toggle("Auto Redeem VIP/Ranks Rewards", false, function(viprankfunc)
+    _G.AutoRewards1 = viprankfunc
     while RunService.RenderStepped:wait() do
         if _G.AutoRewards1 then
             workspace.__THINGS.__REMOTES["redeem vip rewards"]:InvokeServer({})
@@ -1045,65 +1092,63 @@ for i,v in pairs((Library.Network.Invoke("get my banks"))) do
     end
 end
 
-Redeem:Toggle("Auto Redeem Bank Interest", false, function(Value)
-    _G.AutoBank = Value
+Redeem:Toggle("Auto Redeem Bank Interest", false, function(interestfunc)
+    _G.AutoInterest = interestfunc
     while RunService.RenderStepped:wait() do
-        if _G.AutoBank then
+        if _G.AutoInterest then
             local myBanks = (Library.Network.Invoke("get my banks"))
             for i,v in pairs(myBanks) do
                 if(v.Owner == Library.LocalPlayer.UserId) then
                     bankIntrest = Library.Network.Invoke("collect bank interest", v.BUID)
                     bankDetail = Library.Network.Invoke("get bank", v.BUID)
                     wait((os.time() + 86400) - bankDetail.LastInterest)
-                        
-                   
                 end
             end
         end
     end
 end)
 
-Redeem:Toggle("Auto Boost Triple Damage", false, function(Value)
-    Tripledmg = Value
+Redeem:Toggle("Auto Boost Triple Damage", false, function(tripdmgfunc)
+    _G.Tripledmg = tripdmgfunc
 end)
 
-Redeem:Toggle("Auto Boost Triple Coins", false, function(Value)
-    Triplecoins = Value
+Redeem:Toggle("Auto Boost Triple Coins", false, function(tripcoinfunc)
+    _G.Triplecoins = tripcoinfunc
 end)
 
-Redeem:Toggle("Auto Boost Super Lucky", false, function(Value)
-    Superlucky = Value
+Redeem:Toggle("Auto Boost Super Lucky", false, function(superluckyfunc)
+    _G.Superlucky = superluckyfunc
 end)
 
-Redeem:Toggle("Auto Boost Ultra Lucky", false, function(Value)
-    Ultralucky = Value
+Redeem:Toggle("Auto Boost Ultra Lucky", false, function(ultraluckyfunc)
+    _G.Ultralucky = ultraluckyfunc
 end)
 
 spawn(function()
     local boost = game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts
     while RunService.RenderStepped:wait() do
-        if Tripledmg then
+        if _G.Tripledmg then
             if not boost:FindFirstChild("Triple Damage") then
                 workspace.__THINGS.__REMOTES["activate boost"]:FireServer({[1] = "Triple Damage"})
-                repeat task.wait() until not Tripledmg or boost:FindFirstChild("Triple Damage")
+                repeat task.wait() until not _G.Tripledmg or boost:FindFirstChild("Triple Damage")
             end
         end
-        if Triplecoins then
+        if _G.Triplecoins then
             if not boost:FindFirstChild("Triple Coins") then
                 workspace.__THINGS.__REMOTES["activate boost"]:FireServer({[1] = "Triple Coins"})
-                repeat task.wait() until not Triplecoins or boost:FindFirstChild("Triple Coins")
+                repeat task.wait() until not _G.Triplecoins or boost:FindFirstChild("Triple Coins")
             end
         end
-        if Superlucky then
+        if _G.Superlucky then
             if not boost:FindFirstChild("Super Lucky") then
                 workspace.__THINGS.__REMOTES["activate boost"]:FireServer({[1] = "Super Lucky"})
-                repeat task.wait() until not Superlucky or boost:FindFirstChild("Super Lucky")
+                repeat task.wait() until not _G.Superlucky or boost:FindFirstChild("Super Lucky")
             end
         end
-        if Ultralucky then
+        if _G.Ultralucky then
             if not boost:FindFirstChild("Ultra Lucky") then
                 workspace.__THINGS.__REMOTES["activate boost"]:FireServer({[1] = "Ultra Lucky"})
-                repeat task.wait() until not Ultralucky or boost:FindFirstChild("Ultra Lucky")
+                repeat task.wait() until not _G.Ultralucky or boost:FindFirstChild("Ultra Lucky")
             end
         end
     end
@@ -1200,21 +1245,21 @@ local Settings = Main_Settings:NewSection("Settings Page")
 local Players = Main_Settings:NewSection("Players Page")
 ---------------------------------------------------------------------------------
 -- Settings
-if AutoCollect == true then
-    Bags = true
-elseif AutoCollect == false then
-    Bags = false
+if _G.AutoLootbags == true then
+    _G.Bags = true
+elseif _G.AutoLootbags == false then
+    _G.Bags = false
 else
-    Bags = true
+    _G.Bags = true
 end
-Settings:Toggle("Auto Collect Bags", Bags, function(vu)
-    AutoCollect = vu
+Settings:Toggle("Auto Collect Bags", _G.Bags, function(vu)
+    _G.AutoLootbags = vu
 end)
 
 spawn(function()
     local Running = {}
     while RunService.RenderStepped:wait() do
-        if AutoCollect then
+        if _G.AutoLootbags then
             for i, v in pairs(game:GetService("Workspace")["__THINGS"].Lootbags:GetChildren()) do
                 pcall(function()
                     if v ~= nil and v.ClassName == 'MeshPart' then
@@ -1231,7 +1276,7 @@ spawn(function()
                             end
                             repeat RunService.RenderStepped:wait()
                                 v.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame
-                            until v == nil or not v.Parent or tick() > StartTick + 1 or AutoCollect == false
+                            until v == nil or not v.Parent or tick() > StartTick + 1 or _G.AutoLootbags == false
                             Running[v.Name] = nil
                         end
                     end
@@ -1241,13 +1286,13 @@ spawn(function()
     end
 end)
 
-Settings:Toggle("Disable Animation and Notifications", false, function(Value)
-    DisNotif = Value
+Settings:Toggle("Disable Animation and Notifications", false, function(animfunc)
+    _G.DisNotif = animfunc
 end)
 
 spawn(function()
     while RunService.RenderStepped:wait() do
-        if DisNotif == true then
+        if _G.DisNotif == true then
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs.Notifications.Disabled = true
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs["Progress Notifications"].Disabled = true
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs.Achievements.Disabled = true
@@ -1268,7 +1313,7 @@ spawn(function()
             game.Players.LocalPlayer.PlayerScripts.Scripts.Game.Misc["Hacker Portal Animations"].Disabled = true
             game.Players.LocalPlayer.PlayerScripts.Scripts.Game.Misc["Void Animations"].Disabled = true
             
-        elseif DisNotif == false then
+        elseif _G.DisNotif == false then
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs.Notifications.Disabled = false
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs["Progress Notifications"].Disabled = false
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs.Achievements.Disabled = false
@@ -1310,8 +1355,8 @@ for i,v in pairs(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"
         enabledBefore = true
     end
 end
-Settings:Toggle("Stat Trackers", false, function(vu)
-    _G.statTrackers = vu
+Settings:Toggle("Stat Trackers", false, function(trackerfunc)
+    _G.statTrackers = trackerfunc
     while wait() do
         if _G.statTrackers then
             if not enabledBefore then
@@ -1354,4 +1399,3 @@ Players:Slider("Fly", 0, 500, 10, function(val)
     game:GetService('Players').LocalPlayer.Character.Humanoid.HipHeight = val
 end)
 --------------------------------------------------------------------------------
-
