@@ -885,7 +885,7 @@ function Blacklib:Window()
                         {ImageColor3 = Color3.fromRGB(180,180,180)}
                         ):Play()
                     ImageButton.ImageRectOffset = Vector2.new(940, 784)
-                    tog = false
+                    tog = true
                     pcall(function()
                         callback(tog)
                     end)
@@ -894,7 +894,7 @@ function Blacklib:Window()
                         {ImageColor3 = Color3.fromRGB(0,255,0)}
                         ):Play()
                     ImageButton.ImageRectOffset = Vector2.new(4, 836)
-                    tog = true
+                    tog = false
                     pcall(function()
                         callback(tog)
                     end)
@@ -906,7 +906,7 @@ function Blacklib:Window()
                             {ImageColor3 = Color3.fromRGB(180,180,180)}
                             ):Play()
                         ImageButton.ImageRectOffset = Vector2.new(940, 784)
-                        tog = false
+                        tog = true
                         pcall(function()
                             callback(tog)
                         end)
@@ -915,7 +915,7 @@ function Blacklib:Window()
                             {ImageColor3 = Color3.fromRGB(0,255,0)}
                             ):Play()
                         ImageButton.ImageRectOffset = Vector2.new(4, 836)
-                        tog = true
+                        tog = false
                         pcall(function()
                             callback(tog)
                         end)
