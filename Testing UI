@@ -794,7 +794,7 @@ function Blacklib:Window()
             
             -- Toggled --
             function ItemHand:Toggle(Text, default, callback)
-                local tog = default or false
+                local toggle = default or false
                 local CheckFrame = Instance.new("Frame")
                 local CheckFrame2 = Instance.new("Frame")
                 local UIStroke = Instance.new("UIStroke")
