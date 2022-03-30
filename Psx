@@ -4,23 +4,22 @@ if game:GetService("CoreGui"):FindFirstChild("BlackTrap") then
     game:GetService("CoreGui")["BlackTrap"]:Destroy()
 end
 
--- Service />
-local VirtualUser = game:GetService('VirtualUser')
-local HttpService = game:GetService("HttpService")
-local RunService = game:GetService("RunService")
-
 if game.PlaceId == 6284583030 then
     local start = tick()
-    repeat RunService.RenderStepped:wait() until game:isLoaded()
-    repeat RunService.RenderStepped:wait() until game:GetService("Players")
-    repeat RunService.RenderStepped:wait() until game:GetService("Players").LocalPlayer
-    repeat RunService.RenderStepped:wait() until game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-    repeat RunService.RenderStepped:wait() until game:GetService("Players").LocalPlayer.PlayerGui.Main.Enabled
-    repeat RunService.RenderStepped:wait() until game:GetService("Workspace"):FindFirstChild('__MAP')
+    repeat task.wait() until game:isLoaded()
+    repeat task.wait() until game:GetService("Players")
+    repeat task.wait() until game:GetService("Players").LocalPlayer
+    repeat task.wait() until game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.Main.Enabled
+    repeat task.wait() until game:GetService("Workspace"):FindFirstChild('__MAP')
 end
 
 -- Lib/>
 local Blacklib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sky2836/Sanz/main/BT%20V1.3"))()
+
+local VirtualUser = game:GetService('VirtualUser')
+local HttpService = game:GetService("HttpService")
+local RunService = game:GetService("RunService")
 
 -- Windows />
 local Win = Blacklib:Window()
@@ -251,6 +250,7 @@ end)
 -- Farming
 local Main_Farm = Win:Tab("• Farm Coin", "rbxassetid://9208984209")
 local FarmCoined = Main_Farm:NewSection("Farm Pages")
+local FarmMastery = Main_Farm:NewSection("Mastery Pages")
 local FarmChest = Main_Farm:NewSection("Chest Pages")
 ---------------------------------------------------------------------------------
 -- Service
@@ -259,8 +259,6 @@ workspace.__THINGS.__REMOTES.MAIN:FireServer("a", "farm coin")
 workspace.__THINGS.__REMOTES.MAIN:FireServer("a", "claim orbs")
 workspace.__THINGS.__REMOTES.MAIN:FireServer("a", "change pet target")
 workspace.__THINGS.__REMOTES.MAIN:FireServer("a", "toggle setting")
-
-
 local CurrencyOrder = {"Rainbow Coins", "Tech Coins", "Fantasy Coins", "Coins", "Diamonds",}
 
 local IMightKillMyselfCauseOfThis = {
@@ -328,10 +326,209 @@ local Chests = {
     "Giant Ocean Chest";
     '-- PIXEL WORLD --';
     "Giant Pixel Chest";
-    '-- OTHERS CHEST--';
-    "Giant Present"; "Diamonds";
 }
 
+
+local CratesMasteryList = {"Town Crate"; "Forest Crate"; "Beach Crate"; "Mine Crate"; "Desert Crate"; "Volcano Crate"; "Winter Crate"; "Glacier Crate"; "Enchanted Forest Crate"; "Ancient Island Crate"; "Samurai Island Crate"; "Candy Island Crate"; "Haunted Island Crate"; "Hell Island Crate"; "Heaven Island Crate"; "Tech City Crate"; "Dark Tech Crate"; "Alien Forest Crate"; "Axolotl Ocean Crate"; "Pixel Forest Crate"; "Pixel Alps Crate";}
+
+local CoinsPilesMasteryList ={"Town Coins", "Town Large Coins", 'Town Tiny Coins', "Forest Coins", "Forest Large Coins", "Forest Tiny Coins", "Beach Coins", "Beach Large Coins", "Beach Tiny Coins", "Mine Coins", "Mine Large Coins", "Mine Tiny Coins", "Desert Coins", "Desert Large Coins", "Desert Tiny Coins", "Volcano Coins", "Volcano Large Coins", "Volcano Tiny Coins", "Winter Coins", "Winter Large Coins", "Winter Tiny Coins", "Glacier Coins", "Glacier Large Coins", "Glacier Tiny Coins", "Enchanted Forest Coins", "Enchanted Forest Large Coins", "Enchanted Forest Tiny Coins", "Ancient Island Coins", "Ancient Island Large Coins", "Ancient Island Tiny Coins", "Samurai Island Coins", "Samurai Island Large Coins", "Samurai Island Tiny Coins", "Candy Island Coins", "Candy Island Large Coins", "Candy Island Tiny Coins", "Haunted Island Coins", 'Haunted Island Large Coins', 'Haunted Island Tiny Coins', 'Heaven Island Coins', 'Heaven Island Large Coins', 'Heaven Island Tiny Coins', 'Tech City Coins', 'Tech City Large Coins', 'Tech City Tiny Coins', 'Dark Tech Coins', 'Dark Tech Large Coins', 'Dark Tech Tiny Coins', 'Steampunk Coins', 'Steampunk Large Coins', 'Steampunk Tiny Coins', 'Alien Lab Coins', 'Alien Lab Large Coins', 'Alien Lab Tiny Coins', 'Alien Forest Coins', 'Alien Forest Large Coins', 'Alien Forest Tiny Coins', 'Blue Glitched Coins', 'Blue Glitched Large Coins', 'Blue Glitched Tiny Coins', 'Pink Glitched Coins', 'Pink Glitched Large Coins', 'Pink Glitched Tiny Coins', 'Axolotl Ocean Coins', 'Axolotl Ocean Large Coins', 'Axolotl Ocean Tiny Coins', 'Pixel Forest Coins', 'Pixel Forest Large Coins', 'Pixel Forest Tiny Coins', 'Pixel Kyoto Coins', 'Pixel Kyoto Large Coins'}
+
+
+local ChestsMasteryList = {'Town Chest', "Forest Small Chest", "Forest Chest", "Beach Chest", "Beach Small Chest", "Mine Small Chest", "Mine Chest", "Desert Chest", "Desert Small Chest", "Winter Chest", "Winter Small Chest", "Glacier Chest", "Glacier Small Chest", "Enchanted Forest Chest", "Enchanted Forest Small Chest", "Samurai Island Chest", "Samurai Island Small Chest", "Candy Island Chest", "Candy Island Small Chest", "Hell Island Chest", 'Hell Island Small Chest', "Heaven Island Chest", 'Heaven Island Small Chest', "Axolotl Deep Ocean Chest", "Axolotl Deep Ocean Small Chest", "Pixel Forest Chest", 'Pixel Forest Small Chest', "Pixel Kyoto Chest", 'Pixel Kyoto Small Chest'}
+
+local PresentsMasteryList = {"Town Present", "Forest Present", "Beach Present", "Mine Present", "Desert Present", "Volcano Present", "Winter Present", "Glacier Present", "Enchanted Forest Present", "Ancient Island Present", "Samurai Island Present", "Candy Island Present", "Haunted Island Present", "Hell Island Present", "Heaven Island Present", "Tech City Present", "Dark Tech Present", "Alien Forest Present", "Blue Glitched Present", "Pink Glitched Present", "Axolotl Ocean Present", "Pixel Forest Present", "Pixel Kyoto Present", "Pixel Kyoto Large Present"}
+
+local VaultsSafesMasteryList = {"Forest Safe", "Forest Vault", "Beach Safe", "Beach Vault", "Mine Safe", "Mine Vault", "Desert Safe", "Desert Vault", "Volcano Safe", "Volcano Vault", "Winter Safe", "Winter Vault", "Glacier Safe", "Glacier Vault", "Enchanted Forest Safe", "Enchanted Forest Vault", "Ancient Island Vault", 'Ancient Island Safe', "Candy Island Vault", 'Candy Island Safe', "Haunted Island Vault", 'Haunted Island Safe', "Heaven Island Vault", 'Heaven Island Safe', "Tech City Vault", 'Tech City Safe', "Steampunk Vault", 'Steampunk Safe', "Alien Lab Vault", 'Alien Lab Safe', "Blue Glitched Vault", 'Blue Glitched Safe', "Pink Glitched Vault", 'Pink Glitched Safe', "Axolotl Deep Ocean Vault", 'Axolotl Deep Ocean Safe', "Pixel Forest Vault", 'Pixel Forest Safe', "Pixel Vault"}
+
+FarmMastery:Label("Note : If the index is [nil] change the Worlds")
+local DiamondsMasteryList = {"Diamonds", "Tiny Diamonds"}
+local MasteryIndex = {"Coins Piles Mastery", "Crates Mastery", "Chests Mastery", "Presents Mastery", "Vaults & Safes Mastery", "Diamonds Mastery"}
+FarmMastery:Dropdown("Mastery List", MasteryIndex, function(selectmasteryfunc)
+    _G.MasteryList = selectmasteryfunc
+end)
+
+FarmMastery:Toggle("Auto Farm Mastery", false, function(masteryfunc)
+    _G.Mastery = masteryfunc
+    local CurrentFarmingPets = {}
+    while _G.Mastery do
+        local pethingy = GetMyPets()
+        if _G.MasteryList == "Crates Mastery" then
+            pcall(function()
+                for i,v in pairs(CratesMastery()) do
+                    if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
+                        repeat task.wait()
+                            FarmCoin(v.index, pethingy[v.index%#pethingy+1])
+                        until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.Mastery
+                    end
+                end
+            end)
+        elseif _G.MasteryList == "Coins Piles Mastery" then
+            pcall(function()
+                for i,v in pairs(CoinsPilesMastery()) do
+                    if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
+                        repeat task.wait()
+                            FarmCoin(v.index, pethingy[v.index%#pethingy+1])
+                        until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.Mastery
+                    end
+                end
+            end)
+        elseif _G.MasteryList == "Chests Mastery" then
+            pcall(function()
+                for i,v in pairs(ChestsMastery()) do
+                    if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
+                        repeat task.wait()
+                            FarmCoin(v.index, pethingy[v.index%#pethingy+1])
+                        until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.Mastery
+                    end
+                end
+            end)
+        elseif _G.MasteryList == "Presents Mastery" then
+            pcall(function()
+                for i,v in pairs(PresentsMastery()) do
+                    if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
+                        repeat task.wait()
+                            FarmCoin(v.index, pethingy[v.index%#pethingy+1])
+                        until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.Mastery
+                    end
+                end
+            end)
+        elseif _G.MasteryList == 'Vaults & Safes Mastery' then
+            pcall(function()
+                for i,v in pairs(VaultsSafesMastery()) do
+                    if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
+                        repeat task.wait()
+                            FarmCoin(v.index, pethingy[v.index%#pethingy+1])
+                        until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.Mastery
+                    end
+                end
+            end)
+        elseif _G.MasteryList == "Diamonds Mastery" then
+            pcall(function()
+                for i,v in pairs(DiamondsMastery()) do
+                    if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
+                        repeat task.wait()
+                            FarmCoin(v.index, pethingy[v.index%#pethingy+1])
+                        until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.Mastery
+                    end
+                end
+            end)
+        end
+    end
+end)
+
+function CratesMastery()
+    local returntable = {}
+    local ListCoins = game.workspace['__THINGS']['__REMOTES']["get coins"]:InvokeServer({})[1]
+    for i,v in pairs(ListCoins) do
+        local shit = v
+        shit["index"] = i
+        for aa,bb in pairs(CratesMasteryList) do
+            if string.find(v.n, bb) then
+                local thing = string.gsub(v.n, bb.." ", " ")
+                if table.find(CratesMasteryList, thing) then
+                    shit.n = thing
+                    table.insert(returntable, shit)
+                end
+            end
+        end
+    end
+    return returntable
+end
+
+function CoinsPilesMastery()
+    local returntable = {}
+    local ListCoins = game.workspace['__THINGS']['__REMOTES']["get coins"]:InvokeServer({})[1]
+    for i,v in pairs(ListCoins) do
+        local shit = v
+        shit["index"] = i
+        for aa,bb in pairs(CoinsPilesMasteryList) do
+            if string.find(v.n, bb) then
+                local thing = string.gsub(v.n, bb.." ", " ")
+                if table.find(CoinsPilesMasteryList, thing) then
+                    shit.n = thing
+                    table.insert(returntable, shit)
+                end
+            end
+        end
+    end
+    return returntable
+end
+
+function ChestsMastery()
+    local returntable = {}
+    local ListCoins = game.workspace['__THINGS']['__REMOTES']["get coins"]:InvokeServer({})[1]
+    for i,v in pairs(ListCoins) do
+        local shit = v
+        shit["index"] = i
+        for aa,bb in pairs(ChestsMasteryList) do
+            if string.find(v.n, bb) then
+                local thing = string.gsub(v.n, bb.." ", " ")
+                if table.find(ChestsMasteryList, thing) then
+                    shit.n = thing
+                    table.insert(returntable, shit)
+                end
+            end
+        end
+    end
+    return returntable
+end
+
+function PresentsMastery()
+    local returntable = {}
+    local ListCoins = game.workspace['__THINGS']['__REMOTES']["get coins"]:InvokeServer({})[1]
+    for i,v in pairs(ListCoins) do
+        local shit = v
+        shit["index"] = i
+        for aa,bb in pairs(PresentsMasteryList) do
+            if string.find(v.n, bb) then
+                local thing = string.gsub(v.n, bb.." ", " ")
+                if table.find(PresentsMasteryList, thing) then
+                    shit.n = thing
+                    table.insert(returntable, shit)
+                end
+            end
+        end
+    end
+    return returntable
+end
+
+function VaultsSafesMastery()
+    local returntable = {}
+    local ListCoins = game.workspace['__THINGS']['__REMOTES']["get coins"]:InvokeServer({})[1]
+    for i,v in pairs(ListCoins) do
+        local shit = v
+        shit["index"] = i
+        for aa,bb in pairs(VaultsSafesMasteryList) do
+            if string.find(v.n, bb) then
+                local thing = string.gsub(v.n, bb.." ", " ")
+                if table.find(VaultsSafesMasteryList, thing) then
+                    shit.n = thing
+                    table.insert(returntable, shit)
+                end
+            end
+        end
+    end
+    return returntable
+end
+
+function DiamondsMastery()
+    local returntable = {}
+    local ListCoins = game.workspace['__THINGS']['__REMOTES']["get coins"]:InvokeServer({})[1]
+    for i,v in pairs(ListCoins) do
+        local shit = v
+        shit["index"] = i
+        for aa,bb in pairs(DiamondsMasteryList) do
+            if string.find(v.n, bb) then
+                local thing = string.gsub(v.n, bb.." ", " ")
+                if table.find(DiamondsMasteryList, thing) then
+                    shit.n = thing
+                    table.insert(returntable, shit)
+                end
+            end
+        end
+    end
+    return returntable
+end
 --------------------------------------------------------------------------------
 local Library = require(game:GetService("ReplicatedStorage").Framework.Library)
 local Network = Library.Network
@@ -351,7 +548,7 @@ function AllChests()
         shit["index"] = i
         for aa,bb in pairs(Chests) do
             if string.find(v.n, bb) then
-                local thing = string.gsub(v.n, bb.." ", "")
+                local thing = string.gsub(v.n, bb.." ", " ")
                 if table.find(Chests, thing) then
                     shit.n = thing
                     table.insert(returntable, shit)
@@ -468,7 +665,7 @@ FarmCoined:Toggle("Multi Target 1", false, function(multi1func)
                 spawn(function()
                     CurrentFarmingPets[pethingy[i%#pethingy+1]] = 'Farming'
                     FarmCoin(cointhiny[i].index, pethingy[i%#pethingy+1])
-                    repeat rs:wait() until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index) or #game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index).Pets:GetChildren() == 0
+                    repeat task.wait() until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index) or #game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(cointhiny[i].index).Pets:GetChildren() == 0
                     CurrentFarmingPets[pethingy[i%#pethingy+1]] = nil
                 end)
             end
@@ -594,17 +791,16 @@ FarmChest:Toggle("Enabled Chest Farm", false, function(chestfunc)
     local CurrentFarmingPets = {}
     while _G.ChestFarm do
         local pethingy = GetMyPets()
-        local cointhiny = nil
         for i,v in pairs(AllChests()) do
             if (v.n == _G.ListChest) or (_G.ListChest == 'All') then
-                local starttick = tick()
-                for a, b in pairs(pethingy) do
+                local StartTick = tick()
+                for a,b in pairs(pethingy) do
                     coroutine.wrap(function()
                         FarmCoin(v.index, b)
+                        tick(StartTick)
+                        repeat task.wait() until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or #game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index).Pets:GetChildren() == 0 or tick() > StartTick + 1 or not _G.ChestFarm
                     end)()
                 end
-                repeat RunService.RenderStepped:wait(0.001) until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or #game:GetService("Workspace")["__THINGS"].Coins[v.index].Pets:GetChildren() == 0 or not _G.ChestFarm
-                        --warn(v.n .. " has been broken in", tick()-starttick)
             end
         end
     end
@@ -622,22 +818,12 @@ workspace.__THINGS.__REMOTES.MAIN:FireServer("b", "buy egg")
 local EggData = {}
 local ListEgg = game:GetService("ReplicatedStorage").Game.Eggs
 for i,v in pairs(ListEgg:GetChildren()) do
-    table.insert(EggData, "-- ".. v.Name .. " --")
-    for aa,bb in pairs(v:GetChildren()) do
-        if v.Name == 'Pixel Eggs' then
-            table.insert(EggData, bb.Name)
-        end
-        if v.Name == 'Axolotl Ocean' then
-            table.insert(EggData, bb.Name)
-        end
-        if v.Name == 'Tech Eggs' then
-            table.insert(EggData, bb.Name)
-        end
-        if v.Name == 'Fantasy Eggs' then
-            table.insert(EggData, bb.Name)
-        end
-        if v.Name == 'Spawn Eggs' then
-            table.insert(EggData, bb.Name)
+    if v.Name == 'Pixel Eggs' or v.Name == 'Axolotl Ocean' or v.Name == 'Tech Eggs' or v.Name == 'Fantasy Eggs' or v.Name == 'Spawn Eggs' or v.Name == 'Other' then
+        table.insert(EggData, "-- " .. v.Name .. " World --")
+        for aa,bb in pairs(v:GetChildren()) do
+            if v.Name == 'Pixel Eggs' or v.Name == 'Axolotl Ocean' or v.Name == 'Tech Eggs' or v.Name == 'Fantasy Eggs' or v.Name == 'Spawn Eggs' or v.Name == 'Other' then
+                table.insert(EggData, bb.Name)
+            end
         end
     end
 end
@@ -648,24 +834,18 @@ end)
 
 Eggs:Toggle("Enable Open Eggs", false, function(openeggsfunc)
     _G.OpenEgg = openeggsfunc
+    while _G.OpenEgg do
+        local Table1 = {
+            [1] = _G.SelectEgg,
+            [2] = _G.TripleEggs
+        }
+        Workspace.__THINGS.__REMOTES["buy egg"]:InvokeServer(Table1)
+    end
 end)
 
 Eggs:Toggle("Triple Eggs (if have Gamepassed)", false, function(tripleeggfunc)
     _G.TripleEggs = tripleeggfunc
 end)
-
-spawn(function()
-    while RunService.RenderStepped:wait() do
-        if _G.OpenEgg then
-            local Table1 = {
-                [1] = _G.SelectEgg,
-                [2] = _G.TripleEggs
-            }
-            Workspace.__THINGS.__REMOTES["buy egg"]:InvokeServer(Table1)
-        end
-    end
-end)
-
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 local Main_Pets = Win:Tab("• Pets", "rbxassetid://8879573067")
@@ -697,20 +877,6 @@ for i,v in pairs(Library.Directory.Pets) do
         table.insert(RarityTable, v.rarity)
     end
     table.insert(PetNamesTable, v.name)
-end
-
-function GetPetTable(PetUID)
-    for i, v in pairs(Library.Save.Get().Pets) do
-        if v.uid == PetUID then
-            return v
-        end
-    end
-end
-
-local PettoRarity = {}
-local a = require(game:GetService("ReplicatedStorage").Framework.Modules["1 | Directory"].Pets["Grab All Pets"])
-for i, v in pairs(a) do
-    PettoRarity[i] = v.rarity
 end
 
 function GetPets()
@@ -756,6 +922,19 @@ EnchantPets:Dropdown("Enchant Level", EnchantLevel, function(enchantlevelfunc)
     _G.Enchantlevel = enchantlevelfunc
 end)
 
+local PettoRarity = {}
+local a = require(game:GetService("ReplicatedStorage").Framework.Modules["1 | Directory"].Pets["Grab All Pets"])
+for i, v in pairs(a) do
+    PettoRarity[i] = v.rarity
+end
+function GetPetTable(PetUID)
+    for i, v in pairs(Library.Save.Get().Pets) do
+        if v.uid == PetUID then
+            return v
+        end
+    end
+end
+    
 EnchantPets:Toggle("Auto Enchant", false, function(enchantfunc)
     _G.AutoEnchant = enchantfunc
     local Wanted = {
@@ -1045,7 +1224,7 @@ workspace.__THINGS.__REMOTES.MAIN:FireServer("b", "collect bank interest")
 -- Redeem
 Redeem:Toggle("Auto Redeem All Gifts Rewards", false, function(giftfunc)
     _G.RedeemGift = giftfunc
-    while RunService.RenderStepped:wait() do 
+    while task.wait() do 
         if _G.RedeemGift then
             workspace.__THINGS.__REMOTES["redeem free gift"]:InvokeServer({1})
             workspace.__THINGS.__REMOTES["redeem free gift"]:InvokeServer({2})
@@ -1065,7 +1244,7 @@ end)
 
 Redeem:Toggle("Auto Redeem VIP/Ranks Rewards", false, function(viprankfunc)
     _G.AutoRewards1 = viprankfunc
-    while RunService.RenderStepped:wait() do
+    while task.wait() do
         if _G.AutoRewards1 then
             workspace.__THINGS.__REMOTES["redeem vip rewards"]:InvokeServer({})
             workspace.__THINGS.__REMOTES["redeem rank rewards"]:InvokeServer({})
@@ -1094,7 +1273,7 @@ end
 
 Redeem:Toggle("Auto Redeem Bank Interest", false, function(interestfunc)
     _G.AutoInterest = interestfunc
-    while RunService.RenderStepped:wait() do
+    while task.wait() do
         if _G.AutoInterest then
             local myBanks = (Library.Network.Invoke("get my banks"))
             for i,v in pairs(myBanks) do
@@ -1126,7 +1305,7 @@ end)
 
 spawn(function()
     local boost = game:GetService("Players").LocalPlayer.PlayerGui.Main.Boosts
-    while RunService.RenderStepped:wait() do
+    while task.wait() do
         if _G.Tripledmg then
             if not boost:FindFirstChild("Triple Damage") then
                 workspace.__THINGS.__REMOTES["activate boost"]:FireServer({[1] = "Triple Damage"})
@@ -1252,13 +1431,13 @@ elseif _G.AutoLootbags == false then
 else
     _G.Bags = true
 end
-Settings:Toggle("Auto Collect Bags", _G.Bags, function(vu)
-    _G.AutoLootbags = vu
+Settings:Toggle("Auto Collect Bags", _G.Bags, function(autolootfunc)
+    _G.AutoLootbags = autolootfunc
 end)
 
 spawn(function()
     local Running = {}
-    while RunService.RenderStepped:wait() do
+    while task.wait() do
         if _G.AutoLootbags then
             for i, v in pairs(game:GetService("Workspace")["__THINGS"].Lootbags:GetChildren()) do
                 pcall(function()
@@ -1274,7 +1453,7 @@ spawn(function()
                                     v2:Destroy()
                                 end
                             end
-                            repeat RunService.RenderStepped:wait()
+                            repeat task.wait()
                                 v.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame
                             until v == nil or not v.Parent or tick() > StartTick + 1 or _G.AutoLootbags == false
                             Running[v.Name] = nil
@@ -1291,7 +1470,7 @@ Settings:Toggle("Disable Animation and Notifications", false, function(animfunc)
 end)
 
 spawn(function()
-    while RunService.RenderStepped:wait() do
+    while wait() do
         if _G.DisNotif == true then
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs.Notifications.Disabled = true
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs["Progress Notifications"].Disabled = true
