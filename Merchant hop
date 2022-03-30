@@ -91,7 +91,7 @@ function useTeleport()
         getgenv().totalServers = ]]..totalServers..[[
         getgenv().totalServersMerchant = ]]..totalServersMerchant..[[
         getgenv().itemsBought = ]]..itemsBought..[[
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/FREEHugeGames/Roblox/main/MerchantHop.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Sky2836/Sanz/main/Merchant%20hop"))()
     ]])
     Teleport()
 end
