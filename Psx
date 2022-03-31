@@ -297,7 +297,6 @@ local IMightKillMyselfCauseOfThis = {
     ['Pixel Forest'] = {'Pixel Forest'; 'Pixel Forest FRONT'};
     ['Pixel Kyoto'] = {'Pixel Kyoto'; 'Pixel Kyoto FRONT'};
     ['Pixel Alps'] = {'Pixel Alps'; 'Pixel Alps FRONT'};
-    ['Pixel Vault'] = {'Pixel Vault'; 'Pixel Vault FRONT'};
 }
 
 local AreaList = {
@@ -305,13 +304,13 @@ local AreaList = {
     '-- SPAWN WORLD --';
     'Town'; 'Forest'; 'Beach'; 'Mine'; 'Winter'; 'Glacier'; 'Desert'; 'Volcano';
     '-- FANTASY WORLD --';
-    'Enchanted Forest'; 'Ancient Island'; 'Samurai Island'; 'Candy Island'; 'Haunted Island'; 'Hell Island'; 'Heaven Island'; 'Heavens Gate';
+    'Enchanted Forest'; 'Ancient Island'; 'Samurai Island'; 'Candy Island'; 'Haunted Island'; 'Hell Island'; 'Heaven Island';
     '-- TECH WORLD --';
-    'Ice Tech'; 'Tech City'; 'Dark Tech'; 'Steampunk'; 'Steampunk Chest'; 'Alien Lab'; 'Alien Forest'; 'Alien Chest'; 'Glitch'; 'Hacker Portal';
+    'Tech City'; 'Dark Tech'; 'Steampunk'; 'Alien Lab'; 'Alien Forest'; 'Glitch'; 'Hacker Portal';
     '-- AXOLOTLS WORLD --';
     'Axolotl Ocean'; 'Axolotl Deep Ocean'; 'Axolotl Cave';
     '-- PIXEL WORLD --';
-    'Pixel Forest'; 'Pixel Kyoto'; 'Pixel Alps'; 'Pixel Vault';
+    'Pixel Forest'; 'Pixel Kyoto'; 'Pixel Alps';
 }
 
 local Chests = {
@@ -338,9 +337,9 @@ local ChestsMasteryList = {'Town Chest', "Forest Small Chest", "Forest Chest", "
 
 local PresentsMasteryList = {"Town Present", "Forest Present", "Beach Present", "Mine Present", "Desert Present", "Volcano Present", "Winter Present", "Glacier Present", "Enchanted Forest Present", "Ancient Island Present", "Samurai Island Present", "Candy Island Present", "Haunted Island Present", "Hell Island Present", "Heaven Island Present", "Tech City Present", "Dark Tech Present", "Alien Forest Present", "Blue Glitched Present", "Pink Glitched Present", "Axolotl Ocean Present", "Pixel Forest Present", "Pixel Kyoto Present", "Pixel Kyoto Large Present"}
 
-local VaultsSafesMasteryList = {"Forest Safe", "Forest Vault", "Beach Safe", "Beach Vault", "Mine Safe", "Mine Vault", "Desert Safe", "Desert Vault", "Volcano Safe", "Volcano Vault", "Winter Safe", "Winter Vault", "Glacier Safe", "Glacier Vault", "Enchanted Forest Safe", "Enchanted Forest Vault", "Ancient Island Vault", 'Ancient Island Safe', "Candy Island Vault", 'Candy Island Safe', "Haunted Island Vault", 'Haunted Island Safe', "Heaven Island Vault", 'Heaven Island Safe', "Tech City Vault", 'Tech City Safe', "Steampunk Vault", 'Steampunk Safe', "Alien Lab Vault", 'Alien Lab Safe', "Blue Glitched Vault", 'Blue Glitched Safe', "Pink Glitched Vault", 'Pink Glitched Safe', "Axolotl Deep Ocean Vault", 'Axolotl Deep Ocean Safe', "Pixel Forest Vault", 'Pixel Forest Safe', "Pixel Vault"}
+local VaultsSafesMasteryList = {"Forest Safe", "Forest Vault", "Beach Safe", "Beach Vault", "Mine Safe", "Mine Vault", "Desert Safe", "Desert Vault", "Volcano Safe", "Volcano Vault", "Winter Safe", "Winter Vault", "Glacier Safe", "Glacier Vault", "Enchanted Forest Safe", "Enchanted Forest Vault", "Ancient Island Vault", 'Ancient Island Safe', "Candy Island Vault", 'Candy Island Safe', "Haunted Island Vault", 'Haunted Island Safe', "Heaven Island Vault", 'Heaven Island Safe', "Tech City Vault", 'Tech City Safe', "Steampunk Vault", 'Steampunk Safe', "Alien Lab Vault", 'Alien Lab Safe', "Blue Glitched Vault", 'Blue Glitched Safe', "Pink Glitched Vault", 'Pink Glitched Safe', "Axolotl Deep Ocean Vault", 'Axolotl Deep Ocean Safe', "Pixel Forest Vault", 'Pixel Forest Safe', "Pixel Vault Safe", "Pixel Vault Vault"}
 
-FarmMastery:Label("Note : If the index is [nil] change the Worlds")
+FarmMastery:Label("Note : If the index is [nil] change the Maps")
 local DiamondsMasteryList = {"Diamonds", "Tiny Diamonds"}
 local MasteryIndex = {"Coins Piles Mastery", "Crates Mastery", "Chests Mastery", "Presents Mastery", "Vaults & Safes Mastery", "Diamonds Mastery"}
 FarmMastery:Dropdown("Mastery List", MasteryIndex, function(selectmasteryfunc)
@@ -392,7 +391,7 @@ FarmMastery:Toggle("Auto Farm Mastery", false, function(masteryfunc)
                     end
                 end
             end)
-        elseif _G.MasteryList == 'Vaults & Safes Mastery' then
+        elseif _G.MasteryList == "Vaults & Safes Mastery" then
             pcall(function()
                 for i,v in pairs(VaultsSafesMastery()) do
                     if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
@@ -634,6 +633,36 @@ _G.MyConnection = game.Workspace.__THINGS.Orbs.ChildAdded:Connect(function(Orb)
     Orb.Name:Destroy()
 end)
 
+local PixelList = {"Pixel Vault Vault", "Pixel Vault Safe", "Diamonds", "Tiny Diamonds"}
+
+function PixelVaultAreas()
+    local returntable = {}
+    local ListCoins = game.workspace['__THINGS']['__REMOTES']["get coins"]:InvokeServer({})[1]
+    for i,v in pairs(ListCoins) do
+        local shit = v
+        shit["index"] = i
+        for aa,bb in pairs(PixelList) do
+            if string.find(v.n, bb) then
+                local thing = string.gsub(v.n, bb.." ", " ")
+                if table.find(PixelList, thing) then
+                    shit.n = thing
+                    table.insert(returntable, shit)
+                end
+            end
+        end
+    end
+    return returntable
+end
+function PixelAreasss()
+    local returntable = {}
+    local ListCoins = game.workspace['__THINGS']['__REMOTES']["get coins"]:InvokeServer({})[1]
+    for i,v in pairs(ListCoins) do
+        if v.Name == "Pixel Vault Vault" or v.Name == "Pixel Vault Safe" then
+            table.insert(returntable, i)
+        end
+    end
+    return returntable
+end
 ---------------------------------------------------------------------------------
 local FP = FarmCoined:Label("")
 local Device = FarmCoined:Label("")
@@ -642,6 +671,39 @@ spawn(function()
         FP:Refresh("FPS : "..tostring(game:GetService("Stats").Workspace.FPS:GetValueString()))
     end
 end)
+FarmCoined:Label("Without hitting the big chest")
+FarmCoined:Toggle("Auto Farm Pixel Vault Mode 1", false, function(pixelfunc)
+    _G.PixelVault = pixelfunc
+    while _G.PixelVault do
+        local pethingy = GetMyPets()
+        pcall(function()
+            for i,v in pairs(PixelVaultAreas()) do
+                if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
+                    repeat task.wait()
+                        FarmCoin(v.index, pethingy[v.index%#pethingy+1])
+                    until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.PixelVault
+                end
+            end
+        end)
+    end
+end)
+
+FarmCoined:Toggle("Auto Farm Pixel Vault Mode 2", false, function(pixelfunc2)
+    _G.PixelVault2 = pixelfunc2
+    while _G.PixelVault2 do
+        local pethingy = GetMyPets()
+        local CurrentFarmingPets = {}
+        for i,v in pairs(PixelVaultAreas()) do
+            if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
+                coroutine.wrap(function()
+                    FarmCoin(v.index, pethingy[v.index%#pethingy+1])
+                    repeat task.wait() until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.PixelVault2
+                end)()
+            end
+        end
+    end
+end)
+        
 FarmCoined:Label("Note : Adjust your pet if you want to use Multitarget 1")
 spawn(function()
     while game:GetService("RunService").RenderStepped:wait() do
@@ -831,7 +893,7 @@ end
 Eggs:Dropdown("Select Eggs", EggData, function(egglistfunc)
     _G.SelectEgg = egglistfunc
 end)
-
+Eggs:Label("Will Automated Open & Close Inventory every 3 Minutes")
 Eggs:Toggle("Enable Open Eggs", false, function(openeggsfunc)
     _G.OpenEgg = openeggsfunc
     while _G.OpenEgg do
@@ -846,6 +908,18 @@ end)
 Eggs:Toggle("Triple Eggs (if have Gamepassed)", false, function(tripleeggfunc)
     _G.TripleEggs = tripleeggfunc
 end)
+
+spawn(function()
+    while task.wait() do
+        if _G.OpenEgg then
+            wait(180)
+            game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Enabled = true
+            wait(1)
+            game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Enabled = false
+        end
+    end
+end)
+
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 local Main_Pets = Win:Tab("• Pets", "rbxassetid://8879573067")
@@ -934,7 +1008,7 @@ function GetPetTable(PetUID)
         end
     end
 end
-    
+EnchantPets:Label("Enchant Your Equipped Pets")
 EnchantPets:Toggle("Auto Enchant", false, function(enchantfunc)
     _G.AutoEnchant = enchantfunc
     local Wanted = {
@@ -1100,52 +1174,43 @@ end)
 
 Fusepets:Toggle("Auto Fuse", false, function(fusefunc)
     _G.Autofuse = fusefunc
-    while wait() do
-        if _G.Autofuse then
-            petId = -1
-            for i,v in pairs(Library.Directory.Pets) do
-                if (string.lower(v["name"]) == string.lower(_G.SelectedsPetss)) then
-                    petId = i
-                    break
-                end
+    while task.wait() and _G.Autofuse do
+        petId = -1
+        for i,v in pairs(Library.Directory.Pets) do
+            if (string.lower(v["name"]) == string.lower(_G.SelectedsPetss)) then
+                petId = i
             end
-            if (petId == -1) then
-                spawn(function()
-                    Blacklib:Notification("Auto Fuse", "Please check again the name of pets.")
-                    return
-                end)
-                _G.Autofuse = false
-                return
-            end
-            local Pets = Library.Save.Get().Pets
-            local selectedPets = {}
-            for i,v in ipairs(Pets) do
-                local petRarityTable = Library.PetCmds.Get(v.uid)
-                if not (#selectedPets == _G.AmountedPetss) then
-                    if (v.id == (tostring(petId))) then
-                        if (_G.TypePetsss == "Normal") and not (petRarityTable.r) and not (petRarityTable.g) and not (petRarityTable.dm) then
-                            table.insert(selectedPets, v.uid)
-                        end
-                        if (_G.TypePetsss == "Gold") and (petRarityTable.g) then
-                            table.insert(selectedPets, v.uid)
-                        end
-                        if (_G.TypePetsss == "Rainbow") and (petRarityTable.r) then
-                            table.insert(selectedPets, v.uid)
-                        end
-                        if (_G.TypePetsss == "Dark Matter") and (petRarityTable.dm) then
-                            table.insert(selectedPets, v.uid)
-                        end
-                    end
-                else
-                    break
-                end
-            end
-            if (#selectedPets == _G.AmountedPetss) then
-                workspace.__THINGS.__REMOTES["fuse pets"]:InvokeServer({selectedPets})
-            end
-            wait(1)
         end
-        return
+        if (petId == -1) then
+            spawn(function()
+                Blacklib:Notification("Auto Fuse", "Please check again the name of pets.")
+            end)
+            _G.Autofuse = false
+        end
+        local Pets = Library.Save.Get().Pets
+        local selectedPets = {}
+        for i,v in ipairs(Pets) do
+            local petRarityTable = Library.PetCmds.Get(v.uid)
+            if not (#selectedPets == _G.AmountedPetss) then
+                if (v.id == (tostring(petId))) then
+                    if (_G.TypePetsss == "Normal") and not (petRarityTable.r) and not (petRarityTable.g) and not (petRarityTable.dm) then
+                        table.insert(selectedPets, v.uid)
+                    end
+                    if (_G.TypePetsss == "Gold") and (petRarityTable.g) then
+                        table.insert(selectedPets, v.uid)
+                    end
+                    if (_G.TypePetsss == "Rainbow") and (petRarityTable.r) then
+                        table.insert(selectedPets, v.uid)
+                    end
+                    if (_G.TypePetsss == "Dark Matter") and (petRarityTable.dm) then
+                        table.insert(selectedPets, v.uid)
+                    end
+                end
+            end
+        end
+        if (#selectedPets == _G.AmountedPetss) then
+            workspace.__THINGS.__REMOTES["fuse pets"]:InvokeServer({selectedPets})
+        end
     end
 end)
 
@@ -1286,7 +1351,7 @@ Redeem:Toggle("Auto Redeem Bank Interest", false, function(interestfunc)
         end
     end
 end)
-
+Redeem:Label("Automated use the boost when the boost ended")
 Redeem:Toggle("Auto Boost Triple Damage", false, function(tripdmgfunc)
     _G.Tripledmg = tripdmgfunc
 end)
