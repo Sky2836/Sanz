@@ -333,7 +333,7 @@ local CratesMasteryList = {"Town Crate"; "Forest Crate"; "Beach Crate"; "Mine Cr
 local CoinsPilesMasteryList ={"Town Coins", "Town Large Coins", 'Town Tiny Coins', "Forest Coins", "Forest Large Coins", "Forest Tiny Coins", "Beach Coins", "Beach Large Coins", "Beach Tiny Coins", "Mine Coins", "Mine Large Coins", "Mine Tiny Coins", "Desert Coins", "Desert Large Coins", "Desert Tiny Coins", "Volcano Coins", "Volcano Large Coins", "Volcano Tiny Coins", "Winter Coins", "Winter Large Coins", "Winter Tiny Coins", "Glacier Coins", "Glacier Large Coins", "Glacier Tiny Coins", "Enchanted Forest Coins", "Enchanted Forest Large Coins", "Enchanted Forest Tiny Coins", "Ancient Island Coins", "Ancient Island Large Coins", "Ancient Island Tiny Coins", "Samurai Island Coins", "Samurai Island Large Coins", "Samurai Island Tiny Coins", "Candy Island Coins", "Candy Island Large Coins", "Candy Island Tiny Coins", "Haunted Island Coins", 'Haunted Island Large Coins', 'Haunted Island Tiny Coins', 'Heaven Island Coins', 'Heaven Island Large Coins', 'Heaven Island Tiny Coins', 'Tech City Coins', 'Tech City Large Coins', 'Tech City Tiny Coins', 'Dark Tech Coins', 'Dark Tech Large Coins', 'Dark Tech Tiny Coins', 'Steampunk Coins', 'Steampunk Large Coins', 'Steampunk Tiny Coins', 'Alien Lab Coins', 'Alien Lab Large Coins', 'Alien Lab Tiny Coins', 'Alien Forest Coins', 'Alien Forest Large Coins', 'Alien Forest Tiny Coins', 'Blue Glitched Coins', 'Blue Glitched Large Coins', 'Blue Glitched Tiny Coins', 'Pink Glitched Coins', 'Pink Glitched Large Coins', 'Pink Glitched Tiny Coins', 'Axolotl Ocean Coins', 'Axolotl Ocean Large Coins', 'Axolotl Ocean Tiny Coins', 'Pixel Forest Coins', 'Pixel Forest Large Coins', 'Pixel Forest Tiny Coins', 'Pixel Kyoto Coins', 'Pixel Kyoto Large Coins'}
 
 
-local ChestsMasteryList = {'Town Chest', "Forest Small Chest", "Forest Chest", "Beach Chest", "Beach Small Chest", "Mine Small Chest", "Mine Chest", "Desert Chest", "Desert Small Chest", "Winter Chest", "Winter Small Chest", "Glacier Chest", "Glacier Small Chest", "Enchanted Forest Chest", "Enchanted Forest Small Chest", "Samurai Island Chest", "Samurai Island Small Chest", "Candy Island Chest", "Candy Island Small Chest", "Hell Island Chest", 'Hell Island Small Chest', "Heaven Island Chest", 'Heaven Island Small Chest', "Axolotl Deep Ocean Chest", "Axolotl Deep Ocean Small Chest", "Pixel Forest Chest", 'Pixel Forest Small Chest', "Pixel Kyoto Chest", 'Pixel Kyoto Small Chest'}
+local ChestsMasteryList = {'Town Chest', "Forest Small Chest", "Forest Chest", "Beach Chest", "Beach Small Chest", "Mine Small Chest", "Mine Chest", "Desert Chest", "Desert Small Chest", "Winter Chest", "Winter Small Chest", "Glacier Chest", "Glacier Small Chest", "Enchanted Forest Chest", "Enchanted Forest Small Chest", "Samurai Island Chest", "Samurai Island Small Chest", "Candy Island Chest", "Candy Island Small Chest", "Hell Island Chest", 'Hell Island Small Chest', "Heaven Island Chest", 'Heaven Island Small Chest', "Axolotl Deep Ocean Chest", "Axolotl Deep Ocean Small Chest", "Pixel Forest Chest", 'Pixel Forest Small Chest', "Pixel Alps Chest", 'Pixel Alps Small Chest'}
 
 local PresentsMasteryList = {"Town Present", "Forest Present", "Beach Present", "Mine Present", "Desert Present", "Volcano Present", "Winter Present", "Glacier Present", "Enchanted Forest Present", "Ancient Island Present", "Samurai Island Present", "Candy Island Present", "Haunted Island Present", "Hell Island Present", "Heaven Island Present", "Tech City Present", "Dark Tech Present", "Alien Forest Present", "Blue Glitched Present", "Pink Glitched Present", "Axolotl Ocean Present", "Pixel Forest Present", "Pixel Kyoto Present", "Pixel Kyoto Large Present"}
 
@@ -348,69 +348,91 @@ end)
 
 FarmMastery:Toggle("Auto Farm Mastery", false, function(masteryfunc)
     _G.Mastery = masteryfunc
-    local CurrentFarmingPets = {}
     while _G.Mastery do
-        local pethingy = GetMyPets()
         if _G.MasteryList == "Crates Mastery" then
-            pcall(function()
-                for i,v in pairs(CratesMastery()) do
+            local CurrentFarmingPets = {}
+            local pethingy = GetMyPets()
+            for i,v in pairs(CratesMastery()) do
+                if v.index%#pethingy == #pethingy-1 then wait() end
+                if not CurrentFarmingPets[pethingy[v.index%#pethingy+1]] or CurrentFarmingPets[pethingy[v.index%#pethingy+1]] == nil then
                     if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
-                        repeat task.wait()
+                        pcall(function()
+                            CurrentFarmingPets[pethingy[v.index%#pethingy+1]] = 'Farming'
                             FarmCoin(v.index, pethingy[v.index%#pethingy+1])
-                        until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.Mastery
+                        end)
                     end
                 end
-            end)
+            end
         elseif _G.MasteryList == "Coins Piles Mastery" then
-            pcall(function()
-                for i,v in pairs(CoinsPilesMastery()) do
+            local CurrentFarmingPets = {}
+            local pethingy = GetMyPets()
+            for i,v in pairs(CoinsPilesMastery()) do
+                if v.index%#pethingy == #pethingy-1 then wait() end
+                if not CurrentFarmingPets[pethingy[v.index%#pethingy+1]] or CurrentFarmingPets[pethingy[v.index%#pethingy+1]] == nil then
                     if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
-                        repeat task.wait()
+                        pcall(function()
+                            CurrentFarmingPets[pethingy[v.index%#pethingy+1]] = 'Farming'
                             FarmCoin(v.index, pethingy[v.index%#pethingy+1])
-                        until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.Mastery
+                        end)
                     end
                 end
-            end)
+            end
         elseif _G.MasteryList == "Chests Mastery" then
-            pcall(function()
-                for i,v in pairs(ChestsMastery()) do
+            local CurrentFarmingPets = {}
+            local pethingy = GetMyPets()
+            for i,v in pairs(ChestsMastery()) do
+                if v.index%#pethingy == #pethingy-1 then wait() end
+                if not CurrentFarmingPets[pethingy[v.index%#pethingy+1]] or CurrentFarmingPets[pethingy[v.index%#pethingy+1]] == nil then
                     if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
-                        repeat task.wait()
+                        pcall(function()
+                            CurrentFarmingPets[pethingy[v.index%#pethingy+1]] = 'Farming'
                             FarmCoin(v.index, pethingy[v.index%#pethingy+1])
-                        until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.Mastery
+                        end)
                     end
                 end
-            end)
+            end
         elseif _G.MasteryList == "Presents Mastery" then
-            pcall(function()
-                for i,v in pairs(PresentsMastery()) do
+            local CurrentFarmingPets = {}
+            local pethingy = GetMyPets()
+            for i,v in pairs(PresentsMastery()) do
+                if v.index%#pethingy == #pethingy-1 then wait() end
+                if not CurrentFarmingPets[pethingy[v.index%#pethingy+1]] or CurrentFarmingPets[pethingy[v.index%#pethingy+1]] == nil then
                     if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
-                        repeat task.wait()
+                        pcall(function()
+                            CurrentFarmingPets[pethingy[v.index%#pethingy+1]] = 'Farming'
                             FarmCoin(v.index, pethingy[v.index%#pethingy+1])
-                        until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.Mastery
+                        end)
                     end
                 end
-            end)
+            end
         elseif _G.MasteryList == "Vaults & Safes Mastery" then
-            pcall(function()
-                for i,v in pairs(VaultsSafesMastery()) do
+            local CurrentFarmingPets = {}
+            local pethingy = GetMyPets()
+            for i,v in pairs(VaultsSafesMastery()) do
+                if v.index%#pethingy == #pethingy-1 then wait() end
+                if not CurrentFarmingPets[pethingy[v.index%#pethingy+1]] or CurrentFarmingPets[pethingy[v.index%#pethingy+1]] == nil then
                     if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
-                        repeat task.wait()
+                        pcall(function()
+                            CurrentFarmingPets[pethingy[v.index%#pethingy+1]] = 'Farming'
                             FarmCoin(v.index, pethingy[v.index%#pethingy+1])
-                        until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.Mastery
+                        end)
                     end
                 end
-            end)
+            end
         elseif _G.MasteryList == "Diamonds Mastery" then
-            pcall(function()
-                for i,v in pairs(DiamondsMastery()) do
+            local CurrentFarmingPets = {}
+            local pethingy = GetMyPets()
+            for i,v in pairs(DiamondsMastery()) do
+                if v.index%#pethingy == #pethingy-1 then wait() end
+                if not CurrentFarmingPets[pethingy[v.index%#pethingy+1]] or CurrentFarmingPets[pethingy[v.index%#pethingy+1]] == nil then
                     if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
-                        repeat task.wait()
+                        pcall(function()
+                            CurrentFarmingPets[pethingy[v.index%#pethingy+1]] = 'Farming'
                             FarmCoin(v.index, pethingy[v.index%#pethingy+1])
-                        until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.Mastery
+                        end)
                     end
                 end
-            end)
+            end
         end
     end
 end)
@@ -633,7 +655,7 @@ _G.MyConnection = game.Workspace.__THINGS.Orbs.ChildAdded:Connect(function(Orb)
     Orb.Name:Destroy()
 end)
 
-local PixelList = {"Pixel Vault Vault", "Pixel Vault Safe", "Diamonds", "Tiny Diamonds"}
+local PixelList = {"Pixel Vault Vault", "Pixel Vault Safe"}
 
 function PixelVaultAreas()
     local returntable = {}
@@ -672,33 +694,39 @@ spawn(function()
     end
 end)
 FarmCoined:Label("Without hitting the big chest")
-FarmCoined:Toggle("Auto Farm Pixel Vault Mode 1", false, function(pixelfunc)
+FarmCoined:Label("I recommended use Normal Mode if your pets is low dmg for be fast")
+FarmCoined:Toggle("Auto Farm Pixel Vault (Multi Mode)", false, function(pixelfunc)
     _G.PixelVault = pixelfunc
     while _G.PixelVault do
+        local CurrentFarmingPets = {}
         local pethingy = GetMyPets()
-        pcall(function()
-            for i,v in pairs(PixelVaultAreas()) do
+        for i,v in pairs(PixelVaultAreas()) do
+            if v.index%#pethingy == #pethingy-1 then wait() end
+            if not CurrentFarmingPets[pethingy[v.index%#pethingy+1]] or CurrentFarmingPets[pethingy[v.index%#pethingy+1]] == nil then
                 if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
-                    repeat task.wait()
+                    pcall(function()
+                        CurrentFarmingPets[pethingy[v.index%#pethingy+1]] = 'Farming'
                         FarmCoin(v.index, pethingy[v.index%#pethingy+1])
-                    until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.PixelVault
+                    end)
                 end
             end
-        end)
+        end
     end
 end)
 
-FarmCoined:Toggle("Auto Farm Pixel Vault Mode 2", false, function(pixelfunc2)
+FarmCoined:Toggle("Auto Farm Pixel Vault (Normal Mode)", false, function(pixelfunc2)
     _G.PixelVault2 = pixelfunc2
+    local CurrentFarmingPets = {}
     while _G.PixelVault2 do
         local pethingy = GetMyPets()
-        local CurrentFarmingPets = {}
         for i,v in pairs(PixelVaultAreas()) do
             if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) then
-                coroutine.wrap(function()
-                    FarmCoin(v.index, pethingy[v.index%#pethingy+1])
-                    repeat task.wait() until not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not v.Parent or not _G.PixelVault2
-                end)()
+                for a,b in pairs(pethingy) do
+                    coroutine.wrap(function()
+                        FarmCoin(v.index, b)
+                    end)()
+                end
+                repeat task.wait() until not v.index or not game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(v.index) or not _G.PixelVault2
             end
         end
     end
@@ -894,6 +922,8 @@ Eggs:Dropdown("Select Eggs", EggData, function(egglistfunc)
     _G.SelectEgg = egglistfunc
 end)
 Eggs:Label("Will Automated Open & Close Inventory every 3 Minutes")
+Eggs:Label("Skip Egg Animation Automated Active when Opened the egg")
+Eggs:Label("and will nonactive when stop Opened the egg")
 Eggs:Toggle("Enable Open Eggs", false, function(openeggsfunc)
     _G.OpenEgg = openeggsfunc
     while _G.OpenEgg do
@@ -916,6 +946,15 @@ spawn(function()
             game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Enabled = true
             wait(1)
             game:GetService("Players").LocalPlayer.PlayerGui.Inventory.Enabled = false
+        end
+    end
+end)
+spawn(function()
+    while task.wait() do
+        if _G.OpenEgg == true then
+            game:GetService("Players").LocalPlayer.PlayerScripts.Scripts.Game["Open Eggs"].Disabled = true
+        elseif _G.OpenEgg == false then
+            game:GetService("Players").LocalPlayer.PlayerScripts.Scripts.Game["Open Eggs"].Disabled = false
         end
     end
 end)
@@ -1542,7 +1581,6 @@ spawn(function()
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs.Achievements.Disabled = true
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs["Achievement Progress"].Disabled = true
             game:GetService("Players").LocalPlayer.PlayerScripts.Scripts.GUIs["Coin Rewards HUD"].Disabled = true
-            game:GetService("Players").LocalPlayer.PlayerScripts.Scripts.Game["Open Eggs"].Disabled = true
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs["Diamonds Rain Animation"].Disabled = true
             game.Players.LocalPlayer.PlayerScripts.Scripts.Game["Rainbow Machine Animation"].Disabled = true
             game.Players.LocalPlayer.PlayerScripts.Scripts.Game["Golden Machine Animation"].Disabled = true
@@ -1563,7 +1601,6 @@ spawn(function()
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs.Achievements.Disabled = false
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs["Achievement Progress"].Disabled = false
             game:GetService("Players").LocalPlayer.PlayerScripts.Scripts.GUIs["Coin Rewards HUD"].Disabled = false
-            game:GetService("Players").LocalPlayer.PlayerScripts.Scripts.Game["Open Eggs"].Disabled = false
             game.Players.LocalPlayer.PlayerScripts.Scripts.GUIs["Diamonds Rain Animation"].Disabled = false
             game.Players.LocalPlayer.PlayerScripts.Scripts.Game["Rainbow Machine Animation"].Disabled = false
             game.Players.LocalPlayer.PlayerScripts.Scripts.Game["Golden Machine Animation"].Disabled = false
